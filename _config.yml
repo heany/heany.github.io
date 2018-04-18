@@ -80,7 +80,7 @@ stylus:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/heany/heany.github.io.git
+  repo: git@github.com:heany/heany.github.io.git #https://github.com/heany/heany.github.io.git
   branch: master
 
 jsonContent:
