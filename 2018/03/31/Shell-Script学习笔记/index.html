@@ -1,112 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-
-  
-  <title>Shell Script学习笔记 | 知微</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、 前言最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习shell script来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了正则表达式与文件格式化处理，并且对于每一个操作都有相关的实例进行练习，加强理解;shell script，同样对于每一个功能都有相应的实">
-<meta name="keywords" content="Shell linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Shell Script学习笔记">
-<meta property="og:url" content="http://heany.github.io/2018/03/31/Shell-Script学习笔记/index.html">
-<meta property="og:site_name" content="知微">
-<meta property="og:description" content="一、 前言最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习shell script来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了正则表达式与文件格式化处理，并且对于每一个操作都有相关的实例进行练习，加强理解;shell script，同样对于每一个功能都有相应的实">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq7iwmdmuzj20og0fndj2.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/e0db46edgy1fq7j5i0kq8j20zl0mtgul.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/e0db46edgy1fq7ngc14chj20xj163nbj.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/e0db46edgy1fq7o1zepd6j20zc0gmtem.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/mw1024/e0db46edgy1fq7wpghpsdj20ue0jdjxc.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/mw1024/e0db46edgy1fq7wx5abqmj20mz0aljti.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/mw690/e0db46edgy1fq7x8zjkhij20j908c75p.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq90rrorbrj20m607p0u0.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq90rrpaszj20mf06n74s.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/e0db46edgy1fq90rrp8zij20mc050mxw.jpg">
-<meta property="og:updated_time" content="2019-01-26T14:47:30.578Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Shell Script学习笔记">
-<meta name="twitter:description" content="一、 前言最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习shell script来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了正则表达式与文件格式化处理，并且对于每一个操作都有相关的实例进行练习，加强理解;shell script，同样对于每一个功能都有相应的实">
-<meta name="twitter:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq7iwmdmuzj20og0fndj2.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="知微" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">知微</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">一盏灯，一个人，亮着的屏幕，游走的灵魂。!</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://heany.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Shell-Script学习笔记" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/31/Shell-Script学习笔记/" class="article-date">
-  <time datetime="2018-03-31T06:09:19.000Z" itemprop="datePublished">2018-03-31</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Script/">Script</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Shell Script学习笔记
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、-前言"><a href="#一、-前言" class="headerlink" title="一、 前言"></a>一、 前言</h2><p>最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习<code>shell script</code>来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了<strong>正则表达式与文件格式化处理</strong>，并且对于每一个操作都有相关的实例进行练习，加强理解;<strong><code>shell script</code></strong>，同样对于每一个功能都有相应的实例进行练习，可以说～非常适合新手来阅读学习了！</p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Heany's blog"><title>Shell Script学习笔记 | 知微</title><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Shell Script学习笔记</h1><a id="logo" href="/.">知微</a><p class="description">一盏灯，一个人，亮着的屏幕，游走的灵魂。!</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="Arama"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Shell Script学习笔记</h1><div class="post-meta"><a href="/2018/03/31/Shell-Script学习笔记/#comments" class="comment-count"><i id="changyan_count_unit" data-xid="2018/03/31/Shell-Script学习笔记/"></i>留言,<i id="changyan_parti_unit" data-xid="2018/03/31/Shell-Script学习笔记/"></i>参与</a><p><span class="date">Mar 31, 2018</span><span><a href="/categories/Script/" class="category">Script</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h2 id="一、-前言"><a href="#一、-前言" class="headerlink" title="一、 前言"></a>一、 前言</h2><p>最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习<code>shell script</code>来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了<strong>正则表达式与文件格式化处理</strong>，并且对于每一个操作都有相关的实例进行练习，加强理解;<strong><code>shell script</code></strong>，同样对于每一个功能都有相应的实例进行练习，可以说～非常适合新手来阅读学习了！</p>
 <h2 id="二、-基础知识"><a href="#二、-基础知识" class="headerlink" title="二、 基础知识"></a>二、 基础知识</h2><p>&nbsp;&nbsp;什么是 shell script (程序化脚本) 呢？就字面上的意义，我们将他分为两部份。 在『 shell 』部分，我们在bash当中已经提过了，那是一个文字介面底下让我们与系统沟通的一个工具介面。那么『 script 』是啥？ 字面上的意义， script 是『脚本、剧本』的意思。整句话是说， shell script 是针对 shell 所写的『剧本！』<br>&nbsp;&nbsp;什么东西啊？其实， shell script 是利用 shell 的功能所写的一个『程序 (program)』，这个程序是使用纯文字档，将一些 shell 的语法与命令(含外部命令)写在里面， 搭配正规表示法、管线命令与数据流重导向等功能，以达到我们所想要的处理目的。<br>&nbsp;&nbsp;shell script 更提供阵列、回圈、条件与逻辑判断等重要功能，让使用者也可以直接以 shell 来撰写程序，而不必使用类似 C 程序语言等传统程序撰写的语法呢！</p>
 <h3 id="2-1-一些shell命令的基础知识及技巧"><a href="#2-1-一些shell命令的基础知识及技巧" class="headerlink" title="2.1 一些shell命令的基础知识及技巧"></a>2.1 一些shell命令的基础知识及技巧</h3><p>&nbsp;&nbsp;一些快捷键：<br><code>^A</code> :鼠标光标移到命令最左端<br><code>^E</code> :鼠标光标移到命令最右端<br><code>^k</code> :删除鼠标光标后面的命令<br><code>^u</code> :删除鼠标光标前面的命令<br><code>^s</code> :锁定terminal<br><code>^Q</code> :解锁<br><code>^y</code> :撤销上一次操作<br><code>^D</code> :输入结束（EOF），例如邮件结束的时候<br><code>^Z</code> :暂停目前的命令</p>
 <p><code>cat</code>命令的一些技巧：以下代码将内容写入file<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat <span class="xml"><span class="tag">&lt;&lt; <span class="attr">EOF</span> &gt;</span></span> file</span><br><span class="line"><span class="quote">&gt; hello</span></span><br><span class="line"><span class="quote">&gt; world</span></span><br><span class="line"><span class="quote">&gt; ......</span></span><br><span class="line"><span class="quote">&gt; EOF</span></span><br></pre></td></tr></table></figure></p>
@@ -912,148 +804,36 @@ sh [-nvx] scripts.sh
 -x ：将使用到的script内容显示到屏幕上，这是很有用的参数！
 </code></pre><p>一些范例测试：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bash -x ans_yn-<span class="number">2</span>.sh </span><br><span class="line">+ PATH=<span class="regexp">/bin:/sbin</span><span class="symbol">:/usr/bin</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/local/bin</span><span class="symbol">:/usr/local/sbin</span><span class="symbol">:/home/heany/bin</span></span><br><span class="line">+ export PATH</span><br><span class="line">+ read -p <span class="string">'Please input (Y/N): '</span> yn</span><br><span class="line">Please input (Y/N): y</span><br><span class="line">+ <span class="string">'['</span> y == Y <span class="string">']'</span></span><br><span class="line">+ <span class="string">'['</span> y == y <span class="string">']'</span></span><br><span class="line">+ echo <span class="string">'OK, continue.'</span></span><br><span class="line">OK, continue.</span><br><span class="line">+ exit <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="五、-结束语"><a href="#五、-结束语" class="headerlink" title="五、 结束语"></a>五、 结束语</h2><p>&emsp;&emsp;这个系列终于结束了，码字调bug很辛苦哇～但是从中学到了很多有用的知识，解决了之前很多搞不清楚的问题，总之很棒啦！本文转载自<b>鸟哥的Linux私房菜：基础学习篇 第四版</b>。总之这本书非常适合入门学习～强烈推荐！！！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://heany.github.io/2018/03/31/Shell-Script学习笔记/" data-id="cjrdmm6pm002g313hx3mvbpsb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell-linux/">Shell linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/04/08/Ubuntu-17-10配置Hadoop-Spark环境/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Ubuntu 17.10配置Hadoop+Spark环境
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/10/28/hexo常用命令/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">hexo常用命令</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Script/">Script</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Website/">Website</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式与大数据/">分布式与大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/常用工具/">常用工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx-php-MySQL/">Nginx-php-MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy-Random/">Numpy Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell-linux/">Shell linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF-Algorithm/">TF-IDF-Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu-17-10-hadoop-Spark/">Ubuntu 17.10 hadoop Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Blog/">hexo Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Github-Pages-Blog/">hexo Github-Pages Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo常用命令/">hexo常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3/">python3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python学习笔记/">python学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-插件/">sublime 插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-text-3-注册码/">sublime-text-3 注册码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime插件/">sublime插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贝叶斯分类器/">贝叶斯分类器</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Nginx-php-MySQL/" style="font-size: 10px;">Nginx-php-MySQL</a> <a href="/tags/Numpy-Random/" style="font-size: 10px;">Numpy Random</a> <a href="/tags/Shell-linux/" style="font-size: 10px;">Shell linux</a> <a href="/tags/TF-IDF-Algorithm/" style="font-size: 10px;">TF-IDF-Algorithm</a> <a href="/tags/Ubuntu-17-10-hadoop-Spark/" style="font-size: 10px;">Ubuntu 17.10 hadoop Spark</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo-Blog/" style="font-size: 10px;">hexo Blog</a> <a href="/tags/hexo-Github-Pages-Blog/" style="font-size: 10px;">hexo Github-Pages Blog</a> <a href="/tags/hexo常用命令/" style="font-size: 10px;">hexo常用命令</a> <a href="/tags/python3/" style="font-size: 10px;">python3</a> <a href="/tags/python学习笔记/" style="font-size: 20px;">python学习笔记</a> <a href="/tags/sublime-插件/" style="font-size: 10px;">sublime 插件</a> <a href="/tags/sublime-text-3-注册码/" style="font-size: 10px;">sublime-text-3 注册码</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/贝叶斯分类器/" style="font-size: 10px;">贝叶斯分类器</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/06/08/mysql操作使用变量作为表名/">mysql操作使用变量作为表名</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/06/Numpy的random函数汇总/">Numpy的random函数汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/15/Nginx-PHP-MySQL搭建过程/">Nginx+PHP+MySQL搭建过程</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/14/TF-IDF理解/">TF-IDF理解</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/18/删除Github-com上repository中的某个文件夹/">删除Github.com上repository中的某个文件夹</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Heany<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+</div><div class="tags"><a href="/tags/Shell-linux/">Shell linux</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2018/04/08/Ubuntu-17-10配置Hadoop-Spark环境/" class="pre">Ubuntu 17.10配置Hadoop+Spark环境</a><a href="/2017/10/28/hexo常用命令/" class="next">hexo常用命令</a></div><div id="comments"><div id="SOHUCS" sid="2018/03/31/Shell-Script学习笔记/"></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、-前言"><span class="toc-text">一、 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、-基础知识"><span class="toc-text">二、 基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-一些shell命令的基础知识及技巧"><span class="toc-text">2.1 一些shell命令的基础知识及技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-脚本中调用其他的解释器-如python-执行的代码"><span class="toc-text">2.2 脚本中调用其他的解释器(如python)执行的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-数据流重定向-redirect"><span class="toc-text">2.3 数据流重定向(redirect)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-管道命令-pipe"><span class="toc-text">2.4 管道命令(pipe)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-选取命令：cut-grep"><span class="toc-text">2.4.1 选取命令：cut,grep</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-排序命令：sort-wc-uniq"><span class="toc-text">2.4.2 排序命令：sort, wc ,uniq</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-双向重定向：tee"><span class="toc-text">2.4.3 双向重定向：tee</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-4-字符转换命令：tr-col-join-paste-expand"><span class="toc-text">2.4.4 字符转换命令：tr, col, join, paste, expand</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-5-切割命令：split"><span class="toc-text">2.4.5 切割命令：split</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、-正则表达式与文件格式化处理"><span class="toc-text">三、 正则表达式与文件格式化处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1、-正则表达式概念-Regular-Expression"><span class="toc-text">3.1、 正则表达式概念(Regular Expression)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2、-基础正则表达式"><span class="toc-text">3.2、 基础正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1、-语系对正则表达式的影响"><span class="toc-text">3.2.1、 语系对正则表达式的影响</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2、-grep的一些进阶选项"><span class="toc-text">3.2.2、 grep的一些进阶选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3、-基础正则表达式练习"><span class="toc-text">3.2.3、 基础正则表达式练习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4、-基础正则表达式字符汇整-characters"><span class="toc-text">3.2.4、 基础正则表达式字符汇整(characters)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-5、-sed工具"><span class="toc-text">3.2.5、 sed工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3、-扩展正则表达式"><span class="toc-text">3.3、 扩展正则表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4、-文件的格式化与相关处理"><span class="toc-text">3.4、 文件的格式化与相关处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1、-格式化打印：printf"><span class="toc-text">3.4.1、 格式化打印：printf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2、-awk：好用的数据处理工具"><span class="toc-text">3.4.2、 awk：好用的数据处理工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3、-文件比较工具"><span class="toc-text">3.4.3、 文件比较工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4、-文件打印准备：pr"><span class="toc-text">3.4.4、 文件打印准备：pr</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、-学习Shell-Scripts"><span class="toc-text">四、 学习Shell Scripts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1、什么是shell-script"><span class="toc-text">4.1、什么是shell script</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2、-简单的shell练习"><span class="toc-text">4.2、 简单的shell练习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1、-简单范例"><span class="toc-text">4.2.1、 简单范例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3、-善用判断式"><span class="toc-text">4.3、 善用判断式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1、-利用test指令的测试功能"><span class="toc-text">4.3.1、 利用test指令的测试功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2、-利用判断符号"><span class="toc-text">4.3.2、 利用判断符号[]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-3、-Shell-Script的默认变量（-0-1…）"><span class="toc-text">4.3.3、 Shell Script的默认变量（$0,$1…）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4、-条件判断式"><span class="toc-text">4.4、 条件判断式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1、-利用if-then"><span class="toc-text">4.4.1、 利用if .... then</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-2、-利用case-esac"><span class="toc-text">4.4.2、 利用case ... esac</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-3、-利用function功能"><span class="toc-text">4.4.3、 利用function功能</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5、-循环（loop）"><span class="toc-text">4.5、 循环（loop）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-1、-while-do-done-until-do-done（不定循环）"><span class="toc-text">4.5.1、 while do done,until do done（不定循环）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-2、-for-do-done-固定循环"><span class="toc-text">4.5.2、 for ... do ...done(固定循环)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-3-for-do-done的数值处理"><span class="toc-text">4.5.3 for ... do ...done的数值处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6、-Shell-Script的追踪与Debug"><span class="toc-text">4.6、 Shell Script的追踪与Debug</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、-结束语"><span class="toc-text">五、 结束语</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/08/mysql操作使用变量作为表名/">mysql操作使用变量作为表名</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/06/Numpy的random函数汇总/">Numpy的random函数汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/15/Nginx-PHP-MySQL搭建过程/">Nginx+PHP+MySQL搭建过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/14/TF-IDF理解/">TF-IDF理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/18/删除Github-com上repository中的某个文件夹/">删除Github.com上repository中的某个文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/16/Docker技术学习/">Docker技术学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/09/sublime-text-3-最新的注册码/">sublime text 3 最新的注册码</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/08/Ubuntu-17-10配置Hadoop-Spark环境/">Ubuntu 17.10配置Hadoop+Spark环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/31/Shell-Script学习笔记/">Shell Script学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/28/hexo常用命令/">hexo常用命令</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Script/">Script</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Website/">Website</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式与大数据/">分布式与大数据</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/常用工具/">常用工具</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/Nginx-php-MySQL/" style="font-size: 15px;">Nginx-php-MySQL</a> <a href="/tags/Numpy-Random/" style="font-size: 15px;">Numpy Random</a> <a href="/tags/hexo-Blog/" style="font-size: 15px;">hexo Blog</a> <a href="/tags/hexo常用命令/" style="font-size: 15px;">hexo常用命令</a> <a href="/tags/python学习笔记/" style="font-size: 15px;">python学习笔记</a> <a href="/tags/sublime-text-3-注册码/" style="font-size: 15px;">sublime-text-3 注册码</a> <a href="/tags/sublime插件/" style="font-size: 15px;">sublime插件</a> <a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a> <a href="/tags/TF-IDF-Algorithm/" style="font-size: 15px;">TF-IDF-Algorithm</a> <a href="/tags/sublime-插件/" style="font-size: 15px;">sublime 插件</a> <a href="/tags/hexo-Github-Pages-Blog/" style="font-size: 15px;">hexo Github-Pages Blog</a> <a href="/tags/数据挖掘/" style="font-size: 15px;">数据挖掘</a> <a href="/tags/python3/" style="font-size: 15px;">python3</a> <a href="/tags/贝叶斯分类器/" style="font-size: 15px;">贝叶斯分类器</a> <a href="/tags/Ubuntu-17-10-hadoop-Spark/" style="font-size: 15px;">Ubuntu 17.10 hadoop Spark</a> <a href="/tags/Docker/" style="font-size: 15px;">Docker</a> <a href="/tags/Shell-linux/" style="font-size: 15px;">Shell linux</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://chaoo.oschina.io/" title="秋过冬漫长" target="_blank">秋过冬漫长</a><ul></ul><a href="https://github.com/chaooo/hexo-theme-BlueLake" title="BlueLake主题" target="_blank">BlueLake主题</a><ul></ul><a href="zhiwei.space" title="知微" target="_blank">知微</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">Baidu Site Haritası</a> |  <a href="/atom.xml">订阅</a> |  <a href="/about/">关于</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">Heany.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script><script>window._config = { showScore: true };
+(function(){ 
+  var appid = 'cytgrjtsE## 畅言(appid)'; 
+  var conf = '2d7d1ad1a462dac6cba991107b06dad2##畅言(appkey)'; 
+  var width = window.innerWidth || document.documentElement.clientWidth; 
+  var nodes =document.getElementsByTagName("head")[0]||document.head||document.documentElement;
+  if (/(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) && width < 750) {  
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+  }
+  else { 
+    var loadJs=function(d,a){
+      var b=document.createElement("script");b.setAttribute("type","text/javascript");
+      b.setAttribute("charset","UTF-8");
+      b.setAttribute("src",d);
+      if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}
+      nodes.appendChild(b)
+    };
+    loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); 
+  } 
+  var loadCss = function(cssString){  
+    var style=document.createElement("style");  
+    style.setAttribute("type", "text/css");  
+    if(style.styleSheet){// IE  
+        style.styleSheet.cssText = cssString;  
+    } else {// w3c  
+        var cssText = document.createTextNode(cssString);  
+        style.appendChild(cssText);  
+    }
+    nodes.appendChild(style);
+  }
+  window.onload=function(){loadCss('.module-hot-topic,.module-cmt-float-bar{display:none!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .cbox-prompt-w span.prompt-empty-w,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-form-w .form-text-w span.text-null,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-minwidth-w div.cont-comment-w a.comment-link-w,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-minwidth-w div.cont-comment-w span.comment-text-w,#SOHUCS #SOHU_MAIN .module-cmt-footer .section-service-w div.service-wrap-w a:hover,#SOHUCS #SOHU_MAIN .module-cmt-header .section-cbox-w .block-head-w div.header-login,#SOHUCS #SOHU_MAIN .module-cmt-header .section-title-w .title-user-w .user-wrap-w span.wrap-name-w,#SOHUCS #SOHU_MAIN .module-cmt-list .action-click-gw span.click-disable-eg a em.icon-name-bg,#SOHUCS #SOHU_MAIN .module-cmt-list .block-title-gw ul li div.title-name-gw,#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .cmt-list-number .comment-number span.cy-number,#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .cmt-list-number span.comment-number,#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .type-lists li.active,#SOHUCS #SOHU_MAIN .module-cmt-list .msg-wrap-gw .wrap-action-gw .action-click-gw span a:hover,#SOHUCS #SOHU_MAIN .module-cmt-list .picture-box-gw div.box-action-gw a:hover,#SOHUCS #SOHU_MAIN .module-cmt-list .wrap-action-gw .action-click-gw span a:hover em.icon-name-bg,#SOHUCS #SOHU_MAIN .module-cmt-list .wrap-user-gw span.user-name-gw a{color:#40759b!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-border-t div.post-wrap-border-t-r,#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w div.post-wrap-border-l,#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w div.post-wrap-border-r{display:none!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-border-t div.post-wrap-border-t-l{background:#FFF!important;top:-2px!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-function-w .uploading-wrapper-dw div.wrapper-image-dw,#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w div.post-wrap-main,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-form-w div.form-text-w,#SOHUCS #SOHU_MAIN .module-cmt-header .section-cbox-w .block-head-w div.header-login,#SOHUCS #SOHU_MAIN .module-cmt-list .module-cmt-box .post-wrap-w div.post-wrap-main{border:1px solid #e6e6e6!important;border-radius:20px 20px 20px 20px;margin:0!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a .btn-fw{width:130px!important;height:34px!important;line-height:33px!important;font-size:17px!important;background:#5483b1!important;border-radius:20px!important;color:#FFF!important;-webkit-box-shadow:0 -1px 4px #5483b1 inset;box-shadow:0 -1px 10px #5483b1 inset}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a .btn-fw:before{content:"发表评论"}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a:hover .btn-fw{color:#40759b!important;background:#FFF!important}#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .type-lists li{background:none!important;border-bottom:1px solid #e6e6e6}#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .type-lists li.active{border:1px solid #e6e6e6;border-radius:10px 10px 0 0;border-bottom:none}#SOHUCS #SOHU_MAIN .module-cmt-list .block-title-gw ul li .title-name-gw div.title-name-gw-tag{background:#5483b1!important;border-radius:3px}#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type div.cmt-list-border{background-color:#e6e6e6!important}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item{border:1px solid #e6e6e6!important}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item .nt-logo{text-align:center;line-height:40px;border-radius:50%!important;background:#e6e6e6!important}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item .nt-logo:before{content:"畅";font-size:22px;color:#FFF}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item a.nt-text,#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item a.nt-text i{color:#5483b1!important}#SOHUCS #SOHU_MAIN .module-cmt-header .section-title-w .title-user-w .user-wrap-w{background:#FFF!important}');};
+})();</script><script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script></body></html>
