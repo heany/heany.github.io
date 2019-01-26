@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Shell Script学习笔记 | 知微</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、 前言最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习shell script来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了正则表达式与文件格式化处理，并且对于每一个操作都有相关的实例进行练习，加强理解;shell script，同样对于每一个功能都有相应的实">
+<meta name="keywords" content="Shell linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell Script学习笔记">
+<meta property="og:url" content="http://heany.github.io/2018/03/31/Shell-Script学习笔记/index.html">
+<meta property="og:site_name" content="知微">
+<meta property="og:description" content="一、 前言最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习shell script来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了正则表达式与文件格式化处理，并且对于每一个操作都有相关的实例进行练习，加强理解;shell script，同样对于每一个功能都有相应的实">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq7iwmdmuzj20og0fndj2.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/e0db46edgy1fq7j5i0kq8j20zl0mtgul.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/e0db46edgy1fq7ngc14chj20xj163nbj.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/e0db46edgy1fq7o1zepd6j20zc0gmtem.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/mw1024/e0db46edgy1fq7wpghpsdj20ue0jdjxc.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/mw1024/e0db46edgy1fq7wx5abqmj20mz0aljti.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw690/e0db46edgy1fq7x8zjkhij20j908c75p.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq90rrorbrj20m607p0u0.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq90rrpaszj20mf06n74s.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/e0db46edgy1fq90rrp8zij20mc050mxw.jpg">
+<meta property="og:updated_time" content="2019-01-26T14:47:30.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell Script学习笔记">
+<meta name="twitter:description" content="一、 前言最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习shell script来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了正则表达式与文件格式化处理，并且对于每一个操作都有相关的实例进行练习，加强理解;shell script，同样对于每一个功能都有相应的实">
+<meta name="twitter:image" content="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq7iwmdmuzj20og0fndj2.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="知微" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">知微</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一盏灯，一个人，亮着的屏幕，游走的灵魂。!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://heany.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Shell-Script学习笔记" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/31/Shell-Script学习笔记/" class="article-date">
+  <time datetime="2018-03-31T06:09:19.000Z" itemprop="datePublished">2018-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Script/">Script</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Shell Script学习笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、-前言"><a href="#一、-前言" class="headerlink" title="一、 前言"></a>一、 前言</h2><p>最近开始使用Linux系统，经常操作terminal，经常使用Linux下的bash来进行一些重复的操作，因此想学习<code>shell script</code>来简化一些安装软件的步骤，实现自动化部署一些应用，节约时间。本文介绍了一些bash命令的一些技巧，然后详细地讲解了<strong>正则表达式与文件格式化处理</strong>，并且对于每一个操作都有相关的实例进行练习，加强理解;<strong><code>shell script</code></strong>，同样对于每一个功能都有相应的实例进行练习，可以说～非常适合新手来阅读学习了！</p>
+<h2 id="二、-基础知识"><a href="#二、-基础知识" class="headerlink" title="二、 基础知识"></a>二、 基础知识</h2><p>&nbsp;&nbsp;什么是 shell script (程序化脚本) 呢？就字面上的意义，我们将他分为两部份。 在『 shell 』部分，我们在bash当中已经提过了，那是一个文字介面底下让我们与系统沟通的一个工具介面。那么『 script 』是啥？ 字面上的意义， script 是『脚本、剧本』的意思。整句话是说， shell script 是针对 shell 所写的『剧本！』<br>&nbsp;&nbsp;什么东西啊？其实， shell script 是利用 shell 的功能所写的一个『程序 (program)』，这个程序是使用纯文字档，将一些 shell 的语法与命令(含外部命令)写在里面， 搭配正规表示法、管线命令与数据流重导向等功能，以达到我们所想要的处理目的。<br>&nbsp;&nbsp;shell script 更提供阵列、回圈、条件与逻辑判断等重要功能，让使用者也可以直接以 shell 来撰写程序，而不必使用类似 C 程序语言等传统程序撰写的语法呢！</p>
+<h3 id="2-1-一些shell命令的基础知识及技巧"><a href="#2-1-一些shell命令的基础知识及技巧" class="headerlink" title="2.1 一些shell命令的基础知识及技巧"></a>2.1 一些shell命令的基础知识及技巧</h3><p>&nbsp;&nbsp;一些快捷键：<br><code>^A</code> :鼠标光标移到命令最左端<br><code>^E</code> :鼠标光标移到命令最右端<br><code>^k</code> :删除鼠标光标后面的命令<br><code>^u</code> :删除鼠标光标前面的命令<br><code>^s</code> :锁定terminal<br><code>^Q</code> :解锁<br><code>^y</code> :撤销上一次操作<br><code>^D</code> :输入结束（EOF），例如邮件结束的时候<br><code>^Z</code> :暂停目前的命令</p>
+<p><code>cat</code>命令的一些技巧：以下代码将内容写入file<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat <span class="xml"><span class="tag">&lt;&lt; <span class="attr">EOF</span> &gt;</span></span> file</span><br><span class="line"><span class="quote">&gt; hello</span></span><br><span class="line"><span class="quote">&gt; world</span></span><br><span class="line"><span class="quote">&gt; ......</span></span><br><span class="line"><span class="quote">&gt; EOF</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 管道及tee</p>
+</blockquote>
+<p>管道<br>:    管道的作用是将前一条命令的输出变成管道后命令的输入<br>        ls /bin | wc -l   ##统计 ls /bin命令输出的行数<br>    系统中错误的输出是无法通过管道的<br>    用 <code>2&gt;&amp;1</code> 可以把错误的输出编号由2变成1</p>
+<p>tee<br>:    <code>tee</code>复制输出到指定位置<br>        data | tee file |wc -l  ##tee命令复制date命令的输出到file中，并统计输出行数</p>
+<h3 id="2-2-脚本中调用其他的解释器-如python-执行的代码"><a href="#2-2-脚本中调用其他的解释器-如python-执行的代码" class="headerlink" title="2.2 脚本中调用其他的解释器(如python)执行的代码"></a>2.2 脚本中调用其他的解释器(如python)执行的代码</h3><p>&nbsp;&nbsp;shell script中第一行通常需要一行指令指定执行此脚本的解释器,如：</p>
+<pre><code>#!/bin/bash
+#!/bin/python
+#!/bin/perl
+</code></pre><p>以上分别指定了常用的三种脚本的解释器，</p>
+<blockquote>
+<p> 多条命令执行</p>
+</blockquote>
+<ol>
+<li>用<code>;</code>号分隔，这种方式各条命令之间没有逻辑性<br> cd; ls; ll</li>
+<li>用逻辑连接符<code>&amp;&amp;</code> <code>||</code>来连接。<br> ./confirgure &amp;&amp; make &amp;&amp; make install  ##必须前面的命令执行成功，才能执行后面的命令<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> con1</span><br><span class="line">    com2</span><br><span class="line"><span class="keyword">else</span> com3</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>上面这段代码相当于<br>    com1 &amp;&amp; com2 &amp;&amp; com3</p>
+<blockquote>
+<p> shell通配符</p>
+</blockquote>
+<p><code>*</code> :任意个<br><code>?</code> :1个<br><code>[]</code>:匹配括号里面的一个</p>
+<blockquote>
+<p> <code>echo</code>输出颜色文本</p>
+</blockquote>
+<pre><code>echo -e &quot;\e[1;31m This is red text. \e[0m&quot;
+</code></pre><blockquote>
+<p> <code>printf</code>格式化输出<br>    printf “hello\n”</p>
+</blockquote>
+<blockquote>
+<p> <code>read</code>命令变量键盘读取使用方法如下：</p>
+</blockquote>
+<pre><code>read [-pt] variable
+paras:
+-p :后面接提示符
+-t :后面接等待的“秒数”
+example:
+read atest
+read -p &quot;please a string:&quot; -t 30 atest
+</code></pre><blockquote>
+<p> <code>declare/typeset</code>命令：声明变量的类型：默认类型为字符串</p>
+</blockquote>
+<pre><code>declare [-aixr] variable
+paras:
+-a :将后面的variable的变量定义为数组（array）类型
+-i :定义为integer类型
+-x :用法与export一样，将后面的变量变成环境变量
+-r :将变量设置成为readonly类型，该变量不可被更改，也不能重设
+example:
+sum=100+300+50
+echo $sum  # sum=100+300+50
+
+declare -i sum=100+300+50
+echo $sum    #450
+</code></pre><blockquote>
+<p> <code>array</code>数组变量类型;读取时：${数组}</p>
+</blockquote>
+<pre><code>var[index]=content
+example:
+var[1]=&quot;Tom&quot;
+var[2]=&quot;tony&quot;
+echo &quot;${var[1]},${var[2]}&quot;   #Tom,tony
+</code></pre><blockquote>
+<p> <code>alias</code>、<code>unalias</code>命令别名设置：;<br>    alias lm=’ls -l | more’  #lm执行的是ls -all more<br>    unalias lm   #去掉lm命令的别名</p>
+</blockquote>
+<blockquote>
+<p> <code>history</code>查询历史命令</p>
+</blockquote>
+<pre><code>history [n]
+history [-c]
+history [-raw]
+paras:
+n :数字，列出最近的n条命令行的意思
+-c ：将目前的shell中的所有history内容全部消除
+-a : 将新增的history命令新增进去histfiles,或默认写入~/.bash_history
+-r : 将histfiles的内容读到目前这个shell的history中
+-w : 将目前的history记忆内容写进histfiles中。
+另：
+！number ：执行第几条命令的意思
+!command ：由最近的命令向前搜寻命令串开头command的那个命令，并执行
+!! : 执行上一个命令
+</code></pre><h3 id="2-3-数据流重定向-redirect"><a href="#2-3-数据流重定向-redirect" class="headerlink" title="2.3 数据流重定向(redirect)"></a>2.3 数据流重定向(redirect)</h3><blockquote>
+<p> <strong>数据流重定向</strong>就是将某个命令执行后应该要出现在屏幕上的数据传输到其他的地方。</p>
+</blockquote>
+<ul>
+<li>标准输入(stdin):代码为0，使用<code>&lt;</code>(覆盖)或<code>&lt;&lt;</code>(追加)</li>
+<li>标准输出(stdout)：代码为1，使用<code>&gt;</code>或<code>&gt;&gt;</code></li>
+<li>标准错误输出(stderr):代码为2，使用<code>2&gt;</code>或<code>2&gt;&gt;</code></li>
+</ul>
+<blockquote>
+<p> <code>/dev/null</code>垃圾桶黑洞设备</p>
+</blockquote>
+<pre><code>find /home -name .bashrc 2&gt; /dec/null  #将错误的数据丢弃，屏幕上显示正确的数据
+## /home/heany/.bashrc
+</code></pre><blockquote>
+<p> <code>standard input</code>:<code>&lt;</code>与<code>&lt;&lt;</code></p>
+</blockquote>
+<pre><code>cat &gt; catfile &lt; ~/.bashrc #用stdin替代键盘的输入以创建新文件的简单流程
+
+cat &gt; catfile &lt;&lt; &quot;eof&quot;
+&gt; This is a test.
+&gt; OK now stop
+&gt; eof    #输入这个关键字，立刻就结束不需要输入[ctrl+D]
+</code></pre><h3 id="2-4-管道命令-pipe"><a href="#2-4-管道命令-pipe" class="headerlink" title="2.4 管道命令(pipe)"></a>2.4 管道命令(pipe)</h3><blockquote>
+<p> <strong>管道命令</strong>使用<code>|</code>这个界定符号，仅能处理经由前面一个命令传来的正确的信息，也就是standard output的信息，对于standard error并没有直接处理的能力。管道后面接的第一个数据必定是”命令“，而且这个命令必须要能够接收standard input的数据才行，这样的命令才可以是“管道命令”，例如less, more,head, tail等。而ls, cp ,mv这些则不是管道命令，因为他们不会接收来自stdin的数据。</p>
+</blockquote>
+<h4 id="2-4-1-选取命令：cut-grep"><a href="#2-4-1-选取命令：cut-grep" class="headerlink" title="2.4.1 选取命令：cut,grep"></a>2.4.1 选取命令：cut,grep</h4><p>  <em>选取命令</em>就是将一段数据经过分析后，取出我们所想要的，或者是经由分析关键字，得我们所想要的哪一行，通常是针对”行”来分析的。</p>
+<blockquote>
+<p> <code>cut</code>这个命令可以将一段信息的某一段“切出来”，处理信息以“行”为单位。</p>
+</blockquote>
+<pre><code>cut -d &apos;分隔字符&apos; -f fields  #用于分隔字符
+cut -c 字符范围     #用于排列整齐的信息
+paras:
+-f ：依据-d的分隔字符将一段信息切割成数段，用-f取出第几段的意思。
+-c ：以字符的单位取出固定字符区间
+examples:
+echo $PATH | cut -d &apos;:&apos; -f 5   ## 将echo $PATH结果以&quot;:&quot;分隔，，找到第5个
+
+export | cut -c 12-  ## 将export输出的信息取得第12字符后的所有字符串
+</code></pre><blockquote>
+<p> <code>grep</code>命令是分析一行信息，若当中有我们需要的信息，就将该行拿出来。<br>    grep [-acinv] [–color=auto] ‘查找字符串’ filename<br>    paras:<br>    -a:将binary文件以text文件的形式查找数据<br>    -c:计算找到”查找字符串”的次数<br>    -i:忽略大小写的不同，所以大小写视为相同<br>    -n:顺便输出行号<br>    -v: 反向选择，即显示没有”查找字符串”内容的那一行<br>    –color=auto : 可以将找到的关键字部分加上颜色显示<br>    examples:<br>    last | grep ‘root’  #将last中有出现root的那一行就取出来<br>    last | grep -v ‘root’ # 与上面相反，只要没有root就取出<br>    last | grep ‘root’ | cut -d ‘’ -f 1  #在取出root后，利用上一个命令cut的处理，就能取出第一列</p>
+</blockquote>
+<h4 id="2-4-2-排序命令：sort-wc-uniq"><a href="#2-4-2-排序命令：sort-wc-uniq" class="headerlink" title="2.4.2 排序命令：sort, wc ,uniq"></a>2.4.2 排序命令：sort, wc ,uniq</h4><blockquote>
+<p> <code>sort</code>排序</p>
+</blockquote>
+<pre><code>sort [-fbMnrtuk] [file or stdin]
+paras:
+-f : 忽略大小写的差异
+-b : 忽略最前面的空格符部分
+-M : 以月份的名字来排序
+-n : 使用”纯数字“进行排序
+-r : 反向排序
+-u : 就是uniq，相同的数据中，仅出现一行代表
+-t : 分隔符，默认是用[Tab]键来分隔
+-k : 以那个区间(field)来进行排序的意思
+examples:
+cat /etc/passwd | sort -t &apos;:&apos; -k 3  #以:来分隔，以第三列来排序
+
+last | cut -d &apos;&apos; -f1 | sort  #利用last将输出的数据仅取账号，并加以排序
+</code></pre><blockquote>
+<p> <code>uniq</code>将重复的数字仅列出一个显示</p>
+</blockquote>
+<pre><code>uniq [-ic]
+paras:
+-i : 忽略大小写字符的不同
+-c : 进行计数
+examples:
+last | cut -d &apos;&apos; -f1 | sort |uniq  # 使用last将账号列出，仅取出账号列，进行排序后取出最后一位
+</code></pre><blockquote>
+<p> <code>wc</code>计算输出信息的整体数据</p>
+</blockquote>
+<pre><code>wc [-lwm]
+paras:
+-l : 仅列出行
+-w : 仅列出多少字
+-m : 多少字符
+examples:
+cat /etc/man.config | wc  #列出config里面到底有多少相关行数、字数、字符数，分别输出三列
+</code></pre><h4 id="2-4-3-双向重定向：tee"><a href="#2-4-3-双向重定向：tee" class="headerlink" title="2.4.3 双向重定向：tee"></a>2.4.3 双向重定向：tee</h4><pre><code>*tee*会同时将数据流送与文件于屏幕，而输出到屏幕的就是standout,可以让下个命令继续处理。
+tee [-a] file
+paras:
+-a : 以累加(append)的方式，将数据加入file当中。
+examples:
+last | tee [-a] last.list | cut -d &apos;&apos; -f1   #将last的输出存一份last.list文件中 
+</code></pre><h4 id="2-4-4-字符转换命令：tr-col-join-paste-expand"><a href="#2-4-4-字符转换命令：tr-col-join-paste-expand" class="headerlink" title="2.4.4 字符转换命令：tr, col, join, paste, expand"></a>2.4.4 字符转换命令：tr, col, join, paste, expand</h4><p><em>主要介绍这些字符转换命令在管道中的使用方法</em></p>
+<blockquote>
+<p> <code>tr</code>可以用来删除一段信息当中的文字，或者是进行文字信息的替换</p>
+</blockquote>
+<pre><code>tr [-ds] SET1 ....
+paras:
+-d : 删除信息当中的SET1这个字符串，
+-s : 替换掉重复的字符串
+examples:
+last | tr [a-z] [A-Z]  #将last输出的信息中所有的小写字符变成大写字符
+</code></pre><blockquote>
+<p> <code>col</code></p>
+</blockquote>
+<pre><code>col [-xb]
+paras:
+-x : 将Tab键转换成对等的空格键
+-b : 在文字内有反斜杠\时，仅保留反斜杠最后接的那个字符
+</code></pre><blockquote>
+<p> <code>join</code>处理两个文件之间的数据，而且主要是将两个文件当中有相同数据的那一行加在一起。</p>
+</blockquote>
+<pre><code>join [-ti12] file1 file2
+paras:
+-t : join默认以空格符分隔数据，并且对比”第一个字段“的数据，如果两个文件相同，则将两条数据连成一行，且第一个字段放在第一个。
+-i : 忽略大小写的差异
+-1 : 这个是数字的1,代表第一个文件要用哪个字段来分析的意思
+-2 : 代表第二个文件要用哪个字段来分析的意思。
+examples:
+join -t &apos;:&apos; /etc/passwd /etc/shadow #将两个文件第一个字段相同者整合成一行
+</code></pre><blockquote>
+<p> <code>paste</code>直接将两行贴在一起，且中间一[tab]键隔开。</p>
+</blockquote>
+<pre><code>paste [-d] file1 file2
+paras:
+-d : 后面可以接分隔字符，默认是以[tab]来分隔的
+-  : 如果file部分写成 - ，表示来自standard input的数据的意思
+examples:
+paste /etc/passwd /etc/shadow  # 将两个文件的同一行贴在一起
+</code></pre><h4 id="2-4-5-切割命令：split"><a href="#2-4-5-切割命令：split" class="headerlink" title="2.4.5 切割命令：split"></a>2.4.5 切割命令：split</h4><p><em>切割命令</em>将一个大文件依据文件大小或行数来切割成为小文件</p>
+<pre><code>split [-bl] file PREFIX
+paras:
+-b : 后面可接欲切割成的文件大小，可加单位
+-l : 以行数来进行切割
+PREFIX : 代表前导符，可作为切割文件的前导文字。
+examples:
+cd /tmp; split -b 300k /etc/termcap termcap  # 将/etc/termcap分成300K一个文件
+ls -al / | split -l 10 -lsroot #将使用ls-al /输出的信息中，每10行记录成一个文件
+</code></pre><h2 id="三、-正则表达式与文件格式化处理"><a href="#三、-正则表达式与文件格式化处理" class="headerlink" title="三、 正则表达式与文件格式化处理"></a>三、 正则表达式与文件格式化处理</h2><h3 id="3-1、-正则表达式概念-Regular-Expression"><a href="#3-1、-正则表达式概念-Regular-Expression" class="headerlink" title="3.1、 正则表达式概念(Regular Expression)"></a>3.1、 正则表达式概念(Regular Expression)</h3><p>  简单的说,正则表达式就是处理字串的方法,他是以行为单位来进行字串的处理行为, 正则<br>表达式通过一些特殊符号的辅助,可以让使用者轻易的达到“搜寻/删除/取代”某特定字串的处<br>理程序!<span style="color:#F00">强大的字符串处理能力</span></p>
+<h3 id="3-2、-基础正则表达式"><a href="#3-2、-基础正则表达式" class="headerlink" title="3.2、 基础正则表达式"></a>3.2、 基础正则表达式</h3><h4 id="3-2-1、-语系对正则表达式的影响"><a href="#3-2-1、-语系对正则表达式的影响" class="headerlink" title="3.2.1、 语系对正则表达式的影响"></a>3.2.1、 语系对正则表达式的影响</h4><p>&nbsp;&nbsp;计算机文件其实记录的仅有0与1,我们看到的字符文字与数字都是通过编码表转换来的。由于不同语系的编码数据并不相同，所有就会造成数据提取结果的差异了。举例来说，在英文大小写的编码顺序中，zh_TW.big5及C这两种语系的输出结果分别如下:</p>
+<ul>
+<li>LANG=C时：0 1 2 3 4 … A B C D … Z abcd … z</li>
+<li>LANG=zh_TW时: 0 1 2 3 4 … a A b B C c … z Z</li>
+</ul>
+<p>上面的顺序是编码的顺序，我们可以很清楚的发现这两种语系明显就是不一样！如果你想要提取大写字符而使用[A-Z]时，会发现会发现LANG=C确实可以仅捉到大写字符 (因为是连续的),但是如果 LANG=zh_TW.big5时,就会发现到, 连同小写的b-z也会被撷取出来!因为就<br>编码的顺序来看,big5语系可以撷取到“ A b B c C … z Z ”这一堆字符哩! 所以,使用正则表<br>达式时,需要特别留意当时环境的语系为何, 否则可能会发现与别人不相同的撷取结果喔!一般练习时采用<code>LANG=C</code>这个语系。</p>
+<blockquote>
+<p> 一些特殊符号的代表意义</p>
+</blockquote>
+<p><img src="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq7iwmdmuzj20og0fndj2.jpg" alt="图片名称" align="center"></p>
+<h4 id="3-2-2、-grep的一些进阶选项"><a href="#3-2-2、-grep的一些进阶选项" class="headerlink" title="3.2.2、 grep的一些进阶选项"></a>3.2.2、 grep的一些进阶选项</h4><p><img src="https://wx1.sinaimg.cn/mw1024/e0db46edgy1fq7j5i0kq8j20zl0mtgul.jpg" alt="图片名称" align="center"></p>
+<blockquote>
+<p> grep是一个很常见也很常用的指令，它最重要的功能就是进行字符串数据的比对，然后将符合使用者需求的字串行印出来。<strong>需要说明的是“grep 在数据中查寻一个字串时,是以 “整行” 为单位来进行数据的撷取的!”</strong>也就是说,假如一个文件内有 10 行,其中有两行具有你所搜寻<br>的字串,则将那两行显示在屏幕上,其他的就丢弃了!</p>
+</blockquote>
+<h4 id="3-2-3、-基础正则表达式练习"><a href="#3-2-3、-基础正则表达式练习" class="headerlink" title="3.2.3、 基础正则表达式练习"></a>3.2.3、 基础正则表达式练习</h4><p>练习用文件下载如下：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">wget http://linux.vbird.org/linux_basic/<span class="number">0330</span>regularex/regular_express.txt</span><br><span class="line"></span><br><span class="line"># content</span><br><span class="line"><span class="string">"Open Source"</span> <span class="keyword">is</span> a good mechanism <span class="keyword">to</span> develop programs.</span><br><span class="line">apple <span class="keyword">is</span> my favorite food.</span><br><span class="line">Football game <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">use</span> feet only.</span><br><span class="line">this dress doesn<span class="symbol">'t</span> fit me.</span><br><span class="line">However, this dress <span class="keyword">is</span> about $ <span class="number">3183</span> dollars.^M</span><br><span class="line">GNU <span class="keyword">is</span> free air <span class="keyword">not</span> free beer.^M</span><br><span class="line">Her hair <span class="keyword">is</span> very beauty.^M</span><br><span class="line">I can<span class="symbol">'t</span> finish the test.^M</span><br><span class="line">Oh! The soup taste good.^M</span><br><span class="line">motorcycle <span class="keyword">is</span> cheap than car.</span><br><span class="line">This window <span class="keyword">is</span> clear.</span><br><span class="line">the symbol '*' <span class="keyword">is</span> represented as start.</span><br><span class="line">Oh!     My god!</span><br><span class="line">The gd software <span class="keyword">is</span> a <span class="keyword">library</span> <span class="keyword">for</span> drafting programs.^M</span><br><span class="line">You are the best <span class="keyword">is</span> mean you are the no. <span class="number">1</span>.</span><br><span class="line">The world &lt;Happy&gt; <span class="keyword">is</span> the same <span class="keyword">with</span> <span class="string">"glad"</span>.</span><br><span class="line">I like dog.</span><br><span class="line">google <span class="keyword">is</span> the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line">goooooogle yes!</span><br><span class="line">go! go! Let<span class="symbol">'s</span> go.</span><br><span class="line"># I am VBird</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>例题一、搜寻特定字串</li>
+</ul>
+<p>从上面下载的文件中<strong>取the这个特定字串</strong>，最简单的方式就是这样：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="comment">'the' regular_express.txt </span></span><br><span class="line"></span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="number">8</span>:I can<span class="comment">'t finish the test.</span></span><br><span class="line"><span class="number">12</span>:the symbol <span class="comment">'*' is represented as start.</span></span><br><span class="line"><span class="number">15</span>:You are the best <span class="keyword">is</span> mean you are the no. <span class="number">1.</span></span><br><span class="line"><span class="number">16</span>:The world &lt;Happy&gt; <span class="keyword">is</span> the same <span class="keyword">with</span> <span class="string">"glad"</span>.</span><br><span class="line"><span class="number">18</span>:google <span class="keyword">is</span> the best tools <span class="keyword">for</span> search keyword.</span><br></pre></td></tr></table></figure></p>
+<p>如果要<strong>反向选择</strong>，也就是当该行没有’the’这个字串时才显示在屏幕上，那就直接使用：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">grep -vn <span class="comment">'the' regular_express.txt </span></span><br><span class="line"></span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="number">1</span>:<span class="string">"Open Source"</span> <span class="keyword">is</span> a good mechanism <span class="keyword">to</span> develop programs.</span><br><span class="line"><span class="number">2</span>:apple <span class="keyword">is</span> my favorite food.</span><br><span class="line"><span class="number">3</span>:Football game <span class="keyword">is</span> <span class="keyword">not</span> use feet only.</span><br><span class="line"><span class="number">4</span>:this dress doesn<span class="comment">'t fit me.</span></span><br><span class="line"><span class="number">5</span>:However, this dress <span class="keyword">is</span> about $ <span class="number">3183</span> dollars.</span><br><span class="line"><span class="number">6</span>:GNU <span class="keyword">is</span> free air <span class="keyword">not</span> free beer.</span><br><span class="line"><span class="number">7</span>:Her hair <span class="keyword">is</span> very beauty.</span><br><span class="line"><span class="number">9</span>:Oh! The soup taste good.</span><br><span class="line"><span class="number">10</span>:motorcycle <span class="keyword">is</span> cheap than car.</span><br><span class="line"><span class="number">11</span>:This window <span class="keyword">is</span> clear.</span><br><span class="line"><span class="number">13</span>:Oh!  My god!</span><br><span class="line"><span class="number">14</span>:The gd software <span class="keyword">is</span> a library <span class="keyword">for</span> drafting programs.</span><br><span class="line"><span class="number">17</span>:I <span class="keyword">like</span> dog.</span><br><span class="line"><span class="number">19</span>:goooooogle yes!</span><br><span class="line"><span class="number">20</span>:go! go! <span class="keyword">Let</span><span class="comment">'s go.</span></span><br><span class="line"><span class="number">21</span>:<span class="meta"># I am VBird</span></span><br><span class="line"><span class="number">22</span>:</span><br></pre></td></tr></table></figure></p>
+<p>如果想取得<strong>不论大小写</strong>的‘the’这个字串，则：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">grep -<span class="keyword">in</span> <span class="comment">'the' regular_express.txt </span></span><br><span class="line"></span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="number">8</span>:I can<span class="comment">'t finish the test.</span></span><br><span class="line"><span class="number">9</span>:Oh! The soup taste good.</span><br><span class="line"><span class="number">12</span>:the symbol <span class="comment">'*' is represented as start.</span></span><br><span class="line"><span class="number">14</span>:The gd software <span class="keyword">is</span> a library <span class="keyword">for</span> drafting programs.</span><br><span class="line"><span class="number">15</span>:You are the best <span class="keyword">is</span> mean you are the no. <span class="number">1.</span></span><br><span class="line"><span class="number">16</span>:The world &lt;Happy&gt; <span class="keyword">is</span> the same <span class="keyword">with</span> <span class="string">"glad"</span>.</span><br><span class="line"><span class="number">18</span>:google <span class="keyword">is</span> the best tools <span class="keyword">for</span> search keyword.</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>例题二、利用中括号[]来搜寻集合字符</li>
+</ul>
+<p>如果我想要搜寻test或taste这两个单字时,可以发现到,其实她们有共通的’t?st’存在~这<br>个时候,我可以这样来搜寻:<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="comment">'t[ae]st' regular_express.txt</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="number">8</span>:I can<span class="comment">'t finish the test.</span></span><br><span class="line"><span class="number">9</span>:Oh! The soup taste good.</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> <code>[]</code>这个里面不论有几个字符，都仅匹配某一个字符，，如果想要搜寻到有<code>oo</code>的字符串时，则使用下面的命令：</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'oo'</span> regular_express.txt </span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">1</span><span class="symbol">:<span class="string">"Open Source"</span></span> is a good mechanism to develop programs.</span><br><span class="line"><span class="number">2</span><span class="symbol">:apple</span> is my favorite food.</span><br><span class="line"><span class="number">3</span><span class="symbol">:Football</span> game is <span class="keyword">not</span> <span class="keyword">use</span> feet only.</span><br><span class="line"><span class="number">9</span><span class="symbol">:Oh!</span> The soup taste good.</span><br><span class="line"><span class="number">18</span><span class="symbol">:google</span> is the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line"><span class="number">19</span><span class="symbol">:goooooogle</span> yes!</span><br></pre></td></tr></table></figure>
+<p>但是，如果我不想要<code>oo</code>前面有g的话呢？此时，可以利用在集合字符的反向选择来达成：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'[^g]oo'</span> regular_express.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">2</span><span class="symbol">:apple</span> is my favorite food.</span><br><span class="line"><span class="number">3</span><span class="symbol">:Football</span> game is <span class="keyword">not</span> <span class="keyword">use</span> feet only.</span><br><span class="line"><span class="number">18</span><span class="symbol">:google</span> is the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line"><span class="number">19</span><span class="symbol">:goooooogle</span> yes!</span><br></pre></td></tr></table></figure></p>
+<p>如果我们不想要<code>oo</code>前面有小写字符，可以这样写：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'[^a-z]oo'</span> regular_express.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">3</span><span class="symbol">:Football</span> game is <span class="keyword">not</span> <span class="keyword">use</span> feet only.</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> <strong>连续编码</strong>可以使用减号<code>-</code>，也可以使用如下的方法来取得前面的两个测试的结果：</p>
+</blockquote>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'[^[:lower:]]oo'</span> regular_express.txt</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">3</span>:Football game <span class="keyword">is</span> <span class="keyword">not</span> use feet only.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只取含数字的那一行</span></span><br><span class="line">grep -n <span class="string">'[[:digit:]]'</span> regular_express.txt</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">5</span>:However, <span class="keyword">this</span> dress <span class="keyword">is</span> about $ <span class="number">3183</span> dollars.</span><br><span class="line"><span class="number">15</span>:You are the best <span class="keyword">is</span> mean you are the <span class="literal">no</span>. <span class="number">1.</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>例题三、行首与行尾字符^$</li>
+</ul>
+<p>在上面例子中，可以查询到一行字串里面有<code>the</code>的，那如果我想要让<code>the</code>只在行首列出呢？这个时候就需要使用<strong>定位字符</strong>了！<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'^the'</span> regular_express.txt </span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">12</span>:<span class="keyword">the</span> symbol <span class="string">'*'</span> is represented <span class="keyword">as</span> <span class="built_in">start</span>.</span><br></pre></td></tr></table></figure></p>
+<p>如果我想<strong>开头是小写字符</strong>的那一行就列出呢？可以这样写：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="comment">'^[a-z]' regular_express.txt </span></span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="number">2</span>:apple <span class="keyword">is</span> my favorite food.</span><br><span class="line"><span class="number">4</span>:this dress doesn<span class="comment">'t fit me.</span></span><br><span class="line"><span class="number">10</span>:motorcycle <span class="keyword">is</span> cheap than car.</span><br><span class="line"><span class="number">12</span>:the symbol <span class="comment">'*' is represented as start.</span></span><br><span class="line"><span class="number">18</span>:google <span class="keyword">is</span> the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line"><span class="number">19</span>:goooooogle yes!</span><br><span class="line"><span class="number">20</span>:go! go! <span class="keyword">Let</span><span class="comment">'s go.</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 也可以使用下面的命令来实现</span></span><br><span class="line">grep -n <span class="comment">'^[[:lower:]]' regular_express.txt</span></span><br></pre></td></tr></table></figure></p>
+<p>如果我不想要开头是<strong>英文字母</strong>，则可以是这样：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="comment">'^[^a-zA-Z]' regular_express.txt </span></span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="number">1</span>:<span class="string">"Open Source"</span> <span class="keyword">is</span> a good mechanism <span class="keyword">to</span> develop programs.</span><br><span class="line"><span class="number">21</span>:<span class="meta"># I am VBird</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 也可以这样写</span></span><br><span class="line">grep -n <span class="comment">'^[^[:alpha:]]' regular_express.txt</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 注意到了吧?那个<code>^</code>符号,在字符集合符号(括号[])之内与之外是不同的! 在 [] 内代表“反<br>向选择”,在[]之外则代表定位在行首的意义!要分清楚喔! </p>
+</blockquote>
+<p>反过来思考,那如果我想要找出<br>来,<strong>行尾</strong>结束为小数点 (.) 的那一行,该如何处理:<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="comment">'\.$' regular_express.txt </span></span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="number">1</span>:<span class="string">"Open Source"</span> <span class="keyword">is</span> a good mechanism <span class="keyword">to</span> develop programs.</span><br><span class="line"><span class="number">2</span>:apple <span class="keyword">is</span> my favorite food.</span><br><span class="line"><span class="number">3</span>:Football game <span class="keyword">is</span> <span class="keyword">not</span> use feet only.</span><br><span class="line"><span class="number">4</span>:this dress doesn<span class="comment">'t fit me.</span></span><br><span class="line"><span class="number">10</span>:motorcycle <span class="keyword">is</span> cheap than car.</span><br><span class="line"><span class="number">11</span>:This window <span class="keyword">is</span> clear.</span><br><span class="line"><span class="number">12</span>:the symbol <span class="comment">'*' is represented as start.</span></span><br><span class="line"><span class="number">15</span>:You are the best <span class="keyword">is</span> mean you are the no. <span class="number">1.</span></span><br><span class="line"><span class="number">16</span>:The world &lt;Happy&gt; <span class="keyword">is</span> the same <span class="keyword">with</span> <span class="string">"glad"</span>.</span><br><span class="line"><span class="number">17</span>:I <span class="keyword">like</span> dog.</span><br><span class="line"><span class="number">18</span>:google <span class="keyword">is</span> the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line"><span class="number">20</span>:go! go! <span class="keyword">Let</span><span class="comment">'s go.</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 因为小数点<code>.</code>具有其他意义，所以必须使用转义字符<code>(\)</code>来加以解除其特殊意义！但是第 5~9 行最后面也是 . 啊~怎么无法打 5~9  印出来? 这里就牵涉到 Windows 平台的软件对于断行字符的判断问题了!</p>
+</blockquote>
+<p>我们使用<code>cat -A</code>前十行的倒数六行。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat -An  regular_express.txt| head -n <span class="number">10</span>  | tail -n <span class="number">6</span></span><br><span class="line"># output</span><br><span class="line">    <span class="number">5</span>  However, this dress is about $ <span class="number">3183</span> dollars.^M$</span><br><span class="line">    <span class="number">6</span>  GNU is free air not free beer.^M$</span><br><span class="line">    <span class="number">7</span>  Her hair is very beauty.^M$</span><br><span class="line">    <span class="number">8</span>  I can't finish the test.^M$</span><br><span class="line">    <span class="number">9</span>  Oh! The soup taste good.^M$</span><br><span class="line">   <span class="number">10</span>  motorcycle is cheap than car.$</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>  在上面的输出中我们可以发现5~9行为Windows的断行字符<code>(^M$)</code>,而正常的Linux应该仅有第10行显示的那样<code>($)</code>。所以,那个<code>.</code>自然就不是紧接在<code>$</code>之前喔!也就捉不到5~9 行了!这样可以了解^与$的意义了吧。</p>
+</blockquote>
+<p>如果我想找出哪一行是空白行，也就是该行没有输入任何数据，如何操作？<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">grep</span> -n <span class="string">'^$'</span> regular_express.txt </span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">22</span>:</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 因为只有行首和行尾<code>(^$)</code>，所以这样就可以找出空白行啦。</p>
+</blockquote>
+<p>再来,假设你已经知道在一个程序脚本 (shell script) 或者是配置文件当中,空白行与开头为 # 的那一行是注解,因此如果你要将数据列出给别人参考时,可以将这些数据省略掉以节省保贵的纸张,那么你可以怎么做呢? 我们以 /etc/rsyslog.conf 这个文件来作范例,你可以自行参考一下输出的结果:<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">cat</span> -n /etc/rsyslog.conf</span><br><span class="line"><span class="comment"># 在ubuntu 17.10中，输出了60行，很多空白行与#开头的注解行</span></span><br><span class="line"></span><br><span class="line">grep -v <span class="string">'^$'</span> /etc/rsyslog.conf | grep -v -n <span class="string">'^#'</span></span><br><span class="line"><span class="comment"># 结果仅有13行，其中第一个`-v '^$'` 代表不要空行</span></span><br><span class="line"><span class="comment"># 第二个“-v '^#'”， 代表不要开头是#的那行</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">10</span>:module(load=<span class="string">"imuxsock"</span>) <span class="comment"># provides support for local system logging</span></span><br><span class="line"><span class="number">19</span>:module(load=<span class="string">"imklog"</span> permitnonkernelfacility=<span class="string">"on"</span>)</span><br><span class="line"><span class="number">27</span>:<span class="variable">$ActionFileDefaultTemplate</span> RSYSLOG_TraditionalFileFormat</span><br><span class="line"><span class="number">29</span>:<span class="variable">$RepeatedMsgReduction</span> <span class="literal">on</span></span><br><span class="line"><span class="number">33</span>:<span class="variable">$FileOwner</span> syslog</span><br><span class="line"><span class="number">34</span>:<span class="variable">$FileGroup</span> adm</span><br><span class="line"><span class="number">35</span>:<span class="variable">$FileCreateMode</span> <span class="number">0640</span></span><br><span class="line"><span class="number">36</span>:<span class="variable">$DirCreateMode</span> <span class="number">0755</span></span><br><span class="line"><span class="number">37</span>:<span class="variable">$Umask</span> <span class="number">0022</span></span><br><span class="line"><span class="number">38</span>:<span class="variable">$PrivDropToUser</span> syslog</span><br><span class="line"><span class="number">39</span>:<span class="variable">$PrivDropToGroup</span> syslog</span><br><span class="line"><span class="number">43</span>:<span class="variable">$WorkDirectory</span> /var/spool/rsyslog</span><br><span class="line"><span class="number">47</span>:<span class="variable">$IncludeConfig</span> /etc/rsyslog.d/<span class="regexp">*.conf</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>例题四、任意一个字符<code>.</code>与重复字符<code>*</code><br>我们知道通配符<code>*</code>可以用来代表任意（0或多个）字符，但是正则表达式并不是通用字符，两者之间是不同的！至于正则表达式中的<code>.</code>则代表“绝对有一个任意字符”的意思！这两个符号在正则表达式的意义如下：<blockquote>
+<p> <code>.</code>(小数点)：代表“一定有<strong>一个</strong>任意字符”的意思</p>
+<p> <code>*</code>(星号)：代表“<strong>重复前一个字符</strong>，0到无穷多次”的意思，为组合形态</p>
+</blockquote>
+</li>
+</ul>
+<p>这样讲不好懂,我们直接做个练习吧!假设我需要找出 g??d 的字串,亦即共有四个字符,起头是 g 而结束是 d ,我可以这样做:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'g..d'</span> regular_express.txt </span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">1</span>:<span class="string">"Open Source"</span> is <span class="keyword">a</span> good mechanism <span class="built_in">to</span> develop programs.</span><br><span class="line"><span class="number">9</span>:Oh! The soup taste good.</span><br><span class="line"><span class="number">16</span>:The world &lt;Happy&gt; is <span class="keyword">the</span> same <span class="keyword">with</span> <span class="string">"glad"</span>.</span><br></pre></td></tr></table></figure></p>
+<p>再来,如果我想要列出有 oo, ooo, oooo 等等的数据, 也就是说,至少要有两个(含)o以上,该如何是好?是 o 还是 oo 还是 ooo* 呢? 虽然你可以试看看结果, 不过结果太占版面了。</p>
+<p>因为<code>*</code>代表的是<strong>重复 0 个或多个前面的 RE 字符</strong>”的意义, 因此,<strong><code>o*</code>代表的是具有空字符或一个o以上的字符</strong>, 特别注意,因为允许空字符(就是有没有字符都可以的意思),因<br>此,<code>grep -n &#39;o*&#39; regular_express.txt</code>将会把所有的数据都打印出来屏幕上!</p>
+<p>那如果是<code>oo*</code>呢?则第一个o肯定必须要存在,第二个o则是可有可无的多个o, 所以,凡<br>是含有o,oo,ooo,oooo等等,都可以被列出来~</p>
+<p>同理,当我们需要至少两个o以上的字串时,就需要<code>ooo*</code>,亦即是:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'ooo*'</span> regular_express.txt </span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">1</span><span class="symbol">:<span class="string">"Open Source"</span></span> is a good mechanism to develop programs.</span><br><span class="line"><span class="number">2</span><span class="symbol">:apple</span> is my favorite food.</span><br><span class="line"><span class="number">3</span><span class="symbol">:Football</span> game is <span class="keyword">not</span> <span class="keyword">use</span> feet only.</span><br><span class="line"><span class="number">9</span><span class="symbol">:Oh!</span> The soup taste good.</span><br><span class="line"><span class="number">18</span><span class="symbol">:google</span> is the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line"><span class="number">19</span><span class="symbol">:goooooogle</span> yes!</span><br></pre></td></tr></table></figure></p>
+<p>如果我们想要字符串开头和结尾都是g,但是两个g之间仅能存在至少一个o，亦即是<code>gog,goog,gooog..</code>等等，那该如何？<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'g.*g'</span> regular_express.txt </span><br><span class="line"><span class="meta"># . 代表任意一个字符</span></span><br><span class="line"><span class="meta"># .*代表任意个字符</span></span><br></pre></td></tr></table></figure></p>
+<p>如果我想找出含’任意数字‘的行列呢，所以就成为：<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep -n '[<span class="string">0-9</span>][<span class="symbol">0-9</span>]*' regular_express.txt </span><br><span class="line"><span class="section"># output</span></span><br><span class="line">5:However, this dress is about $ 3183 dollars.</span><br><span class="line">15:You are the best is mean you are the no. 1.</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>例题五、限定连续RE字符范围</li>
+</ul>
+<p>在上个例题当中,我们可以利用 . 与 RE 字符及 * 来设置 0 个到无限多个重复字符, 那如果<br>我想要限制一个范围区间内的重复字符数呢?举例来说,我想要找出两个到五个 o 的连续字<br>串,该如何做?这时候就得要使用到限定范围的字符 {} 了。 但因为 { 与 } 的符号在 shell 是有<br>特殊意义的,因此, 我们必须要使用转义字符 \ 来让他失去特殊意义才行。 至于 {} 的语法是<br>这样的,假设我要找到两个 o 的字串,可以是:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'o\&#123;2\&#125;'</span> regular_express.txt </span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">1</span><span class="symbol">:<span class="string">"Open Source"</span></span> is a good mechanism to develop programs.</span><br><span class="line"><span class="number">2</span><span class="symbol">:apple</span> is my favorite food.</span><br><span class="line"><span class="number">3</span><span class="symbol">:Football</span> game is <span class="keyword">not</span> <span class="keyword">use</span> feet only.</span><br><span class="line"><span class="number">9</span><span class="symbol">:Oh!</span> The soup taste good.</span><br><span class="line"><span class="number">18</span><span class="symbol">:google</span> is the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line"><span class="number">19</span><span class="symbol">:goooooogle</span> yes!</span><br><span class="line"></span><br><span class="line">grep -n <span class="string">'go\&#123;2,5\&#125;g'</span> regular_express.txt </span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">18</span><span class="symbol">:google</span> is the best tools <span class="keyword">for</span> search keyword.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有了第19行，因为它有6个o</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-2-4、-基础正则表达式字符汇整-characters"><a href="#3-2-4、-基础正则表达式字符汇整-characters" class="headerlink" title="3.2.4、 基础正则表达式字符汇整(characters)"></a>3.2.4、 基础正则表达式字符汇整(characters)</h4><p>经过上面的几个简单的练习，我们可以将基础的正则表达式特殊字符汇整如下表：</p>
+<p><img src="https://wx3.sinaimg.cn/mw1024/e0db46edgy1fq7ngc14chj20xj163nbj.jpg" align="center"></p>
+<blockquote>
+<p> <strong>正则表达式的特殊字符”与一般在命令行输入指令的“万用字符”并不相同</strong>。<br> 例如。在万用字符当中的 代表的是“ 0 ~ 无限多个字符”的意思,但是在正则表达式当中, 则是“重复0到无穷多个的前一个 RE 字符”的意思~使用的意义并不相同,不要搞混了!</p>
+</blockquote>
+<p>举例来说,不支持正则表达式的 ls 这个工具中,若我们使用 “ls -l ” 代表的是任意文件名的文<br>件,而 “ls -l a ”代表的是以 a 为开头的任何文件名的文件, 但在正则表达式中,我们要找到<br>含有以 a 为开头的文件,则必须要这样:(需搭配支持正则表达式的工具)</p>
+<pre><code>ls | grep -n &apos;^a.*&apos;
+</code></pre><p>要想以<code>ls -l</code>配合grep找出<code>/etc/</code>下面文件类型为链接文件属性的文件名，该如何做呢？由于<code>ls -l</code>列出链接文件时标头会是<code>lrwxrwxrwx</code>,因此使用如下的指令即可找出结果：</p>
+<pre><code>ls -l /etc \grep &apos;^l&apos;
+# 若仅想列出几个文件，再以`| wc -l`来累加处理即可。
+</code></pre><h4 id="3-2-5、-sed工具"><a href="#3-2-5、-sed工具" class="headerlink" title="3.2.5、 sed工具"></a>3.2.5、 sed工具</h4><p>在了解了一些正则表达式的基础应用之后,再来呢?呵呵~两个东西可以玩一玩的,那就是<br>sed 跟下面会介绍的 awk 了! 这两个家伙可是相当的有用的啊!</p>
+<p>我们先来谈一谈 sed 好了, sed 本身也是一个管线命令,可以分析 standard input 的啦! 而<br>且 sed 还可以将数据进行取代、删除、新增、撷取特定行等等的功能呢!很不错吧~ 我们先<br>来了解一下 sed 的用法,再来聊他的用途好了!</p>
+<p><img src="https://wx1.sinaimg.cn/mw1024/e0db46edgy1fq7o1zepd6j20zc0gmtem.jpg" align="center"></p>
+<ul>
+<li>以行为单位的新增/删除功能</li>
+</ul>
+<p>sed光是用看的，是看不懂的啦！，又要开始练习了</p>
+<p><b><span style="color: red">范例一：</span></b>将<code>/etc/passwd</code>的内容拷贝<code>pd.txt</code>列出并且打印行号，同时，请将第2-5行删除！<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nl pd.txt  | sed <span class="string">'2,5d'</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">     <span class="number">1</span>  <span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line">     <span class="number">6</span>  <span class="symbol">games:</span><span class="symbol">x:</span><span class="number">5</span><span class="symbol">:</span><span class="number">60</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">     <span class="number">7</span>  <span class="symbol">man:</span><span class="symbol">x:</span><span class="number">6</span><span class="symbol">:</span><span class="number">12</span><span class="symbol">:man</span><span class="symbol">:/var/cache/man</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">     <span class="number">8</span>  <span class="symbol">lp:</span><span class="symbol">x:</span><span class="number">7</span><span class="symbol">:</span><span class="number">7</span><span class="symbol">:lp</span><span class="symbol">:/var/spool/lpd</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">    ...........后面省略................</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 看到了吧?sed 的动作为 ‘2,5d’ ,那个 d 就是删除!因为 2-5 行给他删除了,所以显示的数据<br>就没有 2-5 行啰~ 另外,注意一下,原本应该是要下达 sed -e 才对,没有 -e 也行啦!同时<br>也要注意的是, sed 后面接的动作,请务必以 ‘’ 两个单引号括住喔!</p>
+</blockquote>
+<p>如果只删除第2行，可以使用<code>nl pd.txt | sed &#39;2d&#39;</code>来实现，若要删除第3到最后一行，则可以使用<code>nl pd.txt |sed &#39;3,$d&#39;</code>,其中<code>$</code>代表最后一行！</p>
+<p><b><span style="color: red">范例二：</span></b>承上题，在第二行后（亦即是加在第三行）加上“drink tea?”字样！<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nl pd.txt | sed <span class="string">'2a drink tea?'</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">     <span class="number">1</span>  <span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line">     <span class="number">2</span>  <span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">1</span><span class="symbol">:</span><span class="number">1</span><span class="symbol">:daemon</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">drink tea?</span><br><span class="line">     <span class="number">3</span>  <span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">2</span><span class="symbol">:</span><span class="number">2</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/usr/sbin/nologin</span></span><br></pre></td></tr></table></figure></p>
+<p>嘿嘿!在 a 后面加上的字串就已将出现在第二行后面啰!那如果是要在第二行前呢?<code>nl
+pd.txt | sed &#39;2i drink tea&#39;</code>就对啦!就是将“ a ”变成“ i ”即可。 增加一行很简单,那如果<br>是要增将两行以上呢?</p>
+<p><b><span style="color: red">范例三：</span></b>在第二行后面加入两行字，例如“drink tea or …”与”drink beer”字样！<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">nl pd.txt | sed <span class="string">'2a drink tea or ... \</span></span><br><span class="line"><span class="string"> &gt; drink beer?'</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">     <span class="number">1</span>  <span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line">     <span class="number">2</span>  <span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">1</span><span class="symbol">:</span><span class="number">1</span><span class="symbol">:daemon</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">drink tea <span class="keyword">or</span> ... </span><br><span class="line">drink beer?</span><br><span class="line">     <span class="number">3</span>  <span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">2</span><span class="symbol">:</span><span class="number">2</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">.............后面省略........</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 这个范例的重点是“我们可以新增不只一行喔!可以新增好几行”但是每一行之间都必须要以反<br>斜线“ \ ”来进行新行的增加喔!所以,上面的例子中,我们可以发现在第一行的最后面就有 \<br>存在啦!在多行新增的情况下, \ 是一定要的喔!</p>
+</blockquote>
+<ul>
+<li>以行为单位的取代与显示功能</li>
+</ul>
+<p>刚刚只是介绍了如何新增与删除，那么如果要整行取代呢？</p>
+<p><b><span style="color: red">范例四：</span></b>我想将第2-5行的内容取代成为”No 2-5 number”呢？<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nl pd.txt | sed <span class="string">'2,5c No 2-5 number'</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">     <span class="number">1</span>  <span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line">No <span class="number">2</span>-<span class="number">5</span> number</span><br><span class="line">     <span class="number">6</span>  <span class="symbol">games:</span><span class="symbol">x:</span><span class="number">5</span><span class="symbol">:</span><span class="number">60</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/usr/sbin/nologin</span></span><br></pre></td></tr></table></figure></p>
+<p>通过这个方法我们就能够将数据整行取代了!非常容易吧!sed 还有更好用的东东!我们以前<br>想要列出第 11~20 行, 得要通过<code>head -n 20 | tail -n 10</code>之类的方法来处理,很麻烦啦~ sed<br>则可以简单的直接取出你想要的那几行!是通过行号来捉的喔!看看下面的范例先:</p>
+<p><b><span style="color: red">范例五：</span></b>仅列出<code>pd.txt</code>文件内的第5-7行<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nl pd.txt | sed -n <span class="string">'5,7p'</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">     <span class="number">5</span>  <span class="symbol">sync:</span><span class="symbol">x:</span><span class="number">4</span><span class="symbol">:</span><span class="number">65534</span><span class="symbol">:sync</span><span class="symbol">:/bin</span><span class="symbol">:/bin/sync</span></span><br><span class="line">     <span class="number">6</span>  <span class="symbol">games:</span><span class="symbol">x:</span><span class="number">5</span><span class="symbol">:</span><span class="number">60</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">     <span class="number">7</span>  <span class="symbol">man:</span><span class="symbol">x:</span><span class="number">6</span><span class="symbol">:</span><span class="number">12</span><span class="symbol">:man</span><span class="symbol">:/var/cache/man</span><span class="symbol">:/usr/sbin/nologin</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 上述的指令中有个重要的选项<code></code>-n<code>,按照说明文档,这个 -n 代表的是“安静模式”! 那么为什
+么要使用安静模式呢?你可以自行下达</code>sed ‘5,7p’` 就知道了 (5-7 行会重复输出)! 有没有<br>加上 -n 的参数时,输出的数据可是差很多的喔!你可以通过这个 sed 的以行为单位的显示功<br>能, 就能够将某一个文件内的某些行号捉出来查阅!很棒的功能!不是吗?</p>
+</blockquote>
+<ul>
+<li>部分数据的搜寻并取代的功能</li>
+</ul>
+<p>除了整行的处理模式之外，sed还可以用行为单位进行部分数据的查找并替换的功能，基本上sed的查找与替换与vi类似！</p>
+<pre><code>sed &apos;s/要被取代的字串/新的字串/g&apos;
+</code></pre><p>上表中特殊字体的部分为关键字,请记下来!至于三个斜线分成两栏就是新旧字串的替换<br>啦。我们使用下面这个取得IP数据的范例,一段一段的来处理,让你了解一下什么是咱们所谓的查找并替换吧!<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># step1 : 先观察源信息，利用<span class="string">`sbin/ifconfig`</span> 查询<span class="built_in">IP</span></span><br><span class="line">    /sbin/ifconfig enp3s0</span><br><span class="line">    # output</span><br><span class="line"><span class="symbol">    enp3s0:</span> flags=<span class="number">4163</span>&lt;<span class="meta">UP</span>,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="number">1500</span></span><br><span class="line">            inet <span class="number">219.223</span><span class="meta">.243</span><span class="meta">.131</span>  netmask <span class="number">255.255</span><span class="meta">.248</span><span class="meta">.0</span>  broadcast <span class="number">219.223</span><span class="meta">.247</span><span class="meta">.255</span></span><br><span class="line">            inet6 fe80::<span class="number">1234</span>:4cee:444b:1d66  prefixlen <span class="number">64</span>  scopeid <span class="number">0x20</span>&lt;link&gt;</span><br><span class="line">            inet6 <span class="number">2001</span>:<span class="number">250</span>:3c02:<span class="number">301</span>:c9a3:6a1d:d5ce:ec5f  prefixlen <span class="number">128</span>  scopeid <span class="number">0x0</span>&lt;<span class="meta">global</span>&gt;</span><br><span class="line">    # 重点在第二行，也就是<span class="built_in">ip</span>地址那一行</span><br><span class="line"></span><br><span class="line"># step2 :利用关键字配合grep选取出关键的一行数据</span><br><span class="line">    ifconfig enp3s0 | grep <span class="string">'inet '</span></span><br><span class="line">    # output</span><br><span class="line">        inet <span class="number">219.223</span><span class="meta">.243</span><span class="meta">.131</span>  netmask <span class="number">255.255</span><span class="meta">.248</span><span class="meta">.0</span>  broadcast <span class="number">219.223</span><span class="meta">.247</span><span class="meta">.255</span></span><br><span class="line"></span><br><span class="line"># step3：将<span class="built_in">IP</span>前面的部分予以删除</span><br><span class="line">     ifconfig enp3s0 | grep <span class="string">'inet '</span> | sed <span class="string">'s/^.*inet //g'</span></span><br><span class="line">     # output</span><br><span class="line">        <span class="number">219.223</span><span class="meta">.243</span><span class="meta">.131</span>  netmask <span class="number">255.255</span><span class="meta">.248</span><span class="meta">.0</span>  broadcast <span class="number">219.223</span><span class="meta">.247</span><span class="meta">.255</span></span><br><span class="line"></span><br><span class="line"># step4：将<span class="built_in">IP</span>后面的部分删除</span><br><span class="line">    ifconfig enp3s0 | grep <span class="string">'inet '</span> | sed <span class="string">'s/^.*inet//g'</span> | sed <span class="string">'s/ netmask.*$//g'</span></span><br><span class="line">    # output</span><br><span class="line">        <span class="number">219.223</span><span class="meta">.243</span><span class="meta">.131</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 通过这个范例的练习也建议您依据此一步骤来研究你的指令!就是先观察,然后再一层一层<br>的试做, 如果有做不对的地方,就先予以修改,改完之后测试,成功后再往下继续测试。</p>
+</blockquote>
+<ul>
+<li>直接修改文件内容（<b><span style="color: red">危险动作</span></b>）</li>
+</ul>
+<p>你以为 sed 只有这样的能耐吗?那可不! sed 甚至可以直接修改文件的内容呢!而不必使用<br>管线命令或数据流重导向! 不过,由于这个动作会直接修改到原始的文件,所以请你千万不<br>要随便拿系统配置文件来测试喔! 我们还是使用你下载的 regular_express.txt 文件来测试看<br>看吧!</p>
+<p><b><span style="color: red">范例六：</span></b>利用sed将<code>regular_express.txt</code>内每一行结尾若为<code>.</code>则换成<code>！</code>。<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="comment">'s/\.$/\!/g' regular_express.txt </span></span><br><span class="line">cat regular_express.txt </span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="string">"Open Source"</span> <span class="keyword">is</span> a good mechanism <span class="keyword">to</span> develop programs!</span><br><span class="line">apple <span class="keyword">is</span> my favorite food!</span><br><span class="line">Football game <span class="keyword">is</span> <span class="keyword">not</span> use feet only!</span><br><span class="line">this dress doesn<span class="comment">'t fit me!</span></span><br><span class="line">However, this dress <span class="keyword">is</span> about $ <span class="number">3183</span> dollars.</span><br><span class="line">GNU <span class="keyword">is</span> free air <span class="keyword">not</span> free beer.</span><br><span class="line">Her hair <span class="keyword">is</span> very beauty.</span><br><span class="line">I can<span class="comment">'t finish the test.</span></span><br><span class="line">Oh! The soup taste good.</span><br><span class="line">motorcycle <span class="keyword">is</span> cheap than car!</span><br><span class="line">This window <span class="keyword">is</span> clear!</span><br><span class="line">the symbol <span class="comment">'*' is represented as start!</span></span><br><span class="line">Oh! My god!</span><br><span class="line">The gd software <span class="keyword">is</span> a library <span class="keyword">for</span> drafting programs.</span><br><span class="line">You are the best <span class="keyword">is</span> mean you are the no. <span class="number">1</span>!</span><br><span class="line">The world &lt;Happy&gt; <span class="keyword">is</span> the same <span class="keyword">with</span> <span class="string">"glad"</span>!</span><br><span class="line">I <span class="keyword">like</span> dog!</span><br><span class="line">google <span class="keyword">is</span> the best tools <span class="keyword">for</span> search keyword!</span><br><span class="line">goooooogle yes!</span><br><span class="line">go! go! <span class="keyword">Let</span><span class="comment">'s go!</span></span><br><span class="line"><span class="meta"># I am VBird</span></span><br></pre></td></tr></table></figure></p>
+<p><b><span style="color: red">范例七：</span></b>利用sed直接在<code>regular_express.txt</code>最后一行加入<code># This is a test</code><br><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sed -i '$a <span class="comment"># This is a test' regular_express.txt</span></span><br><span class="line">nl regular_express.txt| sed -n '20,25p'</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">   <span class="number"> 20 </span> go! go! Let's go!</span><br><span class="line">   <span class="number"> 21 </span> <span class="comment"># I am VBird</span></span><br><span class="line">       </span><br><span class="line">   <span class="number"> 22 </span> <span class="comment"># This is a test</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> sed 的“ -i ”选项可以直接修改文件内容,这功能非常有帮助!举例来说,如果你有一个 100 万<br>行的文件,你要在第 100 行加某些文字,此时使用 vim 可能会疯掉!因为文件太大了!那怎<br>办?就利用 sed 啊!通过 sed 直接修改/取代的功能,你甚至不需要使用 vim 去修订!很棒<br>吧!</p>
+</blockquote>
+<h3 id="3-3、-扩展正则表达式"><a href="#3-3、-扩展正则表达式" class="headerlink" title="3.3、 扩展正则表达式"></a>3.3、 扩展正则表达式</h3><p>事实上,一般读者只要了解基础型的正则表达式大概就已经相当足够了,不过,某些时刻为<br>了要简化整个指令操作, 了解一下使用范围更广的延伸型正则表达式的表示式会更方便呢!<br>举个简单的例子好了,在上节的例题三的最后一个例子中,我们要去除空白行与行首为 # 的<br>行列,使用的是</p>
+<pre><code>grep -v &apos;^$&apos; regular_express.txt | grep -v &apos;^#&apos;
+</code></pre><p>需要使用到管线命令来搜寻两次！那么如果使用延伸型的正则表达式，我们可以简化为：</p>
+<pre><code>egrep -v &apos;^$|^#&apos; regular_express.txt
+</code></pre><blockquote>
+<p> 延伸型正则表达式可以通过群组功能“ | ”来进行一次搜寻!那个在单引号内的管线意义为“或<br>or”啦! 是否变的更简单呢?此外,grep 默认仅支持基础正则表达式,如果要使用延伸型正则<br>表达式,你可以使用 grep -E , 不过更建议直接使用 egrep !直接区分指令比较好记忆!其<br>实 egrep 与 grep -E 是类似命令别名的关系。</p>
+</blockquote>
+<p>熟悉了正则表达式之后,到这个延伸型的正则表达式,你应该也会想到,不就是多几个重要<br>的特殊符号吗?  是的~所以,我们就直接来说明一下,延伸型正则表达式的特殊符如下表所示：</p>
+<p><img src="https://wx2.sinaimg.cn/mw1024/e0db46edgy1fq7wpghpsdj20ue0jdjxc.jpg" align="center"></p>
+<p><strong>例子测试结果如下图所示：</strong></p>
+<p><img src="https://wx2.sinaimg.cn/mw1024/e0db46edgy1fq7wx5abqmj20mz0aljti.jpg" align="center"></p>
+<blockquote>
+<p> <code>!</code>不是特殊字符，如果想要查出来文件中含有！与&gt;的字行时，可以这样操作：<br>     grep -n ‘[!&gt;]’ regular_express.txt</p>
+</blockquote>
+<h3 id="3-4、-文件的格式化与相关处理"><a href="#3-4、-文件的格式化与相关处理" class="headerlink" title="3.4、 文件的格式化与相关处理"></a>3.4、 文件的格式化与相关处理</h3><p>接下来让我们来将文件进行一些简单的编排吧!下面这些动作可以将你的讯息进行排版的动<br>作, 不需要重新以 vim 去编辑,通过数据流重导向配合下面介绍的 printf 功能,以及 awk 指<br>令, 就可以让你的讯息以你想要的模样来输出了!试看看吧!</p>
+<h4 id="3-4-1、-格式化打印：printf"><a href="#3-4-1、-格式化打印：printf" class="headerlink" title="3.4.1、 格式化打印：printf"></a>3.4.1、 格式化打印：printf</h4><p><img src="https://wx1.sinaimg.cn/mw690/e0db46edgy1fq7x8zjkhij20j908c75p.jpg" align="center"></p>
+<h4 id="3-4-2、-awk：好用的数据处理工具"><a href="#3-4-2、-awk：好用的数据处理工具" class="headerlink" title="3.4.2、 awk：好用的数据处理工具"></a>3.4.2、 <code>awk</code>：好用的数据处理工具</h4><p>awk 也是一个非常棒的数据处理工具!相较于 sed 常常作用于一整个行的处理, awk 则比较<br>倾向于一行当中分成数个“字段”来处理。因此,awk 相当的适合处理小型的数据数据处理!<code>awk</code> 通常运行的模式是这样的:</p>
+<pre><code>awk &apos;条件类型1{动作1} 条件类型2{动作2} .... &apos; filename
+</code></pre><p>awk 后面接两个单引号并加上大括号 {} 来设置想要对数据进行的处理动作。 awk 可以处理后<br>续接的文件,也可以读取来自前个指令的 standard output 。 但如前面说的, awk 主要是处<br>理“每一行的字段内的数据”,而默认的“字段的分隔符号为 “空白键” 或 “[tab]键” ”!举例来说,<br>我们用 last 可以将登陆者的数据取出来,结果如下所示:（下面命令是在我购买的远程主机上进行的）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">last -n 5</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">root     pts/1        58.60.1.102      Tue Apr 10 22:29   still logged <span class="keyword">in</span>   </span><br><span class="line">root     pts/0        58.60.1.76       Tue Apr 10 22:21   still logged <span class="keyword">in</span>   </span><br><span class="line">root     pts/0        58.60.1.76       Sun Apr  8 20:58 - 21:36  (00:37)    </span><br><span class="line">root     pts/0        58.60.1.76       Fri Mar 23 08:19 - 08:19  (00:00)    </span><br><span class="line">reboot  <span class="built_in"> system </span>boot  4.13.9-1.el6.elr Tue Jan 23 22:26 - 22:30 (76+23:03)</span><br></pre></td></tr></table></figure>
+<p>若我想取出帐号与登录者的IP，且帐号与IP之间一<code>[Tab]</code>隔开，可以进行如下操作：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">last -n <span class="number">5</span> | awk '&#123;print $<span class="number">1</span> <span class="string">"<span class="subst">\t</span>"</span> $<span class="number">3</span>&#125;'</span><br><span class="line"># output</span><br><span class="line">root    <span class="number">58.60</span><span class="number">.1</span><span class="number">.102</span></span><br><span class="line">root    <span class="number">58.60</span><span class="number">.1</span><span class="number">.76</span></span><br><span class="line">root    <span class="number">58.60</span><span class="number">.1</span><span class="number">.76</span></span><br><span class="line">root    <span class="number">58.60</span><span class="number">.1</span><span class="number">.76</span></span><br><span class="line">reboot  boot</span><br></pre></td></tr></table></figure></p>
+<p>上表是 awk 最常使用的动作!通过 print 的功能将字段数据列出来!字段的分隔则以空白键或<br>[tab] 按键来隔开。 因为不论哪一行我都要处理,因此,就不需要有 “条件类型” 的限制!我所<br>想要的是第一栏以及第三栏, 但是,第五行的内容怪怪的~这是因为数据格式的问题啊!所以~使用 awk 的时候,请先确认一下你的数据当中,如果是连续性的数据,请不要有空格或 [tab]在内,否则,就会像这个例子这样,会发生误判!</p>
+<p>另外,由上面这个例子你也会知道,在awk的括号内,每一行的每个字段都是有变量名称<br>的,那就是 $1, $2… 等变量名称。以上面的例子来说, <code>root</code>是$1,因为他是第一栏!<br>至于<code>58.60.1.102</code>是第三栏, 所以他就是<code>$3</code>!后面以此类推~呵呵!还有个变量!那<br>就是 $0 ,$0 代表“一整列数据”的意思~以上面的例子来说,第一行的 $0 代表的就是一整行数据的意思。 由此可知,刚刚上面五行当中,整个 awk 的处理流程是:<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">step1：读入第一行，并将第一行的数据填入 $<span class="number">0</span>, $<span class="number">1</span>, $<span class="number">2.</span>... 等变量当中;</span><br><span class="line">step2：依据”条件类型“的限制，判断是否需要进行后面的”动作“;</span><br><span class="line">step3：做完所有的动作与条件类型</span><br><span class="line">step4：若还有后续的‘行’的数据，则重复上面<span class="number">1</span><span class="number">-3</span>的步骤，知道所有的数据都读完为止。</span><br></pre></td></tr></table></figure></p>
+<p>经过这样的步骤,你会晓得, awk 是“以行为一次处理的单位”, 而“以字段为最小的处理单<br>位”。好了,那么 awk 怎么知道我到底这个数据有几行?有几栏呢?这就需要 awk 的内置变<br>量的帮忙啦~</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量名称</th>
+<th style="text-align:center">代表意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">NF</td>
+<td style="text-align:center">每一行($0)拥有的字段总数</td>
+</tr>
+<tr>
+<td style="text-align:left">NR</td>
+<td style="text-align:center">目前awk所处理的是“第几行”数据</td>
+</tr>
+<tr>
+<td style="text-align:left">FS</td>
+<td style="text-align:center">目前的分隔字符，默认是空白键</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p> 继续上面的例子，如果我想实现以下效果：<br><br>   &emsp;列出每一行的帐号(就是 $1);<br><br>   &emsp;列出目前处理的行数(就是 awk 内的 NR 变量)<br><br>   &emsp;并且说明,该行有多少字段(就是 awk 内的 NF 变量)</p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">last</span> -n <span class="number">5</span> | awk <span class="string">'&#123;print $1 "\t lines: " NR "\t columns: " NF&#125;'</span></span><br><span class="line"># output</span><br><span class="line">root     <span class="built_in">line</span><span class="variable">s:</span> <span class="number">1</span>    column<span class="variable">s:</span> <span class="number">10</span></span><br><span class="line">root     <span class="built_in">line</span><span class="variable">s:</span> <span class="number">2</span>    column<span class="variable">s:</span> <span class="number">10</span></span><br><span class="line">root     <span class="built_in">line</span><span class="variable">s:</span> <span class="number">3</span>    column<span class="variable">s:</span> <span class="number">10</span></span><br><span class="line">root     <span class="built_in">line</span><span class="variable">s:</span> <span class="number">4</span>    column<span class="variable">s:</span> <span class="number">10</span></span><br><span class="line">reboot   <span class="built_in">line</span><span class="variable">s:</span> <span class="number">5</span>    column<span class="variable">s:</span> <span class="number">11</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>awk</code>的逻辑运算字符</li>
+</ul>
+<p>既然有需要用到“条件”的类别，自然就需要一些逻辑运算咯～例如下面这些，如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算单元</th>
+<th style="text-align:center">代表意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:center">大于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;</td>
+<td style="text-align:center">小于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;=</td>
+<td style="text-align:center">大于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;=</td>
+<td style="text-align:center">小于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">==</td>
+<td style="text-align:center">等于</td>
+</tr>
+<tr>
+<td style="text-align:center">!=</td>
+<td style="text-align:center">不等于</td>
+</tr>
+</tbody>
+</table>
+<p>好了,我们实际来运用一下逻辑判断吧!举例来说,在 <code>pd.txt</code> 当中是以冒号 “:” 来作为<br>字段的分隔, 该文件中第一字段为帐号,第三字段则是 UID。那假设我要查阅,第三栏小于<br>10 以下的数据,并且仅列出帐号与第三栏, 那么可以这样做:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat pd.txt  | \</span><br><span class="line">&gt; awk <span class="string">'&#123;FS=":"&#125; $3 &lt; 10 &#123;print $1 "\t" $3&#125;'</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span> </span><br><span class="line">daemon  <span class="number">1</span></span><br><span class="line">bin <span class="number">2</span></span><br><span class="line">sys <span class="number">3</span></span><br><span class="line">sync    <span class="number">4</span></span><br><span class="line">games   <span class="number">5</span></span><br><span class="line">man <span class="number">6</span></span><br><span class="line">lp  <span class="number">7</span></span><br><span class="line">mail    <span class="number">8</span></span><br><span class="line">news    <span class="number">9</span></span><br></pre></td></tr></table></figure></p>
+<p>有趣吧!不过,怎么第一行没有正确的显示出来呢?这是因为我们读入第一行的时候,那些<br>变量 $1, $2… 默认还是以空白键为分隔的,所以虽然我们定义了 FS=”:” 了, 但是却仅能在第<br>二行后才开始生效。那么怎么办呢?我们可以预先设置 awk 的变量啊! 利用 BEGIN 这个关<br>键字喔!这样做:<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat pd.txt | \</span><br><span class="line">&gt; awk 'BEGIN &#123;FS=<span class="string">":"</span>&#125; $<span class="number">3</span> &lt; <span class="number">10</span> &#123;print $<span class="number">1</span> <span class="string">"<span class="subst">\t</span>"</span> $<span class="number">3</span>&#125;'</span><br><span class="line"># output</span><br><span class="line">root    <span class="number">0</span></span><br><span class="line">daemon  <span class="number">1</span></span><br><span class="line">bin     <span class="number">2</span></span><br><span class="line">sys     <span class="number">3</span></span><br><span class="line">sync    <span class="number">4</span></span><br><span class="line">games   <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p>我有一个薪资数据表文件名为<code>pay.txt</code>，内容是这样的：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name    <span class="number">1</span>st     <span class="number">2</span>nd     <span class="number">3</span>th</span><br><span class="line">Vd      <span class="number">23000</span>   <span class="number">24000</span>   <span class="number">25000</span></span><br><span class="line">Di      <span class="number">21000</span>   <span class="number">20000</span>   <span class="number">23000</span></span><br><span class="line">Bd      <span class="number">43000</span>   <span class="number">42000</span>   <span class="number">41000</span></span><br></pre></td></tr></table></figure></p>
+<p>如果我想计算每个人的总额呢？而且我还想要格式化输出，我们可以这样考虑：</p>
+<blockquote>
+<p> 第一行只是说明，所以第一行不要进行加总（NR==1时处理）<br><br> 第二行以后就会有加总的情况出现（NR &gt;=2 以后处理 ）</p>
+</blockquote>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat pay.txt | \</span><br><span class="line">&gt; awk 'NR == <span class="number">1</span> &#123;printf <span class="string">"%10s %10s %10s %10s %10s<span class="subst">\n</span>"</span>,$<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>,$<span class="number">4</span>,<span class="string">"Total"</span>&#125;</span><br><span class="line">&gt; NR &gt;= <span class="number">2</span> &#123;Total = $<span class="number">2</span>+$<span class="number">3</span>+$<span class="number">4</span></span><br><span class="line">&gt; printf <span class="string">"%10s %10s %10s %10s %10.2f<span class="subst">\n</span>"</span>,$<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>,$<span class="number">4</span>,Total&#125;'</span><br><span class="line"># output</span><br><span class="line">      Name        <span class="number">1</span>st        <span class="number">2</span>nd        <span class="number">3</span>th      Total</span><br><span class="line">        Vd      <span class="number">23000</span>      <span class="number">24000</span>      <span class="number">25000</span>   <span class="number">72000.00</span></span><br><span class="line">        Di      <span class="number">21000</span>      <span class="number">20000</span>      <span class="number">23000</span>   <span class="number">64000.00</span></span><br><span class="line">        Bd      <span class="number">43000</span>      <span class="number">42000</span>      <span class="number">41000</span>  <span class="number">126000.00</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子有几个重要事项应该先说明的：</p>
+<ul>
+<li><code>awk</code>的指令间隔:所有awk的动作,亦即在{}内的动作,如果有需要多个指令辅助时,可利用分号“;”间隔, 或者直接以 [Enter] 按键来隔开每个指令,例如上面的范例中我就使用了三次 [enter] 喔!</li>
+<li>逻辑运算当中，如果是<strong>等于</strong>的情况，则务必使用两个等号“==”！</li>
+<li>格式化输出时，在printf的格式设置当中，务必加上<code>\n</code>，才能进行分行</li>
+<li>与bash shell的变量不同，在<code>awk</code>当中，变量可以直接使用，不需加上<code>$</code>符号</li>
+</ul>
+<p>利用 awk 这个玩意儿,就可以帮我们处理很多日常工作了呢!真是好用的很~ 此外, awk<br>的输出格式当中,常常会以 printf 来辅助,所以, 最好你对 printf 也稍微熟悉一下比较好啦!<br>另外, awk 的动作内 {} 也是支持 if (条件) 的喔! 举例来说,上面的指令可以修改成为这<br>样:<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat pay.txt | \</span><br><span class="line">&gt; awk '&#123;if (NR==<span class="number">1</span>) printf <span class="string">"%10s %10s %10s %10s %10s<span class="subst">\n</span>"</span>,$<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>,$<span class="number">4</span>,<span class="string">"Total"</span>&#125;</span><br><span class="line">&gt; NR &gt;= <span class="number">2</span> &#123;Total = $<span class="number">2</span>+$<span class="number">3</span>+$<span class="number">4</span></span><br><span class="line">&gt; printf <span class="string">"%10s %10s %10s %10s %10.2f<span class="subst">\n</span>"</span>,$<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>,$<span class="number">4</span>,Total&#125;'</span><br><span class="line"># output</span><br><span class="line">      Name        <span class="number">1</span>st        <span class="number">2</span>nd        <span class="number">3</span>th      Total</span><br><span class="line">        Vd      <span class="number">23000</span>      <span class="number">24000</span>      <span class="number">25000</span>   <span class="number">72000.00</span></span><br><span class="line">        Di      <span class="number">21000</span>      <span class="number">20000</span>      <span class="number">23000</span>   <span class="number">64000.00</span></span><br><span class="line">        Bd      <span class="number">43000</span>      <span class="number">42000</span>      <span class="number">41000</span>  <span class="number">126000.00</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-4-3、-文件比较工具"><a href="#3-4-3、-文件比较工具" class="headerlink" title="3.4.3、 文件比较工具"></a>3.4.3、 文件比较工具</h4><p>什么时候会用到文件的比对啊?通常是<strong>同一个软件的不同版本之间,比较配置文件与原始文件的差别</strong>。很多时候所谓的文件比对,通常是用在ASCII纯文本文件的比对上的!那么比对文件的指令有哪些?最常见的就是diff啰!另外,除了diff比对之外,我们还可以借由cmp来比对非纯文本文件!同时,也能够借由 diff 创建的分析档,以处理补丁(patch)功能的文件呢!就来玩玩先!</p>
+<ul>
+<li><b style="color: red">diff</b></li>
+</ul>
+<p><code>diff</code>就是用在比对两个文件之间的差异的,并且是<strong>以行为单位来比对的</strong>!一般是用在ASCII纯文本文件的比对上。由于是以行为比对的单位,因此<strong><code>diff</code>通常是用在同一的文件(或软件)的新旧版本区别上</strong>! 举例来说,假如我们要将<code>/etc/passwd</code>处理成为一个新的版本<code>pd</code>,处理方式为:将第四行删除,第六行则取代成为“no six line”,新的文件放置到 <code>/shell_learning/test</code> 里面,那么应该怎么做?</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cd ~<span class="regexp">/Desktop/shell</span>_learning</span><br><span class="line">mkdir test</span><br><span class="line">cp /etc/passwd pd</span><br><span class="line">cat pd | sed -e <span class="string">'4d'</span> -e <span class="string">'6c no six line'</span> &gt; pd.new</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">cat -n pd.new | head -n <span class="number">6</span></span><br><span class="line">     <span class="number">1</span>  <span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line">     <span class="number">2</span>  <span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">1</span><span class="symbol">:</span><span class="number">1</span><span class="symbol">:daemon</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">     <span class="number">3</span>  <span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">2</span><span class="symbol">:</span><span class="number">2</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">     <span class="number">4</span>  <span class="symbol">sync:</span><span class="symbol">x:</span><span class="number">4</span><span class="symbol">:</span><span class="number">65534</span><span class="symbol">:sync</span><span class="symbol">:/bin</span><span class="symbol">:/bin/sync</span></span><br><span class="line">     <span class="number">5</span>  no six line</span><br><span class="line">     <span class="number">6</span>  <span class="symbol">man:</span><span class="symbol">x:</span><span class="number">6</span><span class="symbol">:</span><span class="number">12</span><span class="symbol">:man</span><span class="symbol">:/var/cache/man</span><span class="symbol">:/usr/sbin/nologin</span></span><br></pre></td></tr></table></figure>
+<p>接下来讨论一下关于<code>diff</code>的用法吧！<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">diff [-bBi] <span class="keyword">from</span>-<span class="built_in">file</span> <span class="keyword">to</span>-<span class="built_in">file</span></span><br><span class="line"><span class="comment"># paras：</span></span><br><span class="line">    <span class="keyword">from</span>-<span class="built_in">file</span> : 一个文件名,作为原始比对文件的文件名;</span><br><span class="line">    <span class="keyword">to</span>-<span class="built_in">file</span> : 一个文件名,作为目的比对文件的文件名;</span><br><span class="line">    注意,<span class="keyword">from</span>-<span class="built_in">file</span> 或 <span class="keyword">to</span>-<span class="built_in">file</span> 可以 - 取代,那个 - 代表“Standard input”之意。</span><br><span class="line">    -b  :忽略一行当中,仅有多个空白的差异(例如 <span class="string">"about me"</span> 与 <span class="string">"about       me"</span> 视为相同</span><br><span class="line">    -B  :忽略空白行的差异。</span><br><span class="line">    -i  :忽略大小写的不同。</span><br></pre></td></tr></table></figure></p>
+<p><span style="color:red"><b>范例一:</b></span>比对<code>pd</code>与<code>pd.new</code>的差异<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">diff pd pd.new </span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="number">4</span>d3      &lt;==左边第四行被删除(d)了,基准是右边第三行</span><br><span class="line">&lt; <span class="symbol">sys:</span><span class="symbol">x:</span><span class="number">3</span><span class="symbol">:</span><span class="number">3</span><span class="symbol">:sys</span><span class="symbol">:/dev</span><span class="symbol">:/usr/sbin/nologin</span>   &lt;===这边列出左边(&lt;)文件被删除的那一行内容</span><br><span class="line"><span class="number">6</span>c5      &lt;==左边文件的第六行被替换(c)成右边文件的第五行</span><br><span class="line">&lt; <span class="symbol">games:</span><span class="symbol">x:</span><span class="number">5</span><span class="symbol">:</span><span class="number">60</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/usr/sbin/nologin</span>   &lt;===左边(&lt;)文件的第六行内容</span><br><span class="line">---</span><br><span class="line">&gt; no six line     &lt;==右边(&gt;)文件第五行内容</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 很聪明吧！用<code>diff</code>把我们刚刚的处理给比对完毕了！<br><br> <code>diff</code>也可以比较整个目录下的区别<br><br> <code>diff</code>还可以比较不同目录下的相同文件名的内容</p>
+</blockquote>
+<ul>
+<li><b style="color: red">cmp</b></li>
+</ul>
+<p>相对于<code>diff</code>的广泛用途,<code>cmp</code>似乎就用的没有这么多了~<code>cmp</code>主要也是在比对两个文件,他<br>主要利用“字节”单位去比对, 因此,当然也可以比对<code>binary file</code>啰~(还是要再提醒喔,<code>diff</code>主要是以“行”为单位比对,<code>cmp</code>则是以“字节”为单位去比对,这并不相同!)<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cmp [-l] file1 file2</span><br><span class="line"><span class="meta"># paras:</span></span><br><span class="line">    -l :将所有的不同点的字节处都列出来。因为 cmp 默认仅会输出第一个发现的不同点。</span><br><span class="line"><span class="meta"># examples:</span></span><br><span class="line">    cmp pd pd.<span class="keyword">new</span> </span><br><span class="line">    <span class="meta"># output</span></span><br><span class="line">    pd pd.<span class="keyword">new</span> differ: <span class="keyword">byte</span> <span class="number">120</span>, <span class="built_in">line</span> <span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><b style="color: red">patch</b></li>
+</ul>
+<p>patch 这个指令与 diff 可是有密不可分的关系啊!我们前面提到,diff 可以用来分辨两个版本<br>之间的差异, 举例来说,刚刚我们所创建的<code>pd</code>及<code>pd.new</code>之间就是两个不同版本的文件。那么,如果要“升级”呢?就是“将旧的文件升级成为新的文件”时,应该要怎么做呢?其实也不难啦!就是“先比较先旧版本的差异,并将差异档制作成为补丁文件,再由补丁文件更新旧文件”即可。举例来说,我们可以这样做测试:</p>
+<p><b style="color: red">范例一：</b>以<code>pd</code>与<code>pd.new</code>制作补丁文件<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">diff -Naur pd pd.new  &gt; pd.patch</span><br><span class="line">cat pd.patch</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">--- pd  <span class="number">2018</span>-<span class="number">04</span>-<span class="number">11</span> <span class="number">13</span><span class="symbol">:</span><span class="number">03</span><span class="symbol">:</span><span class="number">58.165695684</span> +080<span class="number">0</span>  &lt;== 新旧文件的信息</span><br><span class="line">+++ pd.new  <span class="number">2018</span>-<span class="number">04</span>-<span class="number">11</span> <span class="number">13</span><span class="symbol">:</span>08<span class="symbol">:</span><span class="number">07</span>.<span class="number">710232163</span> +080<span class="number">0</span></span><br><span class="line">@@ -<span class="number">1</span>,<span class="number">9</span> +<span class="number">1</span>,<span class="number">8</span> @@           &lt;== 新旧文件要修改数据的界定范围，旧文件<span class="number">1</span>-<span class="number">9</span>行，新文件<span class="number">1</span>-<span class="number">8</span>行</span><br><span class="line"> <span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line"> <span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">1</span><span class="symbol">:</span><span class="number">1</span><span class="symbol">:daemon</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line"> <span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">2</span><span class="symbol">:</span><span class="number">2</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">-<span class="symbol">sys:</span><span class="symbol">x:</span><span class="number">3</span><span class="symbol">:</span><span class="number">3</span><span class="symbol">:sys</span><span class="symbol">:/dev</span><span class="symbol">:/usr/sbin/nologin</span>   &lt;== 左侧文件被删除</span><br><span class="line"> <span class="symbol">sync:</span><span class="symbol">x:</span><span class="number">4</span><span class="symbol">:</span><span class="number">65534</span><span class="symbol">:sync</span><span class="symbol">:/bin</span><span class="symbol">:/bin/sync</span>     &lt;== 左侧文件被删除</span><br><span class="line">-<span class="symbol">games:</span><span class="symbol">x:</span><span class="number">5</span><span class="symbol">:</span><span class="number">60</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">+no six line                            &lt;== 右侧新文件加入</span><br><span class="line"> <span class="symbol">man:</span><span class="symbol">x:</span><span class="number">6</span><span class="symbol">:</span><span class="number">12</span><span class="symbol">:man</span><span class="symbol">:/var/cache/man</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line"> <span class="symbol">lp:</span><span class="symbol">x:</span><span class="number">7</span><span class="symbol">:</span><span class="number">7</span><span class="symbol">:lp</span><span class="symbol">:/var/spool/lpd</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line"> <span class="symbol">mail:</span><span class="symbol">x:</span><span class="number">8</span><span class="symbol">:</span><span class="number">8</span><span class="symbol">:mail</span><span class="symbol">:/var/mail</span><span class="symbol">:/usr/sbin/nologin</span></span><br></pre></td></tr></table></figure></p>
+<p>一般来说,使用<code>diff</code>制作出来的比较文件通常使用扩展名为<code>.patch</code>啰。至于内容就如同上面介绍的样子。基本上就是以行为单位,看看哪边有一样与不一样的,找到一样的地方,然后将不一样的地方取代掉! 以上面表格为例,新文件看到-会删除,看到+会加入!好了,那么如何将<strong>旧的文件更新成为新的内容</strong>呢? 就是将<code>pd</code>改成与<code>pd.new</code>相同!可以这样做:<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">patch</span> -pN &lt; <span class="keyword">patch</span>_file &lt;==更新</span><br><span class="line"><span class="keyword">patch</span> -R -pN &lt; <span class="keyword">patch</span>_file &lt;==还原</span><br><span class="line"><span class="comment"># paras:</span></span><br><span class="line">-p :后面可以接“取消几层目录”的意思。</span><br><span class="line">-R :代表还原,将新的文件还原成原来旧的版本。</span><br></pre></td></tr></table></figure></p>
+<p><b style="color: red">范例二：</b>将刚才制作出来的<code>patch file</code>用来更新旧版数据<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">patch -p<span class="number">0</span> &lt; pd.patch</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">patching file pd</span><br><span class="line"></span><br><span class="line">heany<span class="variable">@heany</span><span class="symbol">:~/Desktop/shell-learning</span><span class="variable">$ </span>ll pd*</span><br><span class="line">-rw-r--r-- <span class="number">1</span> heany heany <span class="number">2253</span> <span class="number">4</span>月  <span class="number">11</span> <span class="number">13</span><span class="symbol">:</span><span class="number">43</span> pd</span><br><span class="line">-rw-r--r-- <span class="number">1</span> heany heany <span class="number">2253</span> <span class="number">4</span>月  <span class="number">11</span> <span class="number">13</span><span class="symbol">:</span>08 pd.new</span><br><span class="line"></span><br><span class="line"><span class="comment">## 两个文件大小一模一样</span></span><br></pre></td></tr></table></figure></p>
+<p><b style="color: red">范例三：</b>将刚才制作出来的<code>patch file</code>恢复旧文件的内容<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">patch -R -p<span class="number">0</span> &lt; pd.patch</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">patching file pd</span><br><span class="line"></span><br><span class="line">heany<span class="variable">@heany</span><span class="symbol">:~/Desktop/shell-learning</span><span class="variable">$ </span>ll pd*</span><br><span class="line">-rw-r--r-- <span class="number">1</span> heany heany <span class="number">2326</span> <span class="number">4</span>月  <span class="number">11</span> <span class="number">13</span><span class="symbol">:</span><span class="number">47</span> pd</span><br><span class="line">-rw-r--r-- <span class="number">1</span> heany heany <span class="number">2253</span> <span class="number">4</span>月  <span class="number">11</span> <span class="number">13</span><span class="symbol">:</span>08 pd.new</span><br><span class="line"></span><br><span class="line"><span class="comment">## 文件恢复成旧的版本了</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 为什么这里会使用<code>-p0</code>呢?因为我们在比对新旧版的数据时是在同一个目录下,因此不需要减去目录啦!如果是使用整体目录比对(diff旧目录 新目录)时, 就得要依据创建<code>patch</code>文件件所在目录来进行目录的删减啰!</p>
+</blockquote>
+<h4 id="3-4-4、-文件打印准备：pr"><a href="#3-4-4、-文件打印准备：pr" class="headerlink" title="3.4.4、 文件打印准备：pr"></a>3.4.4、 文件打印准备：<code>pr</code></h4><p>如果你曾经使用过一些图形接口的文书处理软件的话,那么很容易发现,当我们在打印的时<br>候, 可以同时选择与设置每一页打印时的标头吧!也可以设置页码呢!那么,如果我是在<br>Linux 下面打印纯文本文件呢 可不可以具有标题啊?可不可以加入页码啊?呵呵!当然可以<br>啊!使用 pr 就能够达到这个功能了。不过, pr 的参数实在太多了,说不完,一般来<br>说,仅使用最简单的方式来处理就行。举例来说,如果想要打印<code>pd</code>呢?<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">heany<span class="variable">@heany</span><span class="symbol">:~/Desktop/shell-learning</span><span class="variable">$ </span>pr pd</span><br><span class="line"></span><br><span class="line"><span class="number">2018</span>-<span class="number">04</span>-<span class="number">11</span> <span class="number">13</span><span class="symbol">:</span><span class="number">47</span>                        pd                        Page <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line"><span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">1</span><span class="symbol">:</span><span class="number">1</span><span class="symbol">:daemon</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line"><span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">2</span><span class="symbol">:</span><span class="number">2</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/usr/sbin/nologin</span></span><br><span class="line">....................下面省略..........</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、-学习Shell-Scripts"><a href="#四、-学习Shell-Scripts" class="headerlink" title="四、 学习Shell Scripts"></a>四、 学习<b style="color: red">Shell Scripts</b></h2><h3 id="4-1、什么是shell-script"><a href="#4-1、什么是shell-script" class="headerlink" title="4.1、什么是shell script"></a>4.1、什么是shell script</h3><p><code>shell script</code>可以简单的被看成是批处理文件,也可以被说成是一个程序语言,且这个程序语言由于都是利用<code>shell</code>与相关工具指令, 所以不需要编译即可执行,且拥有不错的除错(debug)工具,所以,他可以帮助系统管理员快速的管理好主机。</p>
+<p><code>shell script</code>其实就是纯文本文件,我们可以编辑这个文件,然后让这个文件来帮我们一次执行多个指令,或者是利用一些运算与逻辑判断来帮我们达成某些功能。所以啦,要编辑这个文件的内容时,当然就需要具备有 bash 指令下达的相关认识。下达指令需要注意的事项在第四章的开始下达指令小节内已经提过,有疑问请自行回去翻阅。 在<code>shell script</code>的撰写中还需要用到下面的注意事项:</p>
+<pre><code>1. 指令的执行是从上而下、从左到右的分析与执行;
+2. 指令的下达：指令、选项与参数间的多个空白都会被忽略掉;
+3. 空白行也将被忽略掉,并且 [tab] 按键所得的空白同样视为空格键;
+4. 如果读取到一个Enter符号（CR），就尝试开始执行该行（该串）命令;
+5. 至于如果一行的内容太多，则可以使用&quot;[Enter]&quot;来延伸至下一行;
+6. “ # ”可做为注解!任何加在 # 后面的数据将全部被视为注解文字而被忽略!
+</code></pre><p>如此一来,我们在<code>script</code>内所撰写的程序,就会被一行一行的执行。现在我们假设你写的这个程序文件名是<code>/home/heany/Desktop/shell-learning/shell.sh</code>好了,那如何执行这个文件?很简单,可以有下面几个方法:</p>
+<ul>
+<li><p>直接下达指令：<code>shell.sh</code>文件必须要具备可读与可执行（rx）的权限，然后：</p>
+<p>  绝对路径：使用<code>/home/heany/Desktop/shell-learning/shell.sh</code>来下达指令;<br><br>  相对路径：假设工作目录在<code>/home/heany/Desktop/shell-learning</code>，则使用<code>./shell.sh</code>来执行;<br><br>  变量<code>PATH</code>功能：将<code>shell.sh</code>放在PATH指定的目录内，例如：<code>~/bin/</code></p>
+</li>
+<li><p>以<code>bash</code>程序来执行：通过”bash shell.sh”或<code>sh shell.sh</code>来执行。</p>
+</li>
+<li>编写第一个<code>script</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Program:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    This program shows <span class="string">"Hello World!"</span> <span class="keyword">in</span> your screen.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> History:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2018/04/11  VBird   First release</span></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin</span><br><span class="line">export PATH</span><br><span class="line">echo -e "Hello World! \a \n"</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>程序说明如下：</p>
+<ul>
+<li><strong>第一行<code>#!/bin/bash</code>在宣告这个script使用的shell名称</strong>: 因为我们使用的是bash ,所以,必须要以<code>#!/bin/bash</code>来宣告这个文件内的语法使用bash语法!那么当这个程序被执行时,他就能够载入<code>bash</code>的相关环境配置文件 (一般来说就是<code>non-login shell</code>的 ~/.bashrc), 并且执行<code>bash</code>来使我们下面的指令能够执行!这很重要的!(在很多状况中,如果没有设置好这一行,那么该程序很可能会无法执行,因为系统可能无法判断该程序需要使用什么 shell 来执行啊!)</li>
+<li><strong>程序内容的说明</strong>: 整个 script 当中,除了第一行的<code>#!</code>是用来宣告shell的之外,其他的<code>#</code>都是“注解”用途! 所以上面的程序当中,第二行以下就是用来说明整个程序的基本数据。一般来说, 建议你一定要养成说明该 script 的:1. 内容与功能; 2. 版本信息; 3.作者与联络方式; 4. 创建日期;5. 历史纪录 等等。这将有助于未来程序的改写与 debug呢!</li>
+<li><strong>主要环境变量的声明</strong>: 建议务必要将一些重要的环境变量设置好,个人认为,<code>PATH</code>与<code>LANG</code> (如果有使用到输出相关的信息时) 是当中最重要的! 如此一来,则可让我们这支程序在进行时,可以直接下达一些外部指令,而不必写绝对路径呢!比较方便啦！</li>
+<li><strong>主要程序部分</strong>就将主要的程序写好即可！在这个例子当中，就是echo那一行。</li>
+<li><p><strong>告知执行结果</strong>：一个命令的执行成功与否，可以使用<code>$?</code>这个变量来观察～那么我们也可以利用<code>exit</code>这个指令来让程序中断，并且回传一个数值给系统。在我们这个例子当中,我使用<code>exit 0</code>,这代表离开<code>script</code>并且回传一个<code>0</code>给系统, 所以我执行完这个<code>script</code>后,若接着下达<code>echo $?</code> 则可得到<code>0</code>的值喔! 更聪明的读者应该也知道了!利用这个<code>exit n</code>(n 是数字) 的功能,我<br>们还可以自订错误讯息, 让这支程序变得更加的<code>smart</code>呢!</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x hello.sh</span><br><span class="line"><span class="string">./hello.sh</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><b style="color: red;font-size: 24px">编写<code>shell script</code>的良好习惯</b></p>
+</li>
+</ul>
+<p>一个良好习惯的养成是很重要的~大家在刚开始撰写程序的时候,最容易忽略这部分, 认为<br>程序写出来就好了,其他的不重要。其实,如果程序的说明能够更清楚,那么对你自己是有<br>很大的帮助的。<b style="color: red">要学会比较仔细的将程序的设计过程给它记录下来，而且记录一些历史记录</b>。在每个<code>script</code>的文件开始处记录好：</p>
+<pre><code>1. `script`的功能
+2. `script`的版本信息
+3. `script`的作者与联系方式
+4. `script`的版权声明方式
+5. `script`的`History`（历史记录）
+6. `script`内比较特殊的指令，使用“绝对路径”的方式下达
+7. `script`运行时需要的环境变量预先宣告与设置
+8. 在较为特殊程序代码部分，加上适当的注释说明
+</code></pre><blockquote>
+<p> 程序代码的编写最好使用嵌套方式，<strong>最好能以<code>[tab]</code>按键的空格缩排</strong>这样代码看起来非常漂亮与有条理。</p>
+</blockquote>
+<h3 id="4-2、-简单的shell练习"><a href="#4-2、-简单的shell练习" class="headerlink" title="4.2、 简单的shell练习"></a>4.2、 简单的<code>shell</code>练习</h3><h4 id="4-2-1、-简单范例"><a href="#4-2-1、-简单范例" class="headerlink" title="4.2.1、 简单范例"></a>4.2.1、 简单范例</h4><ul>
+<li>交互式脚本：变量内容由用户决定</li>
+</ul>
+<p>请你以<code>read</code>命令的用途,编写一个<code>script</code>,他可以让使用者输入first name与last name,最后并且在屏幕上显示:“Your full name is: ”的内容:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># showname.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># paragram:</span></span><br><span class="line"><span class="comment">#       User inputs his first name and last name. Program shows his full name.</span></span><br><span class="line"><span class="comment"># History</span></span><br><span class="line"><span class="comment"># 2018/04/11   heany  First release</span></span><br><span class="line">PATH=<span class="regexp">/bin:/sbin</span><span class="symbol">:/usr/bin</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/local/bin</span><span class="symbol">:/usr/local/sbin</span><span class="symbol">:~/bin</span></span><br><span class="line">export PATH</span><br><span class="line"><span class="comment"># 提示使用者输入</span></span><br><span class="line">read -p <span class="string">"Please input your first name: "</span> firstname</span><br><span class="line"><span class="comment"># 提示使用者输入</span></span><br><span class="line">read -p <span class="string">"Please input your last name: "</span> lastname</span><br><span class="line"><span class="comment"># 结果由屏幕输出</span></span><br><span class="line">echo -e <span class="string">"\nYour full name is: $&#123;firstname&#125; $&#123;lastname&#125;"</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">## 执行脚本</span></span><br><span class="line"> .  showname.sh</span><br><span class="line">Please input your first <span class="symbol">name:</span> heany</span><br><span class="line">Please input your last <span class="symbol">name:</span> boy</span><br><span class="line"></span><br><span class="line">Your full name <span class="symbol">is:</span> heany boy</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>随日期变化：利用<code>data</code>进行文件的创建</li>
+</ul>
+<p>想像一个状况,假设我的服务器内有数据库,数据库每天的数据都不太一样,因此当我备份时,希望将每天的数据都备份成不同的文件名,这样才能够让旧的数据也能够保存下来不被覆盖。哇!不同文件名呢!这真困扰啊?难道要我每天去修改<code>script</code>?</p>
+<p>不需要啊!考虑每天的“日期”并不相同,所以我可以将文件名取成类似:<code>backup.2015-07-16.data</code>, 不就可以每天一个不同文件名了吗?呵呵!确实如此。那个<code>2015-07-16</code>怎么来的?那就是重点啦!接下来出个相关的例子: 假设我想要创建三个空的文件 (通过 touch)文件名最开头由使用者输入决定,假设使用者输入<code>filename</code>好了,那今天的日期是<code>2015/07/16</code>, 我想要以前天、昨天、今天的日期来创建这些文件,亦即filename_20150714,filename_20150715, filename_20150716 ,该如何是好?<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># program:</span></span><br><span class="line"><span class="comment">#       Program creates three files, which named by user's input and date command.</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/11    heany   First release</span></span><br><span class="line">PATH=<span class="regexp">/bin:/sbin</span><span class="symbol">:/usr/bin</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/local/bin</span><span class="symbol">:/usr/local/sbin</span><span class="symbol">:~/bin</span></span><br><span class="line">export PATH</span><br><span class="line"><span class="comment"># 1. 让使用者输入文件名称,并取得 fileuser 这个变量;</span></span><br><span class="line">echo -e <span class="string">"I will use 'touch' command to create 3 files."</span> <span class="comment"># 纯粹显示信息</span></span><br><span class="line">read -p <span class="string">"Please input your filename: "</span> fileuser         <span class="comment"># 提示使用者输入</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 为了避免使用者随意按Enter,利用变量功能分析文件名是否有设置</span></span><br><span class="line">filename=<span class="variable">$&#123;</span><span class="symbol">fileuser:</span>-<span class="string">"filename"</span>&#125;                <span class="comment"># 开始判断有否配置文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 开始利用 date 指令来取得所需要的文件名了;</span></span><br><span class="line">date1=<span class="variable">$(</span>date --date=<span class="string">'2 days ago'</span> +%Y%m%d)       <span class="comment"># 前两天的日期</span></span><br><span class="line">date2=<span class="variable">$(</span>date --date=<span class="string">'1 days ago'</span> +%Y%m%d)       <span class="comment"># 前一天的日期</span></span><br><span class="line">date3=<span class="variable">$(</span>date +%Y%m%d)                           <span class="comment"># 今天的日期</span></span><br><span class="line">file1=<span class="variable">$&#123;</span>filename&#125;<span class="variable">$&#123;</span>date1&#125;                       <span class="comment"># 下面三行在配置文件名</span></span><br><span class="line">file2=<span class="variable">$&#123;</span>filename&#125;<span class="variable">$&#123;</span>date2&#125;</span><br><span class="line">file3=<span class="variable">$&#123;</span>filename&#125;<span class="variable">$&#123;</span>date3&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 在一串命令中如果还需要通过其他的命令提供的信息，可以使用反单引号`命令`或<code>$</code>(命令)。<code>filename=${fileuser:-&quot;filename&quot;}</code>，这条命令用来判断<code>fileuser</code>是否已经赋值，<code>:-</code>是一起的，<code>fileuser</code>如果有值的话，就用所拥有的值赋给<code>filename</code>变量，如果没有值的话，就把”filename”赋给<code>fileuser</code>，再赋给<code>filename</code>变量。</p>
+</blockquote>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">v</span>=$(uname -r)</span><br><span class="line">echo <span class="variable">$v</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">4.13.0-38-generic</span><br><span class="line"></span><br><span class="line"><span class="attribute">vv</span>=`uname -r`</span><br><span class="line">echo <span class="variable">$vv</span></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">4.13.0-38-generic</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数值运算：简单的加减乘除</li>
+</ul>
+<p>我们可以使用<code>declare</code>来定义变量的类型吧? 当变量定义成为整数后才能够进行加减运算啊!此外,我们也可以利用<strong><code>$((计算式))</code></strong>来进行数值运算的。可惜的是,<code>bash shell</code>里头默认仅支持到整数的数据而已。OK!那我们来玩玩看,如果我们要使用者输入两个变量, 然后将两个变量的内容相乘,最后输出相乘的结果,那可以怎么做?<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Program:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       User inputs 2 <span class="built_in">integer</span> numbers; program will cross thest two numbers.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> History:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2018/04/11    heany   First release</span></span><br><span class="line"></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin</span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">echo -e "You SHOULD input 2 numbers, I will multiplying them! \n"</span><br><span class="line">read -p "first number: " firstnu</span><br><span class="line">read -p "second number: " secnu</span><br><span class="line">total=$(($&#123;firstnu&#125;*$&#123;secnu&#125;))</span><br><span class="line">echo -e "\nThe result of $firstnu x $secnu is ==&gt; $total"</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 在数值计算上，我们还可以使用<strong><code>declare -i total=$fistnu*$secnu</code></strong>,不推荐使用这种方式，因为比较繁琐，不容易记。使用上面程序中的那种方式来计算数值。</p>
+</blockquote>
+<p>如果想要计算含有小数点的数据时，其实可以通过<code>bc</code>这个指令的协助，例如：</p>
+<pre><code>echo &quot;123.123*55.9&quot; | bc
+# output
+6882.575
+</code></pre><h3 id="4-3、-善用判断式"><a href="#4-3、-善用判断式" class="headerlink" title="4.3、 善用判断式"></a>4.3、 善用判断式</h3><p><code>$?</code>这个变量代表的是上一条命令执行的情况，若没问题则回传码为<code>0</code>,若存在问题，回传错误代码(非0), 此外,也通过<code>&amp;&amp;</code>及<code>||</code>来作为前一个指令执行回传值对于后一个指令是否要进行的依据。我们知道想要判断一个目录是否存在, 之前我们使用的是ls这个指令搭配数据流重导向,最后配合<code>$?</code>来决定后续的指令进行与否。但是否有更简单的方式可以来进行“条件判断”呢?有的~那就是<code>test</code>这个指令。</p>
+<h4 id="4-3-1、-利用test指令的测试功能"><a href="#4-3-1、-利用test指令的测试功能" class="headerlink" title="4.3.1、 利用test指令的测试功能"></a>4.3.1、 利用<code>test</code>指令的测试功能</h4><p>当我们要检测系统上面某些文件或者是相关的属性时，利用<code>test</code>这个指令来工作真是好用得炸了，举例来说，我要检查<code>/heany</code>是否存在时，使用：</p>
+<pre><code>test -e /heany
+</code></pre><p>执行结果不会显示任何信息，但最后我们可以通过<code>$?</code>或<code>&amp;&amp;及||</code>来展现整个结果！例如我们在将上面的例子改写成这样：</p>
+<pre><code>test -e /heany &amp;&amp; echo &quot;exist&quot; || echo &quot;No exist&quot;
+# output
+No exist  ==&gt; 结果显示不存在
+</code></pre><p>最终的结果可以告知我们是<code>exist</code>还是<code>Not exist</code>呢!那我知道<code>-e</code>是测试一个“东西”在不在,<br>如果还想要测试一下该文件名是啥玩意儿时,还有哪些标志可以来判断的呢?呵呵!有下面这些东西喔!</p>
+<ol>
+<li>关于某个文件名的”文件类型”判断，如<code>test -e filename</code>表示存在与否</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">测试的标志</th>
+<th style="text-align:center">代表意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-e</td>
+<td style="text-align:center">该文件名是否存在</td>
+</tr>
+<tr>
+<td style="text-align:center">-f</td>
+<td style="text-align:center">该文件名是否存在且问文件</td>
+</tr>
+<tr>
+<td style="text-align:center">-d</td>
+<td style="text-align:center">该文件名是否存在且为目录</td>
+</tr>
+<tr>
+<td style="text-align:center">-b</td>
+<td style="text-align:center">该文件名是否存在且为一个<code>block device</code>设备</td>
+</tr>
+<tr>
+<td style="text-align:center">-c</td>
+<td style="text-align:center">该文件名是否存在且为一个<code>character device</code>设备</td>
+</tr>
+<tr>
+<td style="text-align:center">-S</td>
+<td style="text-align:center">该文件名是否存在且为一个Socket文件</td>
+</tr>
+<tr>
+<td style="text-align:center">-p</td>
+<td style="text-align:center">该文件名是否存在且为一个FIFO（pipe）文件</td>
+</tr>
+<tr>
+<td style="text-align:center">-L</td>
+<td style="text-align:center">该文件名是否存在且为一个链接文件</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>关于文件的权限侦测，如<code>test -r filename</code>表示可读否（但root权限常有例外）</li>
+</ol>
+<p><img src="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq90rrorbrj20m607p0u0.jpg" align="center"></p>
+<ol start="3">
+<li>两个文件之间的比较，如：<code>test file1 -nt file2</code></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">测试的标志</th>
+<th style="text-align:center">代表意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-nt</td>
+<td style="text-align:center">(newer than)判断<code>file1</code>是否比<code>file2</code>新</td>
+</tr>
+<tr>
+<td style="text-align:center">-ot</td>
+<td style="text-align:center">(older than)判断<code>file1</code>是否比<code>file2</code>旧</td>
+</tr>
+<tr>
+<td style="text-align:center">-ef</td>
+<td style="text-align:center">判断 file1 与 file2 是否为同一文件,<br>可用在判断<code>hard link</code>的判定上。<br>主要意义在判定,两个文件是否均指向同一个<code>inode</code></td>
+</tr>
+</tbody>
+</table>
+<ol start="4">
+<li>关于两个整数之间的判定，例如：<code>test n1 -eq n2</code></li>
+</ol>
+<p><img src="https://wx4.sinaimg.cn/mw1024/e0db46edgy1fq90rrpaszj20mf06n74s.jpg" align="center"></p>
+<ol start="5">
+<li>判定字串的数据</li>
+</ol>
+<p><img src="https://wx3.sinaimg.cn/mw1024/e0db46edgy1fq90rrp8zij20mc050mxw.jpg" align="center"></p>
+<ol start="6">
+<li>多重条件判定，例如：<code>test -r filename -a -x filename</code></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">测试的标志</th>
+<th style="text-align:center">代表意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-a</td>
+<td style="text-align:center">两个条件同时成立！<br>例如 <code>test -r file -a -x file</code>,则file同时具有r与x权限时。才回传true</td>
+</tr>
+<tr>
+<td style="text-align:center">-o</td>
+<td style="text-align:center">(or)两状况任何一个成立!例如 test -r file -o -x file,则 file 具有 r 或 x 权限时,就可回传 true。</td>
+</tr>
+<tr>
+<td style="text-align:center">!</td>
+<td style="text-align:center">反相状态,如<code>test ! -x file</code>,当file不具有x时,回传<code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p>现在我们利用<code>test</code>来帮我们写几个简单的例子。首先，判断一下，让使用者输入一个文件名，我们判断：</p>
+<ol>
+<li>这个文件是否存在，若不存在则给予一个”Filename does not exist”的信息，并中断程序; </li>
+<li>若这个文件存在，则判断他是个文件或目录，结果输出“Filename is regular file”或”Filename is directory”</li>
+<li>判断一下，执行者的身份对这个文件或目录所拥有的权限，并输出权限数据！</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Program:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       User input a filename, program will check flowing:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       1. exist?  2. file/directory?  3. file permisions</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> History:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2018/04/11    heany   First release</span></span><br><span class="line"></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin</span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1. 让使用者输入文件名,并且判断使用者是否真的有输入字串?</span></span><br><span class="line">echo -e "Please input a filename, I will check the filename's type and permission. \n\n"</span><br><span class="line">read -p "Input a filename : " filename</span><br><span class="line">test -z $&#123;filename&#125; &amp;&amp; echo "You MUST input a filename." &amp;&amp; exit 0</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 判断文件是否存在?若不存在则显示信息并结束脚本</span></span><br><span class="line">test ! -e $&#123;filename&#125; &amp;&amp; echo "The filename '$&#123;filename&#125;' DO NOT exist" &amp;&amp; exit 0</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 开始判断文件类型与属性</span></span><br><span class="line">test -f $&#123;filename&#125; &amp;&amp; filetype="regulare file"</span><br><span class="line">test -d $&#123;filename&#125; &amp;&amp; filetype="directory"</span><br><span class="line">test -r $&#123;filename&#125; &amp;&amp; perm="readable"</span><br><span class="line">test -w $&#123;filename&#125; &amp;&amp; perm="$&#123;perm&#125; writable"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 4. 开始输出信息!</span></span><br><span class="line">echo "The filename: $&#123;filename&#125; is a $&#123;filetype&#125;"</span><br><span class="line">echo "And the permissions for you are : $&#123;perm&#125;"</span><br></pre></td></tr></table></figure>
+<h4 id="4-3-2、-利用判断符号"><a href="#4-3-2、-利用判断符号" class="headerlink" title="4.3.2、 利用判断符号[]"></a>4.3.2、 利用判断符号<code>[]</code></h4><p>除了我们很喜欢使用的<code>test</code>之外,其实,我们还可以利用判断符号<code>[ ]</code>(就是中括号啦)来进行数据的判断呢! 举例来说,如果我想要知道<code>${HOME}</code>这个变量是否为空的,可以这样做:</p>
+<pre><code>[ -z &quot;$HOME&quot;] ; echo $?
+</code></pre><blockquote>
+<p> 使用中括号必须要特别注意,因为中括号用在很多地方,包括万用字符与正则表达式等等,所以如果要在 bash 的语法当中使用中括号作为<code>shell</code>的判断式时,必须要注意<b style="color: red">中括号的两端需要有空白字符来分隔!</b> 假设我空白键使用“□”符号来表示,那么,在这些地方你都需要有空白键:</p>
+</blockquote>
+<pre><code>[ &quot;$HOME&quot; == &quot;$MAIL&quot;]
+[□&quot;$HOME&quot;□==□&quot;$MAIL&quot;□]
+</code></pre><p>可是差很多的喔!另外,<strong>中括号的使用方法与<code>test</code>几乎一模一样啊~ </strong>只是中括号比较常用在条件判断式<code>if ..... then ..... fi</code>的情况中就是了。好,那我们也使用中括号的判断来做一个小案例好了,案例设置如下:</p>
+<pre><code>1. 当执行一个程序的时候,这个程序会让使用者选择 Y 或 N ,
+2. 如果使用者输入Y或y时，就显示&quot;OK， continue&quot;
+3. 如果使用者输入 n 或 N 时,就显示“ Oh, interrupt !”
+4. 如果不是 Y/y/N/n 之内的其他字符,就显示“ I don&apos;t know what your choice is ”
+</code></pre><p>利用中括号、&amp;&amp;与||来继续吧！<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Program:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       This program shows the user<span class="string">'s choice.</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> History:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2018/04/11    heany   First release</span></span><br><span class="line"></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin</span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">read -p "Please input (Y/N): " yn</span><br><span class="line">[ "$&#123;yn&#125;" == "Y" -o "$&#123;yn&#125;" == "y" ] &amp;&amp; echo "OK, continue" &amp;&amp; exit 0</span><br><span class="line">[ "$&#123;yn&#125;" == "N" -o "$&#123;yn&#125;" == "n" ] &amp;&amp; echo "Oh, interrupt!" &amp;&amp; exit 0</span><br><span class="line">echo "I don't know what your choice is" &amp;&amp; exit 0</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 这里使用<code>-o</code>来链接两个判断</p>
+</blockquote>
+<h4 id="4-3-3、-Shell-Script的默认变量（-0-1…）"><a href="#4-3-3、-Shell-Script的默认变量（-0-1…）" class="headerlink" title="4.3.3、 Shell Script的默认变量（$0,$1…）"></a>4.3.3、 <strong><code>Shell Script</code></strong>的默认变量（$0,$1…）</h4><p>我们知道指令可以带有选项与参数,例如<code>ls -la</code>可以察看包含隐藏文件的所有属性与权限。那么<code>shell script</code>能不能在脚本文件名后面带有参数呢?很有趣喔!举例来说,如果你想要重新启动系统的网络,可以这样做:</p>
+<pre><code>file /etc/init.d/network
+/etc/init.d/network restart   # 重启
+</code></pre><p>restart 是重新启动的意思,上面的指令可以“重新启动 /etc/init.d/network 这支程序”的意思!唔!那么如果你在 /etc/init.d/network 后面加上 stop 呢?没错!就可以直接关闭该服务了!这么神奇啊? 错啊!如果你要依据程序的执行给予一些变量去进行不同的任务时,本章一开始是使用 read 的功能!但 read 功能的问题是你得要手动由键盘输入一些判断式。如果通过指令后面接参数, 那么一个指令就能够处理完毕而不需要手动再次输入一些变量行为!这样下达指令会比较简单方便啦!</p>
+<p>script 是怎么达成这个功能的呢?其实 script 针对参数已经有设置好一些变量名称了!对应如下:<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/path/<span class="keyword">to</span>/scriptname     opt1    opt2    opt3    opt4</span><br><span class="line">        $0               $1      $2      $3      $4</span><br></pre></td></tr></table></figure></p>
+<p>这样够清楚了吧?执行的脚本文件名为<code>$0</code>这个变量,第一个接的参数就是<code>$1</code>啊~ 所以,只要我们在 script 里面善用<code>$1</code>的话,就可以很简单的立即下达某些指令功能了!除了这些数字的变量之外, 我们还有一些较为特殊的变量可以在<code>script</code>内使用来调用这些参数喔!</p>
+<pre><code>$# :代表后接的参数“个数”,以上表为例这里显示为“ 4 ”;
+$@ :代表“ &quot;$1&quot; &quot;$2&quot; &quot;$3&quot; &quot;$4&quot; ”之意,每个变量是独立的(用双引号括起来);
+$* :代表“ &quot;$1&lt;u&gt;c&lt;/u&gt;$2&lt;u&gt;c&lt;/u&gt;$3&lt;u&gt;c&lt;/u&gt;$4&quot; ”,&lt;br&gt;
+    其中 &lt;u&gt;c&lt;/u&gt; 为分隔字符,默认为空白键, 所以本例中代表“ &quot;$1 $2 $3 $4&quot; ”之意。
+</code></pre><p>来练习：假设我们要执行一个可以携带参数的<code>script</code>，执行该脚本后屏幕会显示如下数据：</p>
+<pre><code>程序的文件名为何？
+共有几个参数？
+若参数的个数小于2则告知使用者参数数量太少
+全部的参数内容为何？
+第一个参数为何？
+第二个参数为何？
+</code></pre><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Program:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       Program shows the script name, parameters and so on....</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> History:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2018/04/12    heany   First release</span></span><br><span class="line"></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin</span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">echo "The script name is ===&gt;  $0"</span><br><span class="line">echo "Total parameter number is ===&gt; $#"</span><br><span class="line">[ "$#" -lt 2 ] &amp;&amp; echo "The number of parameter is less than 2.  Stop here."\</span><br><span class="line">        &amp;&amp; exit 0</span><br><span class="line">echo "Your whole parameter is ==&gt; '$@'"</span><br><span class="line">echo "The 1st parameter   ===&gt; $1"</span><br><span class="line">echo "The 2nd parameter   ===&gt; $2"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 脚本执行</span></span><br><span class="line">sh how_paras.sh I am a boy</span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line">The script name is ===&gt;  how_paras.sh</span><br><span class="line">Total parameter number is ===&gt; 4</span><br><span class="line">Your whole parameter is ==&gt; 'I am a boy'</span><br><span class="line">The 1st parameter   ===&gt; I</span><br><span class="line">The 2nd parameter   ===&gt; am</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>shift</code>：造成参数变量号码偏移</li>
+</ul>
+<p>什么是偏移（shift）呢？我们用下面的范例来说明下，我们将<code>how_paras.sh</code>的内容稍作变化，用来显示每次偏移后参数的变化情况：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Program:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       Program shows the effect of <span class="built_in">shift</span> <span class="keyword">function</span>....</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> History:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2018/04/12    heany   First release</span></span><br><span class="line"></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin</span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">echo "Total parameter number is ===&gt;  $#"</span><br><span class="line">echo "Your whole parameter is   ===&gt; '$@'"</span><br><span class="line"></span><br><span class="line">shift   # 进行第一次"一个变量的 shift"</span><br><span class="line">echo "Total parameter number is ===&gt;  $#"</span><br><span class="line">echo "Your whole parameter is   ===&gt; '$@'"</span><br><span class="line"></span><br><span class="line">shift 3 #进行第二次"三个变量的 shift"</span><br><span class="line">echo "Total parameter number is ===&gt;  $#"</span><br><span class="line">echo "Your whole parameter is   ===&gt; '$@'"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> execute script</span></span><br><span class="line">sh paras_shift.sh one two three four five six </span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line">Total parameter number is ===&gt;  6</span><br><span class="line">Your whole parameter is   ===&gt; 'one two three four five six'</span><br><span class="line">Total parameter number is ===&gt;  5</span><br><span class="line">Your whole parameter is   ===&gt; 'two three four five six'</span><br><span class="line">Total parameter number is ===&gt;  2</span><br><span class="line">Your whole parameter is   ===&gt; 'five six'</span><br></pre></td></tr></table></figure></p>
+<p>光看结果你就可以知道啦,那个<code>shift</code>会移动变量,而且<code>shift</code>后面可以接数字,代表拿掉最前面的几个参数的意思。 上面的执行结果中,第一次进行<code>shift</code> 后他的显示情况是<code>one two three four five six</code>,所以就剩下五个啦!第二次直接拿掉三个,就变成<code>two three four five six</code>啦!这样这个案例可以了解了吗?理解了<code>shift</code>的功能了吗?</p>
+<h3 id="4-4、-条件判断式"><a href="#4-4、-条件判断式" class="headerlink" title="4.4、 条件判断式"></a>4.4、 条件判断式</h3><h4 id="4-4-1、-利用if-then"><a href="#4-4-1、-利用if-then" class="headerlink" title="4.4.1、 利用if .... then"></a>4.4.1、 利用<code>if .... then</code></h4><ul>
+<li>单层、简单条件判断</li>
+</ul>
+<p>如果你只有一个判断式要进行，那么我们可以简单的这样看：</p>
+<pre><code>if [ 条件判断式 ]; then
+    当条件判断式成立时，可以进行命令工作内容
+fi &lt;=== 将`if`反过来写，就成为`fi`，结束`if`的意思。
+</code></pre><p>条件判断式有多个条件时，可以将多个条件写入一个中括号里面，也可以有多个中括号来隔开。括号之间，则用<code>&amp;&amp;与||</code>来隔开。举上面的<code>ans_yn.sh</code>例子来说明，修改里面的判断式：</p>
+<pre><code>[ &quot;$yn&quot; == &quot;Y&quot; -o &quot;$yn&quot; == &quot;y&quot; ] 上式可替换为 [ &quot;$yn&quot; == &quot;Y&quot; ] || [ &quot;$yn&quot; == &quot;y&quot; ]
+</code></pre><blockquote>
+<p> 这样符合人们的习惯问题，我们都喜欢一个中括号仅有一个判别式。接下来，我们将<code>ans_yn.sh</code>这个脚本修改成为<code>if ... then</code>的样式：</p>
+</blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Program:</span></span><br><span class="line"><span class="comment">#       This program shows the user's choice.</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/11    heany   First release</span></span><br><span class="line"></span><br><span class="line">PATH=<span class="regexp">/bin:/sbin</span><span class="symbol">:/usr/bin</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/local/bin</span><span class="symbol">:/usr/local/sbin</span><span class="symbol">:~/bin</span></span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">read -p <span class="string">"Please input (Y/N): "</span> yn</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"$yn"</span> == <span class="string">"Y"</span> ] <span class="params">||</span> [ <span class="string">"$yn"</span> == <span class="string">"y"</span> ]; <span class="keyword">then</span></span><br><span class="line">        echo <span class="string">"OK, continue."</span></span><br><span class="line">        exit <span class="number">0</span></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"$yn"</span> == <span class="string">"N"</span> ] <span class="params">||</span> [ <span class="string">"$yn"</span> == <span class="string">"n"</span> ]; <span class="keyword">then</span></span><br><span class="line">        echo <span class="string">"Oh, interrupt!"</span></span><br><span class="line">        exit <span class="number">0</span></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo <span class="string">"I don't know what your choice is"</span> &amp;&amp; exit <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>多重、复杂条件判断式</li>
+</ul>
+<p>在同一个数据的判断中,如果该数据需要进行多种不同的判断时,应该怎么作?举例来说,上面的 ans_yn.sh 脚本中,我们只要进行一次 ${yn} 的判断就好 (仅进行一次 if ),不想要作多次 if 的判断。 此时你就得要知道下面的语法了:</p>
+<pre><code># 一个条件判断，分成功进行与失败进行(else)
+if [ 条件判断式一 ]; then
+    当条件判断式成立时，可以进行的指令工作内容：
+elif [ 条件判断式二 ]; then
+    当条件判断式二成立时，可以进行的指令工作内容
+else
+    当条件判断式一和二都不成立时，可以进行的指令工作内容;
+fi 
+</code></pre><p>一般来说，如果你不希望使用者由键盘输入额外的数据时，可以使用上面提到的参数功能（$1），让使用者在下达命令时就将参数带进去！现在我们想让使用者输入<code>hello</code>这个关键字时，利用参数的方法可以这样依序设计：</p>
+<pre><code>1. 判断`$1`是否为hello，如果是的话，就显示“hello，how are you？”
+2. 如果没有加任何参数,就提示使用者必须要使用的参数下达法;
+3. 而如果加入的参数不是 hello ,就提醒使用者仅能使用 hello 为参数。
+</code></pre><p>之前我们已经学会了<code>grep</code>这个好用的玩意儿，那么多学一个叫做<code>netstat</code>的命令，这个指令可以查询到目前主机有打开的网络服务端口（service ports）,我们可以利用<code>netstat -tuln</code>来取得目前主机有启动的服务，而且取得的信息有点像这样：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">netstat</span> <span class="selector-tag">-tuln</span></span><br><span class="line"><span class="selector-tag">Active</span> <span class="selector-tag">Internet</span> <span class="selector-tag">connections</span> (<span class="selector-tag">only</span> <span class="selector-tag">servers</span>)</span><br><span class="line"><span class="selector-tag">Proto</span> <span class="selector-tag">Recv-Q</span> <span class="selector-tag">Send-Q</span> <span class="selector-tag">Local</span> <span class="selector-tag">Address</span>           <span class="selector-tag">Foreign</span> <span class="selector-tag">Address</span>         <span class="selector-tag">State</span>      </span><br><span class="line"><span class="selector-tag">tcp</span>        0      0 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-pseudo">:5355</span>            0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*               <span class="selector-tag">LISTEN</span>     </span><br><span class="line"><span class="selector-tag">tcp</span>        0      0 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-pseudo">:22</span>              0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*               <span class="selector-tag">LISTEN</span>     </span><br><span class="line"><span class="selector-tag">tcp</span>        0      0 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span><span class="selector-pseudo">:631</span>           0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*               <span class="selector-tag">LISTEN</span>     </span><br><span class="line"><span class="selector-tag">tcp</span>        0      0 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span><span class="selector-pseudo">:1080</span>          0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*               <span class="selector-tag">LISTEN</span>    </span><br><span class="line"><span class="selector-tag">udp</span>        0      0 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-pseudo">:5353</span>            0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*                          </span><br><span class="line"><span class="selector-tag">udp</span>        0      0 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-pseudo">:5353</span>            0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*                      </span><br><span class="line">#封包格式           本地<span class="selector-tag">IP</span>：端口              远程<span class="selector-tag">IP</span>：端口              是否监听</span><br></pre></td></tr></table></figure></p>
+<p>上面的重点是“Local Address (本地主机的IP与端口对应)”那个字段,他代表的是本机所启动的网络服务! IP的部分说明的是该服务位于那个接口上,若为 127.0.0.1 则是仅针对本机开放,若是 0.0.0.0 或 ::: 则代表对整个<code>Internet</code>开放。 每个端口 (port) 都有其特定的网络服务,几个常见的 port 与相关网络服务的关系是:</p>
+<pre><code>80：www
+22:ssh
+21:ftp
+25:mail
+111:RPC(远端程序调用)
+631:CUPS（打印服务功能）
+</code></pre><p>假设我的主机有兴趣要侦测的是比较常见的 port 21, 22, 25及 80 时,那我如何通过<code>netstat</code>去侦测我的主机是否有打开这四个主要的网络服务端口呢?由于每个服务的关键字都是接在冒号<code>:</code>后面, 所以可以借由提取类似<code>:80</code>来侦测的!那我就可以简单的这样去写这个程序喔:</p>
+<h4 id="4-4-2、-利用case-esac"><a href="#4-4-2、-利用case-esac" class="headerlink" title="4.4.2、 利用case ... esac"></a>4.4.2、 利用<code>case ... esac</code></h4><p>语法如下：</p>
+<pre><code>case $变量名称 in      &lt;=== 关键字为case。还有变量前有$
+    &quot;第一个变量内容&quot;)   &lt;=== 每个变量内容建议用双引号括起来，关键字则为小括号）
+        程序段
+        ;;            &lt;=== 每个类别结尾i使用两个连续的分号来处理
+    &quot;第二个变量内容&quot;）
+        程序段
+        ;;
+    *)                &lt;=== 最后一个变量内容都会用*来代表所有其他值
+        不包括第一个变量内容与第二个变量内容的其他程序执行段
+        exit 1
+        ;;
+esac                  &lt;=== 最终的case结尾，“反过来写”
+</code></pre><p>这么说或许你的感受性还不高,好,我们直接写个程序来玩玩:让使用者能够输入 one, two,three , 并且将使用者的变量显示到屏幕上,如果不是 one, two, three 时,就告知使用者仅有这三种选择。<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Program:</span></span><br><span class="line"><span class="comment">#        This script only accepts the flowing parameter: one, two or three.</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/12    heany   Fist release</span></span><br><span class="line">PATH=<span class="regexp">/bin:/sbin</span><span class="symbol">:/usr/bin</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/local/bin</span><span class="symbol">:/usr/local/sbin</span><span class="symbol">:~/bin</span></span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">echo <span class="string">"This program will print your selection !"</span></span><br><span class="line"><span class="comment"># read -p "Input your choice: " choice          # 暂时取消,可以替换!</span></span><br><span class="line"><span class="comment"># case $&#123;choice&#125; in                     # 暂时取消,可以替换!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$&#123;</span><span class="number">1</span>&#125; <span class="keyword">in</span>            <span class="comment"># 现在使用,可以用上面两行替换!</span></span><br><span class="line">        <span class="string">"one"</span>)</span><br><span class="line">                echo <span class="string">"Your choice is ONE"</span></span><br><span class="line">                ;;</span><br><span class="line">        <span class="string">"two"</span>)</span><br><span class="line">                echo <span class="string">"Your choice is TWO"</span></span><br><span class="line">                ;;</span><br><span class="line">        <span class="string">"three"</span>)</span><br><span class="line">                echo <span class="string">"Your choice is THREE"</span></span><br><span class="line">                ;;</span><br><span class="line">        *)</span><br><span class="line">                echo <span class="string">"Usage $&#123;0&#125; &#123;one|two|three&#125;"</span></span><br><span class="line">                ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-4-3、-利用function功能"><a href="#4-4-3、-利用function功能" class="headerlink" title="4.4.3、 利用function功能"></a>4.4.3、 利用<code>function</code>功能</h4><p>什么是“函数 (function)”功能啊?简单的说,其实, 函数可以在 shell script 当中做出一个类似自订执行指令的东西,最大的功能是, 可以简化我们很多的程序码~举例来说,上面的show123.sh 当中,每个输入结果 one, two, three 其实输出的内容都一样啊~那么我就可以使用 function 来简化了! function 的语法是这样的:</p>
+<pre><code>function fname(){
+    程序段
+}
+</code></pre><blockquote>
+<p>  由于<code>shell script</code>的执行方式是由上而下,由左而右, 因此在<code>shell script</code>当中的<b style="color: red"><code>function</code>的设置一定要在程序的最前面</b>, 这样才能够在执行时被找到可用的程序段喔(这一点与传统程序语言差异相当大!初次接触的朋友要小心!)! 好~我们将上面的脚本改写<br>一下,自定义一个名为<code>printit</code>的函数来使用:</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/12    heany   First release</span></span><br><span class="line"></span><br><span class="line">PATH=<span class="regexp">/bin:/sbin</span><span class="symbol">:/usr/bin</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/local/bin</span><span class="symbol">:/usr/local/sbin</span><span class="symbol">:~/bin</span></span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line">function printit()&#123;</span><br><span class="line">        echo -n <span class="string">"Your choice is "</span>     <span class="comment"># 加上 -n 可以不换行继续在同一行显示</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo <span class="string">"This program will print your selection !"</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$&#123;</span><span class="number">1</span>&#125; <span class="keyword">in</span></span><br><span class="line">        <span class="string">"one"</span>)</span><br><span class="line">                printit; echo <span class="variable">$1</span> | tr <span class="string">'a-z'</span> <span class="string">'A-Z'</span>  <span class="comment"># 将参数做大小写转换!</span></span><br><span class="line">                ;;</span><br><span class="line">        <span class="string">"two"</span>)</span><br><span class="line">                printit; echo <span class="variable">$1</span> | tr <span class="string">'a-z'</span> <span class="string">'A-Z'</span></span><br><span class="line">                ;;</span><br><span class="line">        <span class="string">"three"</span>)</span><br><span class="line">                printit; echo <span class="variable">$1</span> | tr <span class="string">'a-z'</span> <span class="string">'A-Z'</span></span><br><span class="line">                ;;</span><br><span class="line">        *)      </span><br><span class="line">                echo <span class="string">"Usage $&#123;0&#125; &#123;one|two|three&#125;"</span></span><br><span class="line"><span class="string">"show123_function.sh"</span> <span class="number">29</span>L, <span class="number">591</span>C written                       <span class="number">11</span>,<span class="number">53</span>-<span class="number">55</span>      <span class="number">50</span>%</span><br></pre></td></tr></table></figure>
+<h3 id="4-5、-循环（loop）"><a href="#4-5、-循环（loop）" class="headerlink" title="4.5、 循环（loop）"></a>4.5、 循环（<code>loop</code>）</h3><p>除了 if…then…fi 这种条件判断式之外,循环可能是程序当中最重要的一环了~ 循环可以不断的执行某个程序段落,直到使用者设置的条件达成为止。所以,重点是那个“条件的达成”是什么。除了这种依据判断式达成与否的不定循环之外,循环形态,可称为固定循环的形态呢!下面我们就来谈一谈:</p>
+<h4 id="4-5-1、-while-do-done-until-do-done（不定循环）"><a href="#4-5-1、-while-do-done-until-do-done（不定循环）" class="headerlink" title="4.5.1、 while do done,until do done（不定循环）"></a>4.5.1、 <code>while do done</code>,<code>until do done</code>（不定循环）</h4><p>一般来说，不定循环最常见的就是下面这两种状态了：</p>
+<pre><code>while [ condition ] &lt;=== 中括号内的状态就是判别式
+do
+    代码段
+done
+</code></pre><p><code>while</code>的中文是“当…时”，所以，这种方式说的是当<code>condition</code>条件成立时，就进行循环，直到<code>condition</code>的条件不成立才停止的意思。还有另为一种不定循环的方式：</p>
+<pre><code>until [ condition ]
+do
+    代码段
+done
+</code></pre><p>这种方式恰恰与 while 相反,它说的是“当 condition 条件成立时,就终止循环, 否则就持续<br>进行循环的程序段。”是否刚好相反啊~我们以 while 来做个简单的练习好了。 假设我要让使<br>用者输入 yes 或者是 YES 才结束程序的执行,否则就一直进行告知使用者输入字串。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Program:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       Repeat question until user input correct answer.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> History:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2018/04/12    leagle  First release</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">while</span></span></span><br><span class="line">while [ "$yn" != "yes" -a "$yn" != "YES" ] </span><br><span class="line">do</span><br><span class="line">        read -p "Please input yes/YES to stop this program: " yn</span><br><span class="line">done    </span><br><span class="line">echo "OK! you input the correct answer."</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> until</span></span><br><span class="line">until [ "$yn" == "yes" -o "$yn" == "YES" ] </span><br><span class="line">do</span><br><span class="line">        read -p "Please input yes/YES to stop this program: " yn</span><br><span class="line">done</span><br><span class="line">echo "OK! you input the correct answer."</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-5-2、-for-do-done-固定循环"><a href="#4-5-2、-for-do-done-固定循环" class="headerlink" title="4.5.2、 for ... do ...done(固定循环)"></a>4.5.2、 <code>for ... do ...done</code>(固定循环)</h4><p><code>for</code>循环的语法如下所示：</p>
+<pre><code>for var in con1 con2 con3 ...
+do
+    code
+done
+</code></pre><p>简单练习。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Program:</span></span><br><span class="line"><span class="comment">#       Using for ... loop to print 3 animal.</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/12    leagle  First release</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> animal <span class="keyword">in</span> dog cat elephant</span><br><span class="line"><span class="keyword">do</span>      </span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"There are <span class="variable">$&#123;animal&#125;</span>s ...."</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<p>让我们想像另外一种状况,由于系统上面的各种帐号都是写在 /etc/passwd 内的第一个字段,你能不能通过管线命令的 cut 捉出单纯的帐号名称后,以<code>id</code>分别检查使用者的识别码与特殊参数呢?由于不同的 Linux 系统上面的帐号都不一样!此时实际去捉<code>/etc/passwd</code>并使用循环处理,就是一个可行的方案了!程序可以如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Program:</span></span><br><span class="line"><span class="comment">#       Use id, finger command to check system account's information.</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/12    leagle  First release</span></span><br><span class="line"></span><br><span class="line">users=$(cut -d <span class="string">':'</span> -f1 ./pd.txt)         <span class="comment"># 提获帐号名称</span></span><br><span class="line"><span class="keyword">for</span> username <span class="keyword">in</span> <span class="variable">$&#123;users&#125;</span>        <span class="comment"># 开始循环进行!</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        id <span class="variable">$&#123;username&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<p>执行上面的脚本后,你的系统帐号就会被捉出来检查啦!这个动作还可以用在每个帐号的删除、重整上面呢! 换个角度来看,如果我现在需要一连串的数字来进行循环呢?举例来说,我想要利用 ping 这个可以判断网络状态的指令, 来进行网络状态的实际侦测时,我想要侦测的网域是本机所在的 192.168.1.1~192.168.1.100,由于有 100 台主机, 总不会要我在 for 后面输入 1 到 100 吧?此时你可以这样做喔!<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Program:</span></span><br><span class="line"><span class="comment">#       Use ping command to check the network's PC state.</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/12    leagle  First release</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">network</span>=<span class="string">"192.168.1"</span>     # 先定义一个网域的前面部分!</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> sitenu <span class="keyword">in</span> $(seq 1 100)        # seq 为 sequence(连续) 的缩写之意</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        # 下面的程序在取得<span class="built_in"> ping </span>的回传值是正确的还是失败的!</span><br><span class="line">       <span class="built_in"> ping </span>-c 1 -w 1 <span class="variable">$&#123;network&#125;</span>.<span class="variable">$&#123;sitenu&#125;</span> &amp;&gt; /dev/<span class="literal">null</span> &amp;&amp; <span class="attribute">result</span>=0 || <span class="attribute">result</span>=1</span><br><span class="line"></span><br><span class="line">        # 开始显示结果是正确的启动 (UP) 还是错误的没有连通 (DOWN)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;result&#125;</span>"</span> == 0 ]; then</span><br><span class="line">                echo <span class="string">"Server <span class="variable">$&#123;network&#125;</span>.<span class="variable">$&#123;sitenu&#125;</span> is UP."</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">                echo <span class="string">"Server <span class="variable">$&#123;network&#125;</span>.<span class="variable">$&#123;sitenu&#125;</span> is DOWN."</span></span><br><span class="line">        fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 注意那个<code>$(seq 1 100)</code>那个位置，那个是连续产生1-100个数。</p>
+</blockquote>
+<p>最后,让我们来玩判断式加上循环的功能!我想要让使用者输入某个目录文件名,然后我找出某目录内的文件名的权限,该如何是好?可以这样做啦~<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Program:</span></span><br><span class="line"><span class="comment">#       Use input dir name, I find the permission of files.</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/12    leagle  First release</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 先看看这个目录是否存在啊?</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"Please input a directory: "</span> dir</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;dir&#125;</span>"</span> == <span class="string">""</span> -o ! -d <span class="string">"<span class="variable">$&#123;dir&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"The <span class="variable">$&#123;dir&#125;</span> is NOT exist in your system."</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 开始测试文件~</span></span><br><span class="line">filelist=$(ls <span class="variable">$&#123;dir&#125;</span>)   <span class="comment"># 列出所有在该目录下的文件名称</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> <span class="variable">$&#123;filelist&#125;</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        perm=<span class="string">""</span></span><br><span class="line">        <span class="built_in">test</span> -r <span class="string">"<span class="variable">$&#123;dir&#125;</span>/<span class="variable">$&#123;filename&#125;</span>"</span> &amp;&amp; perm=<span class="string">"<span class="variable">$&#123;perm&#125;</span> readable"</span></span><br><span class="line">        <span class="built_in">test</span> -w <span class="string">"<span class="variable">$&#123;dir&#125;</span>/<span class="variable">$&#123;filename&#125;</span>"</span> &amp;&amp; perm=<span class="string">"<span class="variable">$&#123;perm&#125;</span> writable"</span></span><br><span class="line">        <span class="built_in">test</span> -x <span class="string">"<span class="variable">$&#123;dir&#125;</span>/<span class="variable">$&#123;filename&#125;</span>"</span> &amp;&amp; perm=<span class="string">"<span class="variable">$&#123;perm&#125;</span> executable"</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"The file <span class="variable">$&#123;dir&#125;</span>/<span class="variable">$&#123;filename&#125;</span>'s permission is <span class="variable">$&#123;perm&#125;</span> "</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="4-5-3-for-do-done的数值处理"><a href="#4-5-3-for-do-done的数值处理" class="headerlink" title="4.5.3 for ... do ...done的数值处理"></a>4.5.3 <code>for ... do ...done</code>的数值处理</h4><p>除了上述的方法之外，<code>for</code>循环还有另外一种写法，类似于<code>C语言</code>中的<code>for循环</code>！语法如下所示：</p>
+<pre><code>for ((初始值;限制值;执行步长))
+do
+    code
+done
+</code></pre><p>这种语法很适合用于数值方式的运算当中，值得注意的是,在“执行步阶”的设置上,如果每次增加 1 ,则可以使用类似<code>i++</code>的方式,亦即是 i 每次循环都会增加一的意思。好,我们以这种方式来进行 1 累加到使用者输入的循环吧!<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Program:</span></span><br><span class="line"><span class="comment">#       Try to calculate "1+2+3+...+$&#123;yourinput&#125;".</span></span><br><span class="line"><span class="comment"># History:</span></span><br><span class="line"><span class="comment"># 2018/04/12    leagle  First release</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"Please input a number, I will count for 1+2+...+your_input: "</span> nu</span><br><span class="line"></span><br><span class="line">s=0</span><br><span class="line"><span class="keyword">for</span> (( i=1; i&lt;=<span class="variable">$nu</span>; i=i+1))</span><br><span class="line"><span class="keyword">do</span>      </span><br><span class="line">        s=$((<span class="variable">$s</span>+<span class="variable">$i</span>))</span><br><span class="line"><span class="keyword">done</span>    </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"The result of '1+2+...+<span class="variable">$nu</span>' is ===&gt; <span class="variable">$s</span>"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="4-6、-Shell-Script的追踪与Debug"><a href="#4-6、-Shell-Script的追踪与Debug" class="headerlink" title="4.6、 Shell Script的追踪与Debug"></a>4.6、 <code>Shell Script</code>的追踪与<code>Debug</code></h3><p><code>scripts</code>在执行之前,最怕的就是出现语法错误的问题了!那么我们如何<code>debug</code> 呢?有没有办法不需要通过直接执行该<code>scripts</code>就可以来判断是否有问题呢?呵呵!当然是有的!我们就直接以 bash 的相关参数来进行判断吧!</p>
+<pre><code># 语法如下：
+sh [-nvx] scripts.sh
+# paras:
+-n ：不要执行script，仅查询语法的问题;
+-v ：在执行script之前，先将scripts的内容输出到屏幕上;
+-x ：将使用到的script内容显示到屏幕上，这是很有用的参数！
+</code></pre><p>一些范例测试：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bash -x ans_yn-<span class="number">2</span>.sh </span><br><span class="line">+ PATH=<span class="regexp">/bin:/sbin</span><span class="symbol">:/usr/bin</span><span class="symbol">:/usr/sbin</span><span class="symbol">:/usr/local/bin</span><span class="symbol">:/usr/local/sbin</span><span class="symbol">:/home/heany/bin</span></span><br><span class="line">+ export PATH</span><br><span class="line">+ read -p <span class="string">'Please input (Y/N): '</span> yn</span><br><span class="line">Please input (Y/N): y</span><br><span class="line">+ <span class="string">'['</span> y == Y <span class="string">']'</span></span><br><span class="line">+ <span class="string">'['</span> y == y <span class="string">']'</span></span><br><span class="line">+ echo <span class="string">'OK, continue.'</span></span><br><span class="line">OK, continue.</span><br><span class="line">+ exit <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="五、-结束语"><a href="#五、-结束语" class="headerlink" title="五、 结束语"></a>五、 结束语</h2><p>&emsp;&emsp;这个系列终于结束了，码字调bug很辛苦哇～但是从中学到了很多有用的知识，解决了之前很多搞不清楚的问题，总之很棒啦！本文转载自<b>鸟哥的Linux私房菜：基础学习篇 第四版</b>。总之这本书非常适合入门学习～强烈推荐！！！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://heany.github.io/2018/03/31/Shell-Script学习笔记/" data-id="cjrdmm6pm002g313hx3mvbpsb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell-linux/">Shell linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/08/Ubuntu-17-10配置Hadoop-Spark环境/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ubuntu 17.10配置Hadoop+Spark环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/28/hexo常用命令/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hexo常用命令</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Script/">Script</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Website/">Website</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式与大数据/">分布式与大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/常用工具/">常用工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx-php-MySQL/">Nginx-php-MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy-Random/">Numpy Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell-linux/">Shell linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF-Algorithm/">TF-IDF-Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu-17-10-hadoop-Spark/">Ubuntu 17.10 hadoop Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Blog/">hexo Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Github-Pages-Blog/">hexo Github-Pages Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo常用命令/">hexo常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3/">python3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python学习笔记/">python学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-插件/">sublime 插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-text-3-注册码/">sublime-text-3 注册码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime插件/">sublime插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贝叶斯分类器/">贝叶斯分类器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Nginx-php-MySQL/" style="font-size: 10px;">Nginx-php-MySQL</a> <a href="/tags/Numpy-Random/" style="font-size: 10px;">Numpy Random</a> <a href="/tags/Shell-linux/" style="font-size: 10px;">Shell linux</a> <a href="/tags/TF-IDF-Algorithm/" style="font-size: 10px;">TF-IDF-Algorithm</a> <a href="/tags/Ubuntu-17-10-hadoop-Spark/" style="font-size: 10px;">Ubuntu 17.10 hadoop Spark</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo-Blog/" style="font-size: 10px;">hexo Blog</a> <a href="/tags/hexo-Github-Pages-Blog/" style="font-size: 10px;">hexo Github-Pages Blog</a> <a href="/tags/hexo常用命令/" style="font-size: 10px;">hexo常用命令</a> <a href="/tags/python3/" style="font-size: 10px;">python3</a> <a href="/tags/python学习笔记/" style="font-size: 20px;">python学习笔记</a> <a href="/tags/sublime-插件/" style="font-size: 10px;">sublime 插件</a> <a href="/tags/sublime-text-3-注册码/" style="font-size: 10px;">sublime-text-3 注册码</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/贝叶斯分类器/" style="font-size: 10px;">贝叶斯分类器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/08/mysql操作使用变量作为表名/">mysql操作使用变量作为表名</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/06/Numpy的random函数汇总/">Numpy的random函数汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/15/Nginx-PHP-MySQL搭建过程/">Nginx+PHP+MySQL搭建过程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/14/TF-IDF理解/">TF-IDF理解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/18/删除Github-com上repository中的某个文件夹/">删除Github.com上repository中的某个文件夹</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Heany<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

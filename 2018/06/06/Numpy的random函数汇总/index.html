@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Numpy的random函数汇总 | 知微</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、前言在python数据分析的学习和日常应用过程中，经常要用到numpy库的随机函数，这些随机函数功能很多，经常会混淆记不住～～，每次使用都要去Google，所以我就把常用的随机函数功能汇总在下面了，方便自己查阅。 1import numpy as np 二、numpy.random.rand()语法：1234numpy.random.rand(d0,d1,...,dn)# rand函数根据给定">
+<meta name="keywords" content="Numpy Random">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Numpy的random函数汇总">
+<meta property="og:url" content="http://heany.github.io/2018/06/06/Numpy的random函数汇总/index.html">
+<meta property="og:site_name" content="知微">
+<meta property="og:description" content="一、前言在python数据分析的学习和日常应用过程中，经常要用到numpy库的随机函数，这些随机函数功能很多，经常会混淆记不住～～，每次使用都要去Google，所以我就把常用的随机函数功能汇总在下面了，方便自己查阅。 1import numpy as np 二、numpy.random.rand()语法：1234numpy.random.rand(d0,d1,...,dn)# rand函数根据给定">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-26T14:47:30.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Numpy的random函数汇总">
+<meta name="twitter:description" content="一、前言在python数据分析的学习和日常应用过程中，经常要用到numpy库的随机函数，这些随机函数功能很多，经常会混淆记不住～～，每次使用都要去Google，所以我就把常用的随机函数功能汇总在下面了，方便自己查阅。 1import numpy as np 二、numpy.random.rand()语法：1234numpy.random.rand(d0,d1,...,dn)# rand函数根据给定">
+  
+    <link rel="alternate" href="/atom.xml" title="知微" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">知微</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一盏灯，一个人，亮着的屏幕，游走的灵魂。!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://heany.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Numpy的random函数汇总" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/06/Numpy的random函数汇总/" class="article-date">
+  <time datetime="2018-06-06T01:54:44.000Z" itemprop="datePublished">2018-06-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Numpy的random函数汇总
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>在<code>python</code>数据分析的学习和日常应用过程中，经常要用到<code>numpy</code>库的随机函数，这些随机函数功能很多，经常会混淆记不住～～，每次使用都要去<code>Google</code>，所以我就把常用的随机函数功能汇总在下面了，方便自己查阅。</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h2 id="二、numpy-random-rand"><a href="#二、numpy-random-rand" class="headerlink" title="二、numpy.random.rand()"></a>二、<code>numpy.random.rand()</code></h2><p>语法：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">numpy.random.rand(d0,d1,...,dn)</span><br><span class="line"><span class="meta"># rand函数根据给定维度生成[0,1)之间的数据，包含0，不包含1</span></span><br><span class="line"><span class="meta"># dn表格每个维度</span></span><br><span class="line"><span class="meta"># 返回值为指定维度的array</span></span><br></pre></td></tr></table></figure></p>
+<p>例子：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">np.random.rand(<span class="number">4</span>,<span class="number">2</span>)</span><br><span class="line"># output</span><br><span class="line">array([[<span class="number">0.44966653</span> <span class="number">0.52431591</span>]</span><br><span class="line">       [<span class="number">0.12117809</span> <span class="number">0.31425446</span>]</span><br><span class="line">       [<span class="number">0.94938082</span> <span class="number">0.78223903</span>]</span><br><span class="line">       [<span class="number">0.98802125</span> <span class="number">0.01795372</span>]])</span><br><span class="line"></span><br><span class="line">np.random.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">#output</span><br><span class="line">array([[[<span class="number">0.4016697</span>  <span class="number">0.41116077</span>]</span><br><span class="line">        [<span class="number">0.81121991</span> <span class="number">0.18433693</span>]</span><br><span class="line">        [<span class="number">0.94307831</span> <span class="number">0.37959419</span>]]</span><br><span class="line"></span><br><span class="line">         [[<span class="number">0.11907587</span> <span class="number">0.97932363</span>]</span><br><span class="line">          [<span class="number">0.20458545</span> <span class="number">0.73305606</span>]</span><br><span class="line">          [<span class="number">0.62938875</span> <span class="number">0.99506056</span>]]</span><br><span class="line"></span><br><span class="line">         [[<span class="number">0.85168379</span> <span class="number">0.76133277</span>]</span><br><span class="line">          [<span class="number">0.868105</span>   <span class="number">0.29375361</span>]</span><br><span class="line">          [<span class="number">0.08666713</span> <span class="number">0.43133631</span>]]</span><br><span class="line"></span><br><span class="line">         [[<span class="number">0.93674358</span> <span class="number">0.50061816</span>]</span><br><span class="line">          [<span class="number">0.58272102</span> <span class="number">0.40495383</span>]</span><br><span class="line">          [<span class="number">0.94631605</span> <span class="number">0.51712061</span>]]])</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、numpy-random-randn-返回值具有标准正太分N-0-1"><a href="#三、numpy-random-randn-返回值具有标准正太分N-0-1" class="headerlink" title="三、numpy.random.randn()返回值具有标准正太分N(0,1)"></a>三、<code>numpy.random.randn()</code>返回值具有标准正太分<code>N(0,1)</code></h2><p>语法：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">numpy.random.randn(d0,d1,...,dn)</span><br><span class="line"><span class="meta"># randn函数返回一个或一组样本，具有标准正态分布。</span></span><br><span class="line"><span class="meta"># dn表格每个维度</span></span><br><span class="line"><span class="meta"># 返回值为指定维度的array</span></span><br></pre></td></tr></table></figure></p>
+<p>例子：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">np.random.randn() # 当没有参数时，返回单个数据</span><br><span class="line"># output</span><br><span class="line"><span class="number">0.10125281554614712</span></span><br><span class="line"></span><br><span class="line">np.random.randn(<span class="number">2</span>,<span class="number">4</span>)</span><br><span class="line"># output</span><br><span class="line">array([[ <span class="number">0.88550167</span>  <span class="number">0.94488988</span>  <span class="number">0.68380494</span> <span class="number">-2.42685228</span>]</span><br><span class="line"> [<span class="number">-0.12320336</span> <span class="number">-0.21325373</span>  <span class="number">0.07526319</span> <span class="number">-0.59034683</span>]])</span><br><span class="line"></span><br><span class="line">np.random.randn(<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line"># output</span><br><span class="line">array([[[ <span class="number">1.09663108</span> <span class="number">-0.58652581</span>]</span><br><span class="line">      [<span class="number">-0.94125426</span>  <span class="number">0.01259422</span>]</span><br><span class="line">      [<span class="number">-0.4189963</span>   <span class="number">0.03315681</span>]]</span><br><span class="line"></span><br><span class="line">     [[<span class="number">-0.38388522</span> <span class="number">-0.46672398</span>]</span><br><span class="line">      [ <span class="number">0.35335792</span> <span class="number">-0.92017071</span>]</span><br><span class="line">      [<span class="number">-0.26904716</span>  <span class="number">2.28057168</span>]]</span><br><span class="line"></span><br><span class="line">     [[<span class="number">-0.37893325</span> <span class="number">-0.64560053</span>]</span><br><span class="line">      [ <span class="number">0.93308775</span>  <span class="number">0.68629363</span>]</span><br><span class="line">      [ <span class="number">2.6449362</span>   <span class="number">1.40476443</span>]]</span><br><span class="line"></span><br><span class="line">     [[ <span class="number">1.90709637</span>  <span class="number">0.18952578</span>]</span><br><span class="line">      [<span class="number">-0.09167653</span>  <span class="number">1.95480404</span>]</span><br><span class="line">      [<span class="number">-1.55128951</span> <span class="number">-0.07542736</span>]]])</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、numpy-random-randint"><a href="#四、numpy-random-randint" class="headerlink" title="四、numpy.random.randint()"></a>四、<code>numpy.random.randint()</code></h2><h3 id="4-1、-numpy-random-randint"><a href="#4-1、-numpy-random-randint" class="headerlink" title="4.1、 numpy.random.randint()"></a>4.1、 <code>numpy.random.randint()</code></h3><p>语法：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">numpy.random.randint(low, <span class="attribute">high</span>=None, <span class="attribute">size</span>=None, <span class="attribute">dtype</span>=’l’)</span><br><span class="line"></span><br><span class="line">    返回随机整数，范围区间为[low,high），包含low，不包含high</span><br><span class="line">    参数：low为最小值，high为最大值，size为数组维度大小，dtype为数据类型，默认的数据类型是np.int</span><br><span class="line">    high没有填写时，默认生成随机数的范围是[0，low)</span><br></pre></td></tr></table></figure></p>
+<p>例子：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">np.random.randint(<span class="number">1</span>,size=<span class="number">5</span>) # 返回[<span class="number">0</span>,<span class="number">1</span>)之间的整数，所以只有<span class="number">0</span></span><br><span class="line"># output</span><br><span class="line">array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">np.random.randint(<span class="number">1</span>,<span class="number">5</span>) # 返回<span class="number">1</span>个[<span class="number">1</span>,<span class="number">5</span>)时间的随机整数</span><br><span class="line"># output</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line">np.random.randint(<span class="number">-5</span>,<span class="number">5</span>,size=(<span class="number">2</span>,<span class="number">2</span>))</span><br><span class="line"># output</span><br><span class="line">array([[<span class="number">-4</span> <span class="number">-5</span>]</span><br><span class="line">       [<span class="number">-2</span> <span class="number">-2</span>]])</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-2、-numpy-random-random-integers"><a href="#4-2、-numpy-random-random-integers" class="headerlink" title="4.2、 numpy.random.random_integers"></a>4.2、 <code>numpy.random.random_integers</code></h3><p>语法：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">numpy.random.random_integers(low, high=<span class="keyword">None</span>, <span class="built_in">size</span>=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    返回随机整数，范围区间为[low,high]，包含low和high</span><br><span class="line">    参数：low为最小值，high为最大值，<span class="built_in">size</span>为数组维度大小</span><br><span class="line">    high没有填写时，默认生成随机数的范围是[<span class="number">1</span>，low]</span><br><span class="line"></span><br><span class="line">该函数在最新的numpy版本中已被替代，建议使用randint函数</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、生成-0-1-之间的浮点数"><a href="#五、生成-0-1-之间的浮点数" class="headerlink" title="五、生成[0,1)之间的浮点数"></a>五、生成<code>[0,1)</code>之间的浮点数</h2><p>语法：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">numpy<span class="selector-class">.random</span><span class="selector-class">.random_sample</span>(size=None)</span><br><span class="line">numpy<span class="selector-class">.random</span><span class="selector-class">.random</span>(size=None)</span><br><span class="line">numpy<span class="selector-class">.random</span><span class="selector-class">.ranf</span>(size=None)</span><br><span class="line">numpy<span class="selector-class">.random</span><span class="selector-class">.sample</span>(size=None)</span><br></pre></td></tr></table></figure></p>
+<p>例子：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">'-----------random_sample--------------'</span>)</span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">random</span>.random_sample(size=(<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'-----------random--------------'</span>)</span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">random</span>.<span class="built_in">random</span>(size=(<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'-----------ranf--------------'</span>)</span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">random</span>.ranf(size=(<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'-----------sample--------------'</span>)</span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">random</span>.sample(size=(<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"># <span class="built_in">output</span></span><br><span class="line"><span class="comment">-----------random_sample--------------</span></span><br><span class="line"><span class="string">[[0.73845538 0.57461322]</span></span><br><span class="line"><span class="string"> [0.50090024 0.12809794]]</span></span><br><span class="line"><span class="comment">-----------random--------------</span></span><br><span class="line"><span class="string">[[0.65293998 0.15751317]</span></span><br><span class="line"><span class="string"> [0.0745293  0.03874293]]</span></span><br><span class="line"><span class="comment">-----------ranf--------------</span></span><br><span class="line"><span class="string">[[0.75927288 0.79548232]</span></span><br><span class="line"><span class="string"> [0.47618339 0.04334719]]</span></span><br><span class="line"><span class="comment">-----------sample--------------</span></span><br><span class="line"><span class="string">[[0.81010338 0.59291716]</span></span><br><span class="line"><span class="string"> [0.58648785 0.1767814 ]]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="六、-numpy-random-choice"><a href="#六、-numpy-random-choice" class="headerlink" title="六、 numpy.random.choice()"></a>六、 <code>numpy.random.choice()</code></h2><p>语法：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">numpy.random.choice(a, <span class="attribute">size</span>=None, <span class="attribute">replace</span>=<span class="literal">True</span>, <span class="attribute">p</span>=None)</span><br><span class="line"></span><br><span class="line">    从给定的一维数组中生成随机数</span><br><span class="line">    参数： a为一维数组类似数据或整数；size为数组维度；p为数组中的数据出现的概率</span><br><span class="line">    a为整数时，对应的一维数组为np.arange(a)</span><br></pre></td></tr></table></figure></p>
+<p>例子：<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">np.<span class="built_in">random</span>.choice(<span class="number">5</span>,<span class="number">3</span>)</span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="keyword">array</span>([<span class="number">4</span> <span class="number">4</span> <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">np.<span class="built_in">random</span>.choice(<span class="number">5</span>, <span class="number">3</span>, replace=False)</span><br><span class="line"># 当replace为False时，生成的随机数不能有重复的数值</span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="keyword">array</span>([<span class="number">4</span> <span class="number">2</span> <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">np.<span class="built_in">random</span>.choice(<span class="number">5</span>,<span class="built_in">size</span>=(<span class="number">3</span>,<span class="number">2</span>))</span><br><span class="line"><span class="meta"># output</span></span><br><span class="line">[[<span class="number">0</span> <span class="number">0</span>]</span><br><span class="line"> [<span class="number">1</span> <span class="number">3</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">4</span>]]</span><br><span class="line"></span><br><span class="line">demo_list = [<span class="string">'lenovo'</span>, <span class="string">'sansumg'</span>,<span class="string">'moto'</span>,<span class="string">'xiaomi'</span>, <span class="string">'iphone'</span>]</span><br><span class="line">np.<span class="built_in">random</span>.choice(demo_list,<span class="built_in">size</span>=(<span class="number">3</span>,<span class="number">3</span>))</span><br><span class="line"><span class="meta"># output</span></span><br><span class="line"><span class="keyword">array</span>([[<span class="string">'sansumg'</span> <span class="string">'iphone'</span> <span class="string">'moto'</span>]</span><br><span class="line">       [<span class="string">'moto'</span> <span class="string">'iphone'</span> <span class="string">'iphone'</span>]</span><br><span class="line">       [<span class="string">'xiaomi'</span> <span class="string">'iphone'</span> <span class="string">'xiaomi'</span>]])</span><br></pre></td></tr></table></figure></p>
+<pre><code>参数p的长度与参数a的长度需要一致；
+参数p为概率，p里的数据之和应为1
+</code></pre><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">demo_list = [<span class="string">'lenovo'</span>, <span class="string">'sansumg'</span>,<span class="string">'moto'</span>,<span class="string">'xiaomi'</span>, <span class="string">'iphone'</span>]</span><br><span class="line">np.random.choice(demo_list,size=(<span class="number">3</span>,<span class="number">3</span>), p=[<span class="number">0.1</span>,<span class="number">0.6</span>,<span class="number">0.1</span>,<span class="number">0.1</span>,<span class="number">0.1</span>])</span><br><span class="line"># output</span><br><span class="line">array([[<span class="string">'moto'</span> <span class="string">'sansumg'</span> <span class="string">'xiaomi'</span>]</span><br><span class="line">       [<span class="string">'lenovo'</span> <span class="string">'moto'</span> <span class="string">'sansumg'</span>]</span><br><span class="line">       [<span class="string">'sansumg'</span> <span class="string">'sansumg'</span> <span class="string">'sansumg'</span>]])</span><br></pre></td></tr></table></figure>
+<h2 id="七、numpy-random-seed"><a href="#七、numpy-random-seed" class="headerlink" title="七、numpy.random.seed()"></a>七、<code>numpy.random.seed()</code></h2><p>语法：</p>
+<pre><code>np.random.seed()的作用：使得随机数据可预测。
+当我们设置相同的seed，每次生成的随机数相同。如果不设置seed，则每次会生成不同的随机数
+</code></pre><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">np.random.seed(<span class="number">0</span>)</span><br><span class="line">np.random.rand(<span class="number">5</span>)</span><br><span class="line"># output</span><br><span class="line">array([<span class="number">0.5488135</span> , <span class="number">0.71518937</span>, <span class="number">0.60276338</span>, <span class="number">0.54488318</span>, <span class="number">0.4236548</span> ])</span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">1676</span>)</span><br><span class="line">np.random.rand(<span class="number">5</span>)</span><br><span class="line"># output</span><br><span class="line">array([<span class="number">0.39983389</span>, <span class="number">0.29426895</span>, <span class="number">0.89541728</span>, <span class="number">0.71807369</span>, <span class="number">0.3531823</span> ])</span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">1676</span>)</span><br><span class="line">np.random.rand(<span class="number">5</span>)</span><br><span class="line"># output</span><br><span class="line">array([<span class="number">0.39983389</span>, <span class="number">0.29426895</span>, <span class="number">0.89541728</span>, <span class="number">0.71807369</span>, <span class="number">0.3531823</span> ])</span><br></pre></td></tr></table></figure>
+<h2 id="八、结束语"><a href="#八、结束语" class="headerlink" title="八、结束语"></a>八、结束语</h2><p>嗯？～～</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://heany.github.io/2018/06/06/Numpy的random函数汇总/" data-id="cjrdmm6op0001313hctajjegh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numpy-Random/">Numpy Random</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/08/mysql操作使用变量作为表名/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mysql操作使用变量作为表名
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/15/Nginx-PHP-MySQL搭建过程/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Nginx+PHP+MySQL搭建过程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Script/">Script</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Website/">Website</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式与大数据/">分布式与大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/常用工具/">常用工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx-php-MySQL/">Nginx-php-MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy-Random/">Numpy Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell-linux/">Shell linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF-Algorithm/">TF-IDF-Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu-17-10-hadoop-Spark/">Ubuntu 17.10 hadoop Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Blog/">hexo Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Github-Pages-Blog/">hexo Github-Pages Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo常用命令/">hexo常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3/">python3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python学习笔记/">python学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-插件/">sublime 插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-text-3-注册码/">sublime-text-3 注册码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime插件/">sublime插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贝叶斯分类器/">贝叶斯分类器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Nginx-php-MySQL/" style="font-size: 10px;">Nginx-php-MySQL</a> <a href="/tags/Numpy-Random/" style="font-size: 10px;">Numpy Random</a> <a href="/tags/Shell-linux/" style="font-size: 10px;">Shell linux</a> <a href="/tags/TF-IDF-Algorithm/" style="font-size: 10px;">TF-IDF-Algorithm</a> <a href="/tags/Ubuntu-17-10-hadoop-Spark/" style="font-size: 10px;">Ubuntu 17.10 hadoop Spark</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo-Blog/" style="font-size: 10px;">hexo Blog</a> <a href="/tags/hexo-Github-Pages-Blog/" style="font-size: 10px;">hexo Github-Pages Blog</a> <a href="/tags/hexo常用命令/" style="font-size: 10px;">hexo常用命令</a> <a href="/tags/python3/" style="font-size: 10px;">python3</a> <a href="/tags/python学习笔记/" style="font-size: 20px;">python学习笔记</a> <a href="/tags/sublime-插件/" style="font-size: 10px;">sublime 插件</a> <a href="/tags/sublime-text-3-注册码/" style="font-size: 10px;">sublime-text-3 注册码</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/贝叶斯分类器/" style="font-size: 10px;">贝叶斯分类器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/08/mysql操作使用变量作为表名/">mysql操作使用变量作为表名</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/06/Numpy的random函数汇总/">Numpy的random函数汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/15/Nginx-PHP-MySQL搭建过程/">Nginx+PHP+MySQL搭建过程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/14/TF-IDF理解/">TF-IDF理解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/18/删除Github-com上repository中的某个文件夹/">删除Github.com上repository中的某个文件夹</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Heany<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

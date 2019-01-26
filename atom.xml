@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>知微</title>
   
-  <subtitle>一盏灯，一个人，亮着的屏幕，游走的灵魂。</subtitle>
+  <subtitle>一盏灯，一个人，亮着的屏幕，游走的灵魂。!</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://heany.github.io/"/>

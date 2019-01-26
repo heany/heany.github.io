@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>如何上传本地文件到Github上 | 知微</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近做了一些工作，想将他们上传到GitHub上去保存，我习惯于本地编辑，完成后再一起上传到仓库中，长时间不使用很容易忘，总结网上的一些教程，写作博客里方便自己偶尔查阅。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何上传本地文件到Github上">
+<meta property="og:url" content="http://heany.github.io/2017/10/15/如何上传本地文件到Github上/index.html">
+<meta property="og:site_name" content="知微">
+<meta property="og:description" content="最近做了一些工作，想将他们上传到GitHub上去保存，我习惯于本地编辑，完成后再一起上传到仓库中，长时间不使用很容易忘，总结网上的一些教程，写作博客里方便自己偶尔查阅。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-26T14:47:30.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何上传本地文件到Github上">
+<meta name="twitter:description" content="最近做了一些工作，想将他们上传到GitHub上去保存，我习惯于本地编辑，完成后再一起上传到仓库中，长时间不使用很容易忘，总结网上的一些教程，写作博客里方便自己偶尔查阅。">
+  
+    <link rel="alternate" href="/atom.xml" title="知微" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">知微</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一盏灯，一个人，亮着的屏幕，游走的灵魂。!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://heany.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-如何上传本地文件到Github上" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/15/如何上传本地文件到Github上/" class="article-date">
+  <time datetime="2017-10-15T13:14:57.000Z" itemprop="datePublished">2017-10-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Github/">Github</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何上传本地文件到Github上
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-->
+    最近做了一些工作，想将他们上传到GitHub上去保存，我习惯于本地编辑，完成后再一起上传到仓库中，长时间不使用很容易忘，总结网上的一些教程，写作博客里方便自己偶尔查阅。
+<a id="more"></a>
+<p>本文参考以下博文<br><a href="http://www.jianshu.com/p/c70ca3a02087" target="_blank" rel="noopener">两种方法上传本地文件到github</a></p>
+<p>想知道详细的步骤可以点击前往学习，这里我只简单记录一些常用的命令。</p>
+<h4 id="1-GitHub在线上传文件夹"><a href="#1-GitHub在线上传文件夹" class="headerlink" title="1.GitHub在线上传文件夹"></a>1.GitHub在线上传文件夹</h4><h5 id="1-1点击Upload-files"><a href="#1-1点击Upload-files" class="headerlink" title="1.1点击Upload files"></a>1.1点击<code>Upload files</code></h5><h5 id="1-2-直接拖拽"><a href="#1-2-直接拖拽" class="headerlink" title="1.2 直接拖拽"></a>1.2 直接拖拽</h5><h4 id="2-通过git工具上传本地文件夹"><a href="#2-通过git工具上传本地文件夹" class="headerlink" title="2.通过git工具上传本地文件夹"></a>2.通过git工具上传本地文件夹</h4><h5 id="2-1下载git"><a href="#2-1下载git" class="headerlink" title="2.1下载git"></a>2.1下载git</h5><blockquote>
+<p> 由于部分原因，国内直接官网下载git非常慢，需要FQ。这里提供一个国内的下载站，方便网友下载。</p>
+</blockquote>
+<p><a href="https://github.com/waylau/git-for-win" target="_blank" rel="noopener"><strong>点击前往</strong></a></p>
+<h5 id="2-2-绑定用户"><a href="#2-2-绑定用户" class="headerlink" title="2.2 绑定用户"></a>2.2 绑定用户</h5><p>打开git-bash.exe（直接在桌面上点击右键，或者点击开始按钮找到Git Bash）</p>
+<p>在打开的GIt Bash中输入以下命令（用户和邮箱为你github注册的账号和邮箱）</p>
+<pre><code>$ git config --global user.name &quot;##&quot;
+$ git config --global user.email &quot;h##@**.com&quot;
+</code></pre><h5 id="2-3-设置SSH-Key"><a href="#2-3-设置SSH-Key" class="headerlink" title="2.3 设置SSH Key"></a>2.3 设置SSH Key</h5><h6 id="2-3-1-生成ssh-key"><a href="#2-3-1-生成ssh-key" class="headerlink" title="2.3.1 生成ssh key"></a>2.3.1 生成ssh key</h6><h6 id="2-3-2-为GitHub账号配置ssh-key"><a href="#2-3-2-为GitHub账号配置ssh-key" class="headerlink" title="2.3.2 为GitHub账号配置ssh key"></a>2.3.2 为GitHub账号配置ssh key</h6><h5 id="2-4-上传本地项目到GitHub"><a href="#2-4-上传本地项目到GitHub" class="headerlink" title="2.4 上传本地项目到GitHub"></a>2.4 上传本地项目到GitHub</h5><blockquote>
+<p><strong>这里只贴一些命令</strong></p>
+</blockquote>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 初始化</span></span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line"><span class="meta"># 将所有文件添加到仓库中</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="meta"># 提交</span></span><br><span class="line">git commit -m <span class="string">"注释"</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 关联GitHub仓库</span></span><br><span class="line">git remote add origin https:<span class="comment">//github.com/**/##.git</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 上传本地代码及文件</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://heany.github.io/2017/10/15/如何上传本地文件到Github上/" data-id="cjrdmm6p4000u313hrwyo7gcg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/15/sublime插件：Markdown/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          sublime插件：Markdown
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/15/在sublimeText3中安装pylinter方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">在sublimeText3中安装pylinter方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+--></div></div></article></section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Script/">Script</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Website/">Website</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式与大数据/">分布式与大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/常用工具/">常用工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx-php-MySQL/">Nginx-php-MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy-Random/">Numpy Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell-linux/">Shell linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF-Algorithm/">TF-IDF-Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu-17-10-hadoop-Spark/">Ubuntu 17.10 hadoop Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Blog/">hexo Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Github-Pages-Blog/">hexo Github-Pages Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo常用命令/">hexo常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3/">python3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python学习笔记/">python学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-插件/">sublime 插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-text-3-注册码/">sublime-text-3 注册码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime插件/">sublime插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贝叶斯分类器/">贝叶斯分类器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Nginx-php-MySQL/" style="font-size: 10px;">Nginx-php-MySQL</a> <a href="/tags/Numpy-Random/" style="font-size: 10px;">Numpy Random</a> <a href="/tags/Shell-linux/" style="font-size: 10px;">Shell linux</a> <a href="/tags/TF-IDF-Algorithm/" style="font-size: 10px;">TF-IDF-Algorithm</a> <a href="/tags/Ubuntu-17-10-hadoop-Spark/" style="font-size: 10px;">Ubuntu 17.10 hadoop Spark</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo-Blog/" style="font-size: 10px;">hexo Blog</a> <a href="/tags/hexo-Github-Pages-Blog/" style="font-size: 10px;">hexo Github-Pages Blog</a> <a href="/tags/hexo常用命令/" style="font-size: 10px;">hexo常用命令</a> <a href="/tags/python3/" style="font-size: 10px;">python3</a> <a href="/tags/python学习笔记/" style="font-size: 20px;">python学习笔记</a> <a href="/tags/sublime-插件/" style="font-size: 10px;">sublime 插件</a> <a href="/tags/sublime-text-3-注册码/" style="font-size: 10px;">sublime-text-3 注册码</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/贝叶斯分类器/" style="font-size: 10px;">贝叶斯分类器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/08/mysql操作使用变量作为表名/">mysql操作使用变量作为表名</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/06/Numpy的random函数汇总/">Numpy的random函数汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/15/Nginx-PHP-MySQL搭建过程/">Nginx+PHP+MySQL搭建过程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/14/TF-IDF理解/">TF-IDF理解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/18/删除Github-com上repository中的某个文件夹/">删除Github.com上repository中的某个文件夹</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Heany<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

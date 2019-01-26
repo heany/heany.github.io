@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Nginx+PHP+MySQL搭建过程 | 知微</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、 前言&amp;emsp;最近要开始干活了～老板要求边做边写开发文档，啊啊啊啊，就把这一系列的文档发在博客里面吧，需要的时候再来拿，还能凑几篇博客。这是第一篇，关于Nginx+php+MySQL环境搭建的，很简单网上很多～～～">
+<meta name="keywords" content="Nginx-php-MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx+PHP+MySQL搭建过程">
+<meta property="og:url" content="http://heany.github.io/2018/05/15/Nginx-PHP-MySQL搭建过程/index.html">
+<meta property="og:site_name" content="知微">
+<meta property="og:description" content="一、 前言&amp;emsp;最近要开始干活了～老板要求边做边写开发文档，啊啊啊啊，就把这一系列的文档发在博客里面吧，需要的时候再来拿，还能凑几篇博客。这是第一篇，关于Nginx+php+MySQL环境搭建的，很简单网上很多～～～">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-26T14:47:30.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx+PHP+MySQL搭建过程">
+<meta name="twitter:description" content="一、 前言&amp;emsp;最近要开始干活了～老板要求边做边写开发文档，啊啊啊啊，就把这一系列的文档发在博客里面吧，需要的时候再来拿，还能凑几篇博客。这是第一篇，关于Nginx+php+MySQL环境搭建的，很简单网上很多～～～">
+  
+    <link rel="alternate" href="/atom.xml" title="知微" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">知微</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一盏灯，一个人，亮着的屏幕，游走的灵魂。!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://heany.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Nginx-PHP-MySQL搭建过程" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/15/Nginx-PHP-MySQL搭建过程/" class="article-date">
+  <time datetime="2018-05-15T08:43:10.000Z" itemprop="datePublished">2018-05-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Website/">Website</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx+PHP+MySQL搭建过程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、-前言"><a href="#一、-前言" class="headerlink" title="一、 前言"></a>一、 前言</h2><p>&emsp;最近要开始干活了～老板要求边做边写开发文档，啊啊啊啊，就把这一系列的文档发在博客里面吧，需要的时候再来拿，还能凑几篇博客。这是第一篇，关于Nginx+php+MySQL环境搭建的，很简单网上很多～～～<br><a id="more"></a></p>
+<h2 id="二、-本机环境"><a href="#二、-本机环境" class="headerlink" title="二、 本机环境"></a>二、 本机环境</h2><ul>
+<li>OS: Ubuntu 17.10.1_x64</li>
+<li>Nginx_version: nginx/1.12.1</li>
+<li>PHP_version: PHP-7.1.17</li>
+<li>MySQL_version: mysql5.7.22</li>
+</ul>
+<h2 id="三、-安装步骤"><a href="#三、-安装步骤" class="headerlink" title="三、 安装步骤"></a>三、 安装步骤</h2><h3 id="3-1、-安装Nginx-Web-Server"><a href="#3-1、-安装Nginx-Web-Server" class="headerlink" title="3.1、 安装Nginx Web Server"></a>3.1、 安装<code>Nginx Web Server</code></h3><p>直接使用<code>apt package management</code>来完成安装，命令如下</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> update</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> upgrade</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等一会儿就安装好了，下面是一些重要的文件目录</span></span><br><span class="line">nginx的配置文件目录： /etc/nginx;</span><br><span class="line">Nginx的缓存目录： /var/cache/nginx;</span><br><span class="line">Nginx的日志目录： /var/log/nginx;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h1 id="启动nginx服务"><a href="#启动nginx服务" class="headerlink" title="启动nginx服务"></a>启动nginx服务</h1><p>   sudo systemctl start nginx</p>
+<h1 id="test"><a href="#test" class="headerlink" title="test"></a>test</h1><p>   #打开网页，输入<code>http://localhost</code>可以看到<code>welcome to nginx</code>字样</p>
+</blockquote>
+<h3 id="3-2、-安装MySQL管理网站数据"><a href="#3-2、-安装MySQL管理网站数据" class="headerlink" title="3.2、 安装MySQL管理网站数据"></a>3.2、 安装MySQL管理网站数据</h3><p>同样是使用<code>ubuntu</code>中的<code>apt</code>包管理器来安装，命令如下：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-server</span><br><span class="line"># 会弹框提醒输入root密码，直接输入然后按`Enter`，结束。</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-3、-安装PHP服务"><a href="#3-3、-安装PHP服务" class="headerlink" title="3.3、 安装PHP服务"></a>3.3、 安装<code>PHP</code>服务</h3><p>同样是使用<code>ubuntu</code>中的<code>apt</code>包管理器来安装，命令如下：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 顺便把php-mysql插件装上</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> install php-fpm php-mysql</span><br><span class="line"></span><br><span class="line"><span class="meta"># 一些重要的文件目录</span></span><br><span class="line"><span class="meta"># php配置文件路径： /etc/php/7.1/fpm/php.ini</span></span><br></pre></td></tr></table></figure></p>
+<p>然后，修改<code>php</code>的配置文件：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 切换到php配置目录</span><br><span class="line">cd /etc/php/7.1/fpm</span><br><span class="line"># 修改配置文件</span><br><span class="line">sudo vim php.ini</span><br><span class="line"><span class="code">+++</span>+</span><br><span class="line">找到这行，取消注释，将1改成0</span><br><span class="line">cgi.fix<span class="emphasis">_pathinfo=0</span></span><br><span class="line"><span class="emphasis">++++</span></span><br></pre></td></tr></table></figure></p>
+<p>最后，重启<code>php</code>服务<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">systemctl</span> <span class="selector-tag">restart</span> <span class="selector-tag">php-7</span><span class="selector-class">.1-fpm</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3-4、-配置Nginx去使用PHP处理器"><a href="#3-4、-配置Nginx去使用PHP处理器" class="headerlink" title="3.4、 配置Nginx去使用PHP处理器"></a>3.4、 配置<code>Nginx</code>去使用<code>PHP</code>处理器</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到nginx网站的配置目录</span></span><br><span class="line">cd /etc/nginx/sites-available</span><br><span class="line">sudo vim default</span><br><span class="line"><span class="comment"># 做如下修改：</span></span><br><span class="line">++++</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    listen [::]:80 default_server;</span><br><span class="line"></span><br><span class="line">    root /var/www/html;</span><br><span class="line">    index index.php index.html index.htm index.nginx-debian.html;</span><br><span class="line"></span><br><span class="line">    server_name server_domain_or_IP;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ =404;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        include snippets/fastcgi-php.conf;</span><br><span class="line">        fastcgi_pass unix:/run/php/php7.1-fpm.sock;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ /\.ht &#123;</span><br><span class="line">        deny all;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">++++</span><br></pre></td></tr></table></figure>
+<p><b style="color: red">这里有个小坑，了解一下：</b><b>由于安装的php版本是<code>php7.1</code>，安装<code>nginx</code>默认配置文件里面使用的是<code>/run/php/php7.0-fpm.sock</code>,你在<code>/run/php</code>中找不到<code>php7.0</code>的sock文件。所以，这里我们要把它修改为我们安装的<code>php</code>相应版本的<code>sock</code>文件。即</b><b style="color: red"><code>/run/php/php7.1-fpm.sock;</code></b></p>
+<p>然后，测试配置文件是否生效。</p>
+<pre><code>sudo nginx -t  #如果没报错，说明配置成功
+</code></pre><p>最后，重新加载<code>nginx</code>服务器</p>
+<pre><code>sudo systemctl reload nginx
+</code></pre><h3 id="3-5、-测试nginx和PHP配置是否生效"><a href="#3-5、-测试nginx和PHP配置是否生效" class="headerlink" title="3.5、 测试nginx和PHP配置是否生效"></a>3.5、 测试<code>nginx</code>和<code>PHP</code>配置是否生效</h3><p>在网站的根目录<code>/var/www/html</code>下新建一个<code>info.php</code>文件，写入一下内容：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// info.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">phpinfo();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后，打开浏览器，输入<code>localhost/info.php</code>，会看到输出了之前安装的<code>php</code>的版本信息和其他模块的详细信息。这 就 表 明 <code>Nginx</code> 和<code>PHP</code>都安装和配置～～成功了！！！</p>
+<h2 id="四、-结束语"><a href="#四、-结束语" class="headerlink" title="四、 结束语"></a>四、 结束语</h2><p>路很长～这才刚刚开始啊～～～～</p>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04" target="_blank" rel="noopener">参考自博客</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://heany.github.io/2018/05/15/Nginx-PHP-MySQL搭建过程/" data-id="cjrdmm6ol0000313hsrhfuuqy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx-php-MySQL/">Nginx-php-MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/06/Numpy的random函数汇总/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Numpy的random函数汇总
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/14/TF-IDF理解/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">TF-IDF理解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Script/">Script</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Website/">Website</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式与大数据/">分布式与大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/常用工具/">常用工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx-php-MySQL/">Nginx-php-MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy-Random/">Numpy Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell-linux/">Shell linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF-Algorithm/">TF-IDF-Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu-17-10-hadoop-Spark/">Ubuntu 17.10 hadoop Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Blog/">hexo Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-Github-Pages-Blog/">hexo Github-Pages Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo常用命令/">hexo常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3/">python3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python学习笔记/">python学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-插件/">sublime 插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime-text-3-注册码/">sublime-text-3 注册码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime插件/">sublime插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贝叶斯分类器/">贝叶斯分类器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Nginx-php-MySQL/" style="font-size: 10px;">Nginx-php-MySQL</a> <a href="/tags/Numpy-Random/" style="font-size: 10px;">Numpy Random</a> <a href="/tags/Shell-linux/" style="font-size: 10px;">Shell linux</a> <a href="/tags/TF-IDF-Algorithm/" style="font-size: 10px;">TF-IDF-Algorithm</a> <a href="/tags/Ubuntu-17-10-hadoop-Spark/" style="font-size: 10px;">Ubuntu 17.10 hadoop Spark</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo-Blog/" style="font-size: 10px;">hexo Blog</a> <a href="/tags/hexo-Github-Pages-Blog/" style="font-size: 10px;">hexo Github-Pages Blog</a> <a href="/tags/hexo常用命令/" style="font-size: 10px;">hexo常用命令</a> <a href="/tags/python3/" style="font-size: 10px;">python3</a> <a href="/tags/python学习笔记/" style="font-size: 20px;">python学习笔记</a> <a href="/tags/sublime-插件/" style="font-size: 10px;">sublime 插件</a> <a href="/tags/sublime-text-3-注册码/" style="font-size: 10px;">sublime-text-3 注册码</a> <a href="/tags/sublime插件/" style="font-size: 10px;">sublime插件</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/贝叶斯分类器/" style="font-size: 10px;">贝叶斯分类器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/08/mysql操作使用变量作为表名/">mysql操作使用变量作为表名</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/06/Numpy的random函数汇总/">Numpy的random函数汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/15/Nginx-PHP-MySQL搭建过程/">Nginx+PHP+MySQL搭建过程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/14/TF-IDF理解/">TF-IDF理解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/18/删除Github-com上repository中的某个文件夹/">删除Github.com上repository中的某个文件夹</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Heany<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
