@@ -4,3 +4,22 @@
     然后才执行hexo generate -d发布网站到master分支上。
 博客页面branch(默认)：master
 备份branch：hexo
+
+
+本地资料丢失：
+当重装电脑之后，或者想在其他电脑上修改博客，可以使用下列步骤：
+
+使用git clone git@github.com:yourname/yourname.github.io.git拷贝仓库（默认分支为hexo）；
+
+在本地新拷贝的yourname.github.io文件夹下通过Git bash(windows下使用。若是linux则在bash里面直接执行)依次执行下列指令：
+(Mac上可能要修改npm安装目录的权限/usr/local/  sudo chown -R $USER /usr/local)
+npm install hexo-cli -g、
+npm install、
+npm install hexo-deployer-git
+（记住不需要hexo init这条指令）。
+
+完成上面步骤后，最重要的一步就是去/themes文件夹下将/backup/文件夹下面的所有文件拷贝到/BlueLake中去
+然后执行下面命令：
+hexo g
+Hero d
+Hero s(本地测试)

@@ -4,7 +4,7 @@
 
 # Site
 title: 知微
-subtitle: 一盏灯，一个人，亮着的屏幕，游走的灵魂。
+subtitle: 一盏灯，一个人，亮着的屏幕，游走的灵魂。!
 description: Heany's blog
 author: Heany
 language: zh-CN
@@ -73,6 +73,7 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: BlueLake
+#theme: landscape
 stylus:
   compress: true
 
