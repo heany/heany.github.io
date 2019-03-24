@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://heany.github.io/"/>
-  <updated>2019-02-18T08:38:53.590Z</updated>
+  <updated>2019-03-24T07:35:15.263Z</updated>
   <id>http://heany.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>lsof命令详解</title>
+    <link href="http://heany.github.io/2019/03/24/lsof%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://heany.github.io/2019/03/24/lsof命令详解/</id>
+    <published>2019-03-24T07:19:47.000Z</published>
+    <updated>2019-03-24T07:35:15.263Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>lsof(list open files)是一个列出当前系统打开文件的工具。在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。<br><a id="more"></a><br>所以如传输控制协议 (TCP) 和用户数据报协议 (UDP) 套接字等，系统在后台都为该应用程序分配了一个文件描述符，无论这个文件的本质如何，该文件描述符为应用程序与基础操作系统之间的交互提供了通用接口。因为应用程序打开文件的描述符列表提供了大量关于这个应用程序本身的信息，因此通过lsof工具能够查看这个列表对系统监测以及排错将是很有帮助的。</p><h2 id="二、用法详解"><a href="#二、用法详解" class="headerlink" title="二、用法详解"></a>二、用法详解</h2><h3 id="2-1-语法格式"><a href="#2-1-语法格式" class="headerlink" title="2.1 语法格式"></a>2.1 语法格式</h3><p>lsof语法格式是：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof ［<span class="keyword">options</span>］ filename</span><br></pre></td></tr></table></figure></p><h3 id="2-2-使用案例"><a href="#2-2-使用案例" class="headerlink" title="2.2 使用案例"></a>2.2 使用案例</h3><p>1.列出所有打开的文件:</p><pre><code>lsof</code></pre><p>备注: 如果不加任何参数，就会打开所有被打开的文件，建议加上一下参数来具体定位</p><p>2.查看谁正在使用某个文件</p><pre><code>lsof   /filepath/file</code></pre><p>3.递归查看某个目录的文件信息</p><pre><code>lsof +D /filepath/filepath2/</code></pre><p>备注: 使用了+D，对应目录下的所有子目录和文件都会被列出</p><p>4.比使用+D选项，遍历查看某个目录的所有文件信息 的方法</p><pre><code>lsof | grep ‘/filepath/filepath2/’</code></pre><p>5.列出某个用户打开的文件信息</p><pre><code>lsof  -u username</code></pre><p>备注: -u 选项，u其实是user的缩写</p><p>6.列出某个程序所打开的文件信息</p><pre><code>lsof -c mysql</code></pre><p>备注: -c 选项将会列出所有以mysql开头的程序的文件，其实你也可以写成lsof | grep mysql,但是第一种方法明显比第二种方法要少打几个字符了</p><p>7.列出多个程序多打开的文件信息</p><pre><code>lsof -c mysql -c apache</code></pre><p>8.列出某个用户以及某个程序所打开的文件信息</p><pre><code>lsof -u test -c mysql</code></pre><p>9.列出除了某个用户外的被打开的文件信息</p><pre><code>lsof   -u ^root</code></pre><p>备注：^这个符号在用户名之前，将会把是root用户打开的进程不让显示</p><p>10.通过某个进程号显示该进行打开的文件</p><pre><code>lsof -p 1</code></pre><p>11.列出多个进程号对应的文件信息</p><pre><code>lsof -p 123,456,789</code></pre><p>12.列出除了某个进程号，其他进程号所打开的文件信息</p><pre><code>lsof -p ^1</code></pre><p>13.列出所有的网络连接</p><pre><code>lsof -i</code></pre><p>14.列出所有tcp 网络连接信息</p><pre><code>lsof  -i tcp</code></pre><p>15.列出所有udp网络连接信息</p><pre><code>lsof  -i udp</code></pre><p>16.列出谁在使用某个端口</p><pre><code>lsof -i :3306</code></pre><p>17.列出谁在使用某个特定的udp端口</p><pre><code>lsof -i udp:55</code></pre><p>特定的tcp端口</p><pre><code>lsof -i tcp:80</code></pre><p>18.列出某个用户的所有活跃的网络端口</p><pre><code>lsof  -a -u test -i</code></pre><p>19.列出所有网络文件系统</p><pre><code>lsof -N</code></pre><p>20.域名socket文件</p><pre><code>lsof -u</code></pre><p>21.某个用户组所打开的文件信息</p><pre><code>lsof -g 5555</code></pre><p>22.根据文件描述列出对应的文件信息</p><pre><code>lsof -d description(like 2)</code></pre><p>23.根据文件描述范围列出文件信息</p><pre><code>lsof -d 2-3</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;lsof(list open files)是一个列出当前系统打开文件的工具。在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://heany.github.io/categories/linux/"/>
+    
+    
+      <category term="lsof命令" scheme="http://heany.github.io/tags/lsof%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
   
   <entry>
     <title>golang基础学习</title>
@@ -469,28 +491,6 @@ XPath是一个非常好用的解析方法，同时也作为爬虫学习的基础
       <category term="python3" scheme="http://heany.github.io/tags/python3/"/>
     
       <category term="贝叶斯分类器" scheme="http://heany.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的博客搭建流程</title>
-    <link href="http://heany.github.io/2017/10/08/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/"/>
-    <id>http://heany.github.io/2017/10/08/我的博客搭建流程/</id>
-    <published>2017-10-08T12:42:48.000Z</published>
-    <updated>2019-01-26T14:47:30.579Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p><code>Hexo</code>部署到<code>GitHub</code>上的文件，是<code>.md</code>（你的博文）转化之后的<code>.html</code>（静态网页）。因此，当你重装电脑或者想在不同电脑上修改博客时，就不可能了（除非你自己写<code>html</code>）。<br><a id="more"></a><br>其实，<code>Hexo</code>生成的网站文件中有<code>.gitignore</code>文件，因此它的本意也是想我们将<code>Hexo</code>生成的网站文件存放到<code>GitHub</code>上进行管理的（而不是用U盘或者云备份啦）。这样，不仅解决了上述的问题，还可以通过git的版本控制追踪你的博文的修改过程，是极赞的。</p><p>但是，如果每一个<code>GitHub Pages</code>都需要创建一个额外的仓库来存放<code>Hexo</code>网站文件，我感觉很麻烦（10个项目需要20个仓库…）。</p><p>所以，我利用了分支！！！</p><p>简单地说，每个想建立<code>GitHub Pages</code>的仓库，起码有两个分支，一个用来存放<code>Hexo</code>网站的文件，一个用来发布网站。</p><p>下面将我的博客搭建流程简单讲一下</p><h2 id="二、-我的博客搭建流程"><a href="#二、-我的博客搭建流程" class="headerlink" title="二、 我的博客搭建流程"></a>二、 我的博客搭建流程</h2><ol><li>创建仓库，<code>yourname.github.io</code>;</li><li>创建两个分支: <code>master</code>（这个分支主要用来展示静态网页，给用户看的User Pages）和<code>hexo</code>（这个分支主要是用来备份Projects Pages）;</li><li>设置<code>hexo</code>为默认分支;</li><li>使用<code>git clone git@github.com:yourname/yourname.github.io</code>拷贝仓库，拷贝完成后，本地会有一个<code>yourname.github.com</code>文件夹;</li><li><p><strong>由于<code>hexo init dir</code>命令不能在非空的dir下执行成功</strong>,所以先找一个文件夹(例如<code>blog</code>)建立一个博客，也就是依次执行下面命令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li><li><p>将上面<code>blog</code>文件夹下所有的文件全部拷贝到刚刚<code>clone</code>下来的<code>yourname.github.io</code>文件夹里面。</p></li><li><p>修改<code>yourname.github.io/_config.yml</code>中的deploy参数，分支应该为<code>master</code>。</p><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:yourname/yourname.github.io.git</span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure></li><li><p>依次执行下面命令,将网站相关的文件备份到github上。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"your comments"</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></table></figure></li><li><p>然后执行<code>hexo</code>相关，命令生成网站，并部署到<code>Github</code>上：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean #清楚缓存，若是网页正常情况下可以忽略这条命令</span><br><span class="line">hexo g  # 生成 是hexo generate</span><br><span class="line">hexo d  # 部署 是hexo deploy</span><br></pre></td></tr></table></figure></li></ol><blockquote><p> 如此操作，在<code>Github</code>上的<code>heany.github.io</code>仓库就有两个分支，一个<code>hexo</code>分支用来存放网站的原始文件，一个<code>master</code>分支用来存放生成的静态网页～效率超高，不用再新建一个repository去备份网站文件了！是不是很好～</p></blockquote><h2 id="三、-博客日常管理流程"><a href="#三、-博客日常管理流程" class="headerlink" title="三、 博客日常管理流程"></a>三、 博客日常管理流程</h2><h3 id="3-1、-日常修改"><a href="#3-1、-日常修改" class="headerlink" title="3.1、 日常修改"></a>3.1、 日常修改</h3><p>在本地对博客进行修改（添加新博文、修改样式等等）后，通过下面的流程进行管理：</p><ol><li>依次执行<code>git add .</code>、<code>git commit -m “…”</code>、<code>git push origin hexo</code>指令将改动推送到<code>GitHub</code>（此时当前分支应为<code>hexo</code>）；</li><li>然后才执行<code>hexo generate -d</code>发布网站到<code>master</code>分支上。</li></ol><p>虽然两个过程顺序调转一般不会有问题，不过逻辑上这样的顺序是绝对没问题的（例如突然死机要重装了，悲催….的情况，调转顺序就有问题了）。</p><h3 id="3-2、-本地资料丢失"><a href="#3-2、-本地资料丢失" class="headerlink" title="3.2、 本地资料丢失"></a>3.2、 本地资料丢失</h3><p>当重装电脑之后，或者想在其他电脑上修改博客，可以使用下列步骤：</p><ol><li>使用<code>git clone git@github.com:yourname/yourname.github.io.git</code>拷贝仓库（默认分支为<code>hexo</code>）；</li><li>在本地新拷贝的<code>yourname.github.io</code>文件夹下通过<code>Git bash</code>(windows下使用。若是linux则在bash里面直接执行)依次执行下列指令：<code>npm install hexo</code>、<code>npm install</code>、<code>npm install hexo-deployer-git</code>（<b style="color: red">记住不需要hexo init这条指令</b>）。</li></ol><h2 id="四、-结束语"><a href="#四、-结束语" class="headerlink" title="四、 结束语"></a>四、 结束语</h2><p><code>Github Pages</code>是<strong>支持域名绑定</strong>的，可以去<code>Godday</code>上买一个比较便宜的域名，然后在国内的<code>DNSPod</code>上去解析你的域名,。具体参考这篇文章<a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">摸我前往</a>。</p><p>到这里结束了，好累啊～～～</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Hexo&lt;/code&gt;部署到&lt;code&gt;GitHub&lt;/code&gt;上的文件，是&lt;code&gt;.md&lt;/code&gt;（你的博文）转化之后的&lt;code&gt;.html&lt;/code&gt;（静态网页）。因此，当你重装电脑或者想在不同电脑上修改博客时，就不可能了（除非你自己写&lt;code&gt;html&lt;/code&gt;）。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://heany.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="hexo Github-Pages Blog" scheme="http://heany.github.io/tags/hexo-Github-Pages-Blog/"/>
     
   </entry>
   
